@@ -2,24 +2,28 @@
 #ifndef GENERATOR_BOX_H
 #define GENERATOR_BOX_H
 
-#include "plane.h"
+#include "../generator/plane.h"
 #include <fstream>
 #include <math.h>
 
 class Box {
     private:
-        float x; // comprimento
-        float y; // largura
-        float z; // altura
-        int d;	 // divisões
+        float dimension;
+        int divisionsPerAxis;
+
+        std::vector<Plane> boxPlanes;
 
     public:
-        Box(float x, float y, float z, int d) {
-            this->x = x;
-            this->y = y;
-            this->z = z;
-            this->d = d;
+        Box(float l, int divisions) {
+            
+            dimension = l;
+            divisionsPerAxis = divisions;
+
+            boxPlanes = calculateBox(dimension, divisionsPerAxis);
         }
+
+        float getDimension();
+        int getDivisions();
 
         /**
         * 	Rotorna o comprimento
@@ -49,9 +53,14 @@ class Box {
 
         /**
         *	Retorna o Modelo da Caixa
-        *	@param output_file ficheiro resultante
+        *	@param s ficheiro resultante
         */
-        void toFile(char* output_file);
+       void toFile(std::string s);
+
+
+        std::vector<Plane> calculateBox(float dimension, int divisions);
+
+        std::vector<Plane> getBoxPlanes();
 };
 
 

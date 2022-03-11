@@ -15,7 +15,7 @@ class Sphere {
         int slices;
         Point_3D center;
 
-        std::vector<Point_3D> spherePoints;     // Pontos da esfera
+        std::vector<Point_3D> spherePoints;         // Pontos da esfera
         std::vector<short> sphereIndexes;           // índices para construção
 
     public:
@@ -52,7 +52,7 @@ class Sphere {
         *	Retorna o Modelo da Esfera
         *	@param output_file ficheiro resultante
         */
-        void toFile(const char* output_file);
+        void toFile(std::string s);
 
 
         /**

@@ -1,7 +1,8 @@
 #include "../utils/point_3d.h"
-#include "sphere.h"
+#include "../generator/sphere.h"
 //#define _USE_MATH_DEFINES
 #include <math.h>
+#include <cstring>
 
 using namespace std;
 
@@ -102,10 +103,13 @@ std::vector<short> Sphere::getSpherePointsIndexes(){
 
 
 
-void Sphere::toFile(const char* output_file){
+void Sphere::toFile(string file){
 
     ofstream outFile;
-    outFile.open(output_file, ios::out | ios::trunc);
+
+    string outputFile = "3D/" + file;
+
+    outFile.open(outputFile, ios::out | ios::trunc);
 
     vector<Point_3D> pts = spherePoints;
     vector<short> idxs = sphereIndexes;

@@ -6,6 +6,7 @@
 #define _USE_MATH_DEFINES
 #include <fstream>
 #include <vector>
+#include <string>
 #include "../utils/point_3d.h"
 #include "../utils/polar.h"
 
@@ -54,6 +55,5 @@ class Cone {
         */
         void toFile(char* output_file);
 };
-
 
 #endif //GENERATOR_CONE_H

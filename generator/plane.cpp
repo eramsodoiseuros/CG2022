@@ -216,7 +216,7 @@ void Plane::toFile(string file){
 
     ofstream outFile;
     
-    string outputFile = "3D/" + file;
+    string outputFile = "../3D/" + file;
 
     outFile.open(outputFile, ios::out | ios::trunc);
 

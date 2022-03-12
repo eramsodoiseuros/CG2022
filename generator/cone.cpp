@@ -23,12 +23,14 @@ std::string polarToCartCone(float radius,float height, float alpha){
     return std::to_string(x) + "," + std::to_string(y) + "," + std::to_string(z)+"\n";
 }
 
-void Cone::toFile(char *output_file) {
+void Cone::toFile(std::string s) {
     std::ofstream file;
 
     int n_indices = 0, n_pontos = 0;
+       
+    std::string outputFile = "../3D/" + s;
 
-    file.open(output_file);
+    file.open(outputFile);
     file << "Numero de Pontos do Cone\n";
     n_pontos = slices*3 + 6*stacks;
     file << n_pontos;

@@ -1,5 +1,6 @@
 #include "camera.h"
 
+
 Point_3D Camera::getPos() { return this->position; }
 
 Point_3D Camera::getLookAt() { return this->lookAt; }
@@ -66,7 +67,7 @@ void Camera::nextCameraMode() {
     float z =
         this->r * cosf(this->vertical_angle) * cosf(this->horizontal_angle);
 
-    if (this->camera_mode == THIRD_PERSON) {
+    if (this->camera_mode == THIRD) {
 
         this->lookAt = {0, 0, 0};
         this->position = {x, y, z};

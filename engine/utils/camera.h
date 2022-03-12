@@ -1,6 +1,10 @@
 #ifndef ENGINE_CAMERA_H
 #define ENGINE_CAMERA_H
-#include "../utils/point_3d.h"
+
+#include "GL_lib.h"
+#define _USE_MATH_DEFINES
+#include <algorithm>
+#include <math.h>
 
 using namespace std;
 
@@ -9,7 +13,7 @@ enum mode { FIRST, THIRD };
 class Camera {
 
 private:
-	
+    static Camera* c;
 	Point_3D position;
 	Point_3D lookAt;
 	int startX;
@@ -35,8 +39,8 @@ private:
         float z =
             this->r * cosf(this->vertical_angle) * cosf(this->horizontal_angle);
         
-        this->position = {x, y, z};
-        this->lookAt = {0, 0, 0};
+        this->position = Point_3D(x, y, z);
+        this->lookAt = Point_3D(0, 0, 0);
         this->startX = 0;
         this->startY = 0;
         this->tracking = 0;

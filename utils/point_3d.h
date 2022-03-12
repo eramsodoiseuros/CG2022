@@ -12,7 +12,8 @@ private:
     float z;
 
 public:
-    Point_3D() { }
+
+    Point_3D() = default;
 
     Point_3D(float p1, float p2, float p3) {
         this->x = p1;

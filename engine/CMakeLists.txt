@@ -5,7 +5,7 @@ PROJECT(TPCGMIEI)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-add_executable(${PROJECT_NAME} engine.cpp utils/camera.h utils/camera.cpp utils/rgb.h utils/rgb.cpp utils/scene.h utils/scene.cpp utils/tinyxml.h utils/tinyxml.cpp utils/tinyxmlerror.cpp utils/tinyxmlparser.cpp utils/xmlparser.h utils/xmlparser.cpp utils/tinystr.h utils/tinystr.cpp)
+add_executable(${PROJECT_NAME} engine.cpp utils/GL_lib.h utils/camera.h utils/camera.cpp utils/rgb.h utils/rgb.cpp utils/scene.h utils/scene.cpp utils/tinyxml.h utils/tinyxml.cpp utils/tinyxmlerror.cpp utils/tinyxmlparser.cpp utils/xmlparser.h utils/xmlparser.cpp utils/tinystr.h utils/tinystr.cpp ../utils/point_3d.h ../utils/point_3d.cpp)
 
 
 find_package(OpenGL REQUIRED)

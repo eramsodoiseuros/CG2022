@@ -20,7 +20,7 @@ void Point_3D::setPointTo(float x, float y, float z) {
 
 Point_3D Point_3D ::crossProduct(Point_3D p) {
 
-    return new Point_3D(this->y * p.getZ() - this->z * p.getY(),
+    return Point_3D(this->y * p.getZ() - this->z * p.getY(),
                         this->z * p.getX() - this->x * p.getZ(),
                         this->x * p.getY() - this->y * p.getZ());
 }

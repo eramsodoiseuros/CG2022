@@ -1,7 +1,9 @@
 #include "xmlparser.h"
-
+#include <iostream>
 void parseCamera(TiXmlElement* cam, vector<Point_3D> *cam_specs) {
     
+    printf("\nentrei no parse cam\n");
+
     TiXmlElement* elem = cam->FirstChildElement();
 
     while (elem) {
@@ -153,18 +155,22 @@ std::vector<char *> Parser::lerXML(char *filename, std::vector<const char *> *fi
     std::vector<char *> operacoes;
 
     TiXmlDocument config;
-    config.LoadFile(filename);
+    if (!config.LoadFile(filename)) {
+        cout << "file doesnt exist" << endl;
+        return operacoes;
+    }
 
     printf("\nim inside lerXML de %s\n", filename);
 
-    TiXmlElement *scene = config.FirstChildElement("scene");
-    TiXmlElement *camera = scene->FirstChildElement("camera");
-
+    TiXmlElement *scene = config.FirstChildElement();
+    printf("\n\t---\n");
+    TiXmlElement *camera = scene->FirstChildElement();
+    printf("\nvou ver a camera\n");
     parseCamera(camera,cam);
 
     printf("\nvi a camera\n");
 
-    TiXmlElement *group = scene->NextSiblingElement("group");
+    TiXmlElement *group = scene->NextSiblingElement();
 
     while (group) {
         parseGroup(group, ficheiros, cores, &operacoes);

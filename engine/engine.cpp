@@ -99,7 +99,7 @@ int main(int argc, char** argv){
 		glewInit();
 	#endif
 
-	// ler o xml
+	s.build(argv[1]);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);

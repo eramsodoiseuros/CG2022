@@ -18,7 +18,7 @@ class Parser {
 		Point_3D prespective;
 
 	public:
-    	vector<char *> lerXML(char *filename, std::vector<const char *> *ficheiros, vector<rgb> *cores, vector<Point_3D> *cam);
+    	void lerXML(char *filename, std::vector<const char *> *ficheiros, vector<rgb> *cores, vector<Point_3D> *cam);
 };
 
 #endif

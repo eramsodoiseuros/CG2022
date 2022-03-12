@@ -26,6 +26,8 @@ private:
 	float camera_speed;
 	int camera_mode;
 
+public:
+    
     Camera() {
         this->horizontal_angle = 0;
         this->vertical_angle = 0;
@@ -50,7 +52,6 @@ private:
         this->camera_mode = THIRD;
     }
 
-public:
 	static Camera *getInstance() {
 		if (!c) {
 			c = new Camera();

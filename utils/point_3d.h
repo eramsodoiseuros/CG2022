@@ -2,8 +2,6 @@
 #ifndef GENERATOR_POINT_3D_H
 #define GENERATOR_POINT_3D_H
 
-#include <cstdlib>
-#include <cstdio>
 
 class Point_3D {
 private:

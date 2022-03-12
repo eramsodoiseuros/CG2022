@@ -1,5 +1,5 @@
 #include "camera.h"
-
+Camera* Camera::c = NULL;
 
 Point_3D Camera::getPos() { return this->position; }
 

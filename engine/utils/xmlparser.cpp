@@ -1,5 +1,46 @@
 #include "xmlparser.h"
 
+void parseCamera(TiXmlElement* cam, vector<Point_3D> *cam_specs) {
+    
+    TiXmlElement* elem = cam->FirstChildElement();
+
+    while (elem) {
+
+        const char* name = elem->Value();
+
+        printf("\nencontrei um >%s<\n", name);
+        if (strcmp(name, "position") == 0) {
+            const char* x = cam->Attribute("x");
+            const char* y = cam->Attribute("y");
+            const char* z = cam->Attribute("z");
+
+            cam_specs->push_back(Point_3D(atof(x), atof(y), atof(z)));
+        }
+        else if (strcmp(name, "lookAt") == 0) {
+            const char* x = cam->Attribute("x");
+            const char* y = cam->Attribute("y");
+            const char* z = cam->Attribute("z");
+
+            cam_specs->push_back(Point_3D(atof(x), atof(y), atof(z)));
+        }
+        else if (strcmp(name, "up") == 0) {
+            const char* x = cam->Attribute("x");
+            const char* y = cam->Attribute("y");
+            const char* z = cam->Attribute("z");
+
+            cam_specs->push_back(Point_3D(atof(x), atof(y), atof(z)));
+        }
+        else if (strcmp(name, "projection fov") == 0) {
+            const char* x = cam->Attribute("fov");
+            const char* y = cam->Attribute("near");
+            const char* z = cam->Attribute("far");
+
+            cam_specs->push_back(Point_3D(atof(x), atof(y), atof(z)));
+
+        } elem = elem->NextSiblingElement();
+    }
+}
+
 char* parseTranslacao(TiXmlElement *translate) {
     printf("-> entrei para dar parse a uma translacao\n");
     const char* x = translate -> Attribute("X");
@@ -108,7 +149,7 @@ void parseGroup(TiXmlElement *group, std::vector<const char *> *files,
     operacoes->push_back(_strdup("POP"));
 }
 
-std::vector<char *> Parser::lerXML(char *filename, std::vector<const char *> *ficheiros, std::vector<rgb> *cores) {
+std::vector<char *> Parser::lerXML(char *filename, std::vector<const char *> *ficheiros, std::vector<rgb> *cores, vector<Point_3D> *cam) {
     std::vector<char *> operacoes;
 
     TiXmlDocument config;
@@ -117,6 +158,10 @@ std::vector<char *> Parser::lerXML(char *filename, std::vector<const char *> *fi
     printf("\nim inside lerXML de %s\n", filename);
 
     TiXmlElement *scene = config.FirstChildElement("scene");
+    TiXmlElement* camera = scene->FirstChildElement("camera");
+
+    parseCamera(camera,cam);
+
     TiXmlElement *group = scene->FirstChildElement("group");
 
     while (group) {

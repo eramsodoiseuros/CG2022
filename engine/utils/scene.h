@@ -12,6 +12,7 @@ class Scene {
 		vector<vector<float>> modelo;
 		vector<const char *> ficheiros;
 		vector<rgb> cor;
+		vector<Point_3D> camera_specs;
 	public:
 		vector<vector<float>> getPontos() const;
 		int getPontos(int i);

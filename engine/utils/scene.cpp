@@ -34,7 +34,7 @@ void Scene::build(char *filename) {
     this->cor.clear();
     Parser p;
 
-    p.lerXML(filename, &(this->ficheiros), &(this->cor));
+    p.lerXML(filename, &(this->ficheiros), &(this->cor), &(this->camera_specs));
 
     printf("\nout of lerXML de %s\n", filename);
 }

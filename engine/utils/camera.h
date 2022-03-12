@@ -1,8 +1,6 @@
 #ifndef ENGINE_CAMERA_H
 #define ENGINE_CAMERA_H
-#include "../../lib/glew.h"
-#include "../../point_3d.h"
-#include <GL/glut.h>
+#include "../utils/point_3d.h"
 
 using namespace std;
 
@@ -328,6 +326,6 @@ public:
     void fpsMoveLeft();
 
     void updateR(float delta);
-}
+};
 
 #endif

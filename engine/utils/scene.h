@@ -1,5 +1,8 @@
 #ifndef ENGINE_SCENE_H
 #define ENGINE_SCENE_H
+#include <vector>
+#include "xmlparser.h"
+#include "rgb.h"
 
 using namespace std;
 
@@ -11,6 +14,7 @@ class Scene {
 		vector<rgb> cor;
 	public:
 		vector<vector<float>> getPontos() const;
+		int getPontos(int i);
 		vector<const char *> getFicheiros() const;
 		vector<rgb> getCor() const;
 		void setPontos(const vector<vector<float>> modelo);

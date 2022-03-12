@@ -1,13 +1,16 @@
+#include <stdlib.h>
+
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
-
-#include "../lib/glew.h"
-#include "utils/camera.h"
-#include "xmlparser.h"
+#include <GL/glew.h>
 #include <GL/glut.h>
-
 #endif
+
+#include <iostream>
+#include "utils/camera.h"
+#include "utils/scene.h"
+#include "utils/xmlparser.h"
 
 using namespace std;
 
@@ -25,7 +28,7 @@ using namespace std;
 
 */
 
-Camera *Camera::c = nullptr;
+Camera *c = nullptr;
 Camera *camera = Camera::getInstance();
 
 Scene s = Scene();
@@ -81,7 +84,7 @@ void renderScene(void){
     glutSwapBuffers();
 }
 
-int main(int argc, charr** argv){
+int main(int argc, char** argv){
 
 	if (argc != 2) {
 		cout << "Invalid number of arguments\n";

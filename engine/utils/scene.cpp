@@ -32,14 +32,9 @@ void Scene::build(char *filename) {
     this->modelo.clear();
     this->ficheiros.clear();
     this->cor.clear();
+    Parser p;
 
-    lerXML(filename, &(this->ficheiros), &(this->cor));
+    p.lerXML(filename, &(this->ficheiros), &(this->cor));
 
     printf("\nout of lerXML de %s\n", filename);
-
-    for (int i = 0; i < this->ficheiros.size(); i++) {
-        this->modelo.push_back(f.getPontos());
-    }
-
-    printf("\ni built the scene\n");
 }

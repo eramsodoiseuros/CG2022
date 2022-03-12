@@ -38,6 +38,25 @@ public:
     */
     float getZ();
 
+
+    /**
+    *   Coloca o ponto nas coordenadas indicadas
+    *   @param x coordenada em X 
+    */
+    void setX(float x);
+
+    /**
+    *   Coloca o ponto nas coordenadas indicadas
+    *   @param y coordenada em Y 
+    */
+    void setY(float y);
+
+    /**
+    *   Coloca o ponto nas coordenadas indicadas
+    *   @param z coordenada em Z 
+    */
+    void setZ(float z);
+
     /**
     *	Coloca o ponto nas coordenadas indicadas
     *	@param x coordenada em X
@@ -51,6 +70,10 @@ public:
     *	@return `char*`	correspondente ao conteudo do Ponto
     */
     char* toString();
+
+    Point_3D crossProduct(Point_3D p);
+
+    void normalize();
 };
 
 

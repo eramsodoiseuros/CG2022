@@ -26,21 +26,22 @@ private:
 	float camera_speed;
 	int camera_mode;
 
-public:
     
+public:
+
     Camera() {
         this->horizontal_angle = 0;
         this->vertical_angle = 0;
         this->r = 60;
-        
+
         float x =
             this->r * cosf(this->vertical_angle) * sinf(this->horizontal_angle);
-        
+
         float y = this->r * sinf(this->vertical_angle);
-        
+
         float z =
             this->r * cosf(this->vertical_angle) * cosf(this->horizontal_angle);
-        
+
         this->position = Point_3D(x, y, z);
         this->lookAt = Point_3D(0, 0, 0);
         this->startX = 0;
@@ -332,5 +333,6 @@ public:
 
     void updateR(float delta);
 };
+
 
 #endif

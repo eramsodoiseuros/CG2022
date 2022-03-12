@@ -1,6 +1,6 @@
 #include "utils/camera.h"
 #include "utils/scene.h"
-
+#pragma
 #include <iostream>
 
 using namespace std;
@@ -19,7 +19,7 @@ using namespace std;
 
 */
 
-Camera *c = nullptr;
+
 Camera *camera = Camera::getInstance();
 
 Scene s = Scene();
@@ -99,7 +99,7 @@ int main(int argc, char** argv){
 		glewInit();
 	#endif
 
-	s.build(argv[1]);
+	// ler o xml
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);

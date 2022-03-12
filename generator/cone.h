@@ -53,7 +53,7 @@ class Cone {
         *	Retorna o Modelo do Cone
         *	@param output_file ficheiro resultante
         */
-        void toFile(char* output_file);
+        void toFile(std::string s);
 };
 
 #endif //GENERATOR_CONE_H

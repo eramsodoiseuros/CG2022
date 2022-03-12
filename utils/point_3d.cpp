@@ -1,9 +1,5 @@
 #include "point_3d.h"
 
-#include <cstdlib>
-#include <cstdio>
-#include <math.h>
-
 float Point_3D::getX() { return this->x; }
 
 float Point_3D::getY() { return this->y; }

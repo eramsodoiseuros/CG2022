@@ -158,11 +158,13 @@ std::vector<char *> Parser::lerXML(char *filename, std::vector<const char *> *fi
     printf("\nim inside lerXML de %s\n", filename);
 
     TiXmlElement *scene = config.FirstChildElement("scene");
-    TiXmlElement* camera = scene->FirstChildElement("camera");
+    TiXmlElement *camera = scene->FirstChildElement("camera");
 
     parseCamera(camera,cam);
 
-    TiXmlElement *group = scene->FirstChildElement("group");
+    printf("\nvi a camera\n");
+
+    TiXmlElement *group = scene->NextSiblingElement("group");
 
     while (group) {
         parseGroup(group, ficheiros, cores, &operacoes);

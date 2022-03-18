@@ -76,9 +76,7 @@ void Plane::setP4(Point_3D p){
     |                   |
     ---------------------
   (0)    (1)    (2)    (3)
-
     #-> (1) é o ponto utilizado como referência para o conseguinte cálculo dos pontos/vértices do plano ! 
-
 */
 
 /**
@@ -96,8 +94,9 @@ vector<Point_3D> Plane::calculatePlanePoints(){
     float divionFactor = length / (float)divisions;
     vector<Point_3D> lista;
     lista.clear();
-    float X,Z;
+    float X,Y,Z;
     X = p1.getX();
+    Y = p1.getY();
     Z = p1.getZ();
     Point_3D p;
 
@@ -107,7 +106,7 @@ vector<Point_3D> Plane::calculatePlanePoints(){
 
         for(int i = 0; i <= divisions; i++){
             
-            p = Point_3D(X, 0.0f, Z);
+            p = Point_3D(X, Y, Z);
             lista.push_back(p);
 
             X = X + divionFactor;
@@ -139,13 +138,13 @@ vector<int> Plane::calculatePlaneVertices(){
         
         for(int i = j; i < limit02; i++){
 
-            pointsIndex.push_back(i);
-            pointsIndex.push_back(i + (divisions + 2));
-            pointsIndex.push_back(i + (divisions + 1));
+            pointsIndex.push_back(i);                           // 1
+            pointsIndex.push_back(i + (divisions + 2));         // 4
+            pointsIndex.push_back(i + (divisions + 1));         // 3
 
-            pointsIndex.push_back(i);
-            pointsIndex.push_back(i + 1);
-            pointsIndex.push_back(i + (divisions + 2));
+            pointsIndex.push_back(i);                           // 1
+            pointsIndex.push_back(i + 1);                       // 2
+            pointsIndex.push_back(i + (divisions + 2));         // 4
                 
         }
 
@@ -166,15 +165,17 @@ vector<int> Plane::planeVerticesInverted(){
         int limit02 = j + divisions;
         
         for(int i = j; i < limit02; i++){
+            
+            
+            pointsIndex.push_back(i);                           // 1
+            pointsIndex.push_back(i + (divisions + 2));         // 4
+            pointsIndex.push_back(i + 1);                       // 2
 
             pointsIndex.push_back(i);                           // 1
             pointsIndex.push_back(i + (divisions + 1));         // 3
             pointsIndex.push_back(i + (divisions + 2));         // 4
+            
 
-            pointsIndex.push_back(i + (divisions + 2));         // 4
-            pointsIndex.push_back(i + 1);                       // 2
-            pointsIndex.push_back(i);                           // 1
-                
         }
 
     }
@@ -223,7 +224,7 @@ void Plane::toFile(string file){
     vector<Point_3D> pts = planePoints;
     vector<int> idxs = planePointsIndexes;
 
-    outFile << pts.size() << " " << idxs.size() << endl;
+    outFile << "01," << pts.size() << "," << idxs.size() << endl;
 
     for(int i : idxs){
 
@@ -263,7 +264,7 @@ Plane Plane::planeXY(){
         Y = Y + divionFactor;
     }
 
-    Plane plane = Plane(length, divisions);
+    Plane plane = Plane(length, divisions, false);
     plane.setP1(p1);
     plane.setP2(Point_3D(p1.getX()+length, p1.getY(), p1.getZ()));
     plane.setP3(Point_3D(p1.getX(), p1.getY() + length, p1.getZ()));
@@ -271,7 +272,6 @@ Plane Plane::planeXY(){
     plane.setPlanePoints(lista);
     return plane;
 }
-
 
 Plane Plane::planeYZ(){
 
@@ -302,7 +302,7 @@ Plane Plane::planeYZ(){
         Y = Y + divionFactor;
     }
 
-    Plane plane = Plane(length, divisions);
+    Plane plane = Plane(length, divisions, false);
     plane.setP1(p1);
     plane.setP2(Point_3D(p1.getX(), p1.getY(), p1.getZ()+length));
     plane.setP3(Point_3D(p1.getX(), p1.getY()+length, p1.getZ()));
@@ -345,35 +345,3 @@ void Plane::addZ(){
         planePoints[i] = p;
     }
 }
-
-
-
-
-
-/*
-int main(){
-
-
-    Plane p01 = Plane(5.0, 10);
-
-    pair<vector<Point_3D>, vector<int>> planeInfo = p01.PlaneInfo();
-
-    vector<Point_3D> pontos = planeInfo.first;
-	vector<int> indexes = planeInfo.second;
-
-    printf("\n#> Plano com %d pontos e %d vertices a formar triangulos;", pontos.size(), indexes.size());
-
-
-    for (int i : indexes) {
-
-        Point_3D p = pontos.at(i);
-        printf("\nglVertex3f(%.5f,%.5f,%.5f);", p.getX(), p.getY(), p.getZ());
-        //printf("\n:: %d", i);
-	}
-
-    //const char* name = "plane01.3d";
-    //p01.toFile(name);
-
-    return(0);
-}
-*/

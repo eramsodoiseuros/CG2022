@@ -21,8 +21,8 @@ class Cone {
         Cone(float r, float h, int s1, int s2) {
             this->raio = r;
             this->altura = h;
-            this->stacks = s1;
-            this->slices = s2;
+            this->slices = s1;
+            this->stacks = s2;
         }
 
         /**
@@ -38,13 +38,13 @@ class Cone {
         float getHeight();
 
         /**
-        *	Retorna as divisões do cone
+        *	Retorna as slices do cone
         *	@return `int` slices
         */
         float getSlices();
 
         /**
-        *	Retorna as ?? do cone
+        *	Retorna as stacks do cone
         *	@return `int` stacks
         */
         float getStacks();

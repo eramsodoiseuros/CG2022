@@ -8,13 +8,11 @@
 
 /*
  | Plane (vista cima) |
-
       (3)-------(4)
         |       |
         |       |
         |       |
       (1)-------(2)
-
 */
 
 class Plane {
@@ -39,20 +37,23 @@ class Plane {
 
         Plane() = default;
 
-        Plane(float l, int div){
+        Plane(float l, int div, bool onXZ){
 
                 length = l;
                 divisions = div;
 
+                float y = 0.0f;
                 float reference = length / 2.0f;
+                if(!onXZ) y = - reference;
 
-                        p1 = Point_3D(-reference, 0.0f, reference);             // external points (plane's limits)
-                        p2 = Point_3D(reference, 0.0f, reference);
-                        p3 = Point_3D(reference, 0.0f, -reference);
-                        p4 = Point_3D(-reference, 0.0f, -reference);
+
+                        p1 = Point_3D(-reference, y, reference);             // external points (plane's limits)
+                        p2 = Point_3D(reference, y, reference);
+                        p3 = Point_3D(reference, y, -reference);
+                        p4 = Point_3D(-reference, y, -reference);
                 
 
-                planePoints = calculatePlanePoints();      // calculate plane's points
+                planePoints = calculatePlanePoints();                       // calculate plane's points
                 planePointsIndexes = calculatePlaneVertices();              // get point's indexes
                 nPoints = planePoints.size();
                 nIndexes = planePointsIndexes.size();

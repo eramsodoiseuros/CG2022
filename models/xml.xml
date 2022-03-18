@@ -1,14 +1,14 @@
 <scene>
 	<camera> 
-	    <position x="5" y="-2" z="3"/>
+	    <position x="5" y="5" z="5"/>
 	    <lookAt x="0" y="0" z="0"/>
 	    <up x="0" y="1" z="0"/>
-        <projection fov="60" near="1" far="1000"/> 
+        <projection fov="45" near="1" far="1000"/> 
     </camera>
 	<group>
 		<color R="1" G="2" B="3"/>
 		<models>
-			<model file="cone.3d"/>
+			<model file="plane.3d"/>
 		</models>
 	</group>
 </scene>

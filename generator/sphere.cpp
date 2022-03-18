@@ -22,8 +22,7 @@ int Sphere::getSlices(){
 vector<Point_3D> Sphere::calculateSphere(Point_3D center, float radius, int stacks, int slices){
 
         //int nPoints = (stacks + 1) * slices;                    //Nº pontos
-        //printf("\n#> number of vertices to calculate: %d\n", nPoints);
-        
+
         vector<Point_3D> points;
         
         float sliceStep = 2 * M_PI / slices;                    // Angulo de cada slice
@@ -114,7 +113,7 @@ void Sphere::toFile(string file){
     vector<Point_3D> pts = spherePoints;
     vector<short> idxs = sphereIndexes;
 
-    outFile << pts.size() << " " << idxs.size() << endl;
+    outFile << "04," << pts.size() << "," << idxs.size() << endl;
 
     for(short i : idxs){
 

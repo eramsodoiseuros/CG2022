@@ -37,13 +37,13 @@ class Sphere {
         float getRadius();
 
         /**
-        *	Retorna as ?? da Esfera
+        *	Retorna as stacks da Esfera
         *	@return `int` stacks
         */
         int getStacks();
 
         /**
-        *	Retorna as divisões da Esfera
+        *	Retorna as slices da Esfera
         *	@return `int` slices
         */
         int getSlices();

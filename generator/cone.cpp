@@ -31,10 +31,10 @@ void Cone::toFile(std::string s) {
     std::string outputFile = "../3D/" + s;
 
     file.open(outputFile);
-    file << "Numero de Pontos do Cone\n";
     n_pontos = slices*3 + 6*stacks;
-    file << n_pontos;
-    file << "\n";
+    n_indices = slices*3 + 6*stacks;
+    file << "03," << n_pontos << "," << n_indices << std::endl; 
+
 
     float stackSize = altura/stacks;
     float sliceSize = 2*M_PI/slices;
@@ -67,10 +67,6 @@ void Cone::toFile(std::string s) {
             file << polarToCartCone(rUp,yy+stackSize*(i+1),alpha+sliceSize);
         }
     }
-
-    file << "Numero de Indices do Cone\n";
-    n_indices = slices*3 + 6*stacks;
-    file << n_indices;
 
     file.close();
 }

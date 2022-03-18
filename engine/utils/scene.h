@@ -13,14 +13,18 @@ class Scene {
 		vector<const char *> ficheiros;
 		vector<rgb> cor;
 		vector<Point_3D> camera_specs;
+	
 	public:
+		
 		vector<vector<float>> getPontos() const;
 		int getPontos(int i);
-		vector<const char *> getFicheiros() const;
+		vector<std::string> getFicheiros() const;
 		vector<rgb> getCor() const;
 		void setPontos(const vector<vector<float>> modelo);
     	void setFicheiros(const vector<const char *> ficheiros);
     	void setCor(const vector<rgb> cor);
+
+		vector<Point_3D> getCameraSettings();
 
     	void build(char* filename);
 };

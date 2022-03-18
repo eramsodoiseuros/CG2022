@@ -8,8 +8,14 @@ void Scene::setFicheiros(const vector<const char *> f) {
     Scene::ficheiros = f;
 }
 
-vector<const char *> Scene::getFicheiros() const {
-    return vector<const char *>();
+vector<std::string> Scene::getFicheiros() const {
+    vector<string> files;
+
+    for(const char* c : ficheiros){
+        string aux = std::string(c);
+        files.push_back(aux);
+    }
+    return files;
 }
 
 vector<vector<float>> Scene::getPontos() const {
@@ -23,6 +29,12 @@ int Scene::getPontos(int i){
 vector<rgb> Scene::getCor() const {
     return cor;
 }
+
+vector<Point_3D> Scene::getCameraSettings(){
+
+    return vector<Point_3D>(camera_specs);
+}
+
 
 void Scene::setCor(const vector<rgb> cor) {
     Scene::cor = cor;

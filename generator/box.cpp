@@ -21,7 +21,7 @@ vector<Plane> Box::calculateBox(float dimension, int divisions){
 
     vector<Plane> faces;
 
-    Plane xzBase = Plane(dimension, divisions);      // Base xz         
+    Plane xzBase = Plane(dimension, divisions, false);      // Base xz         
     xzBase.setPlaneVertices(xzBase.planeVerticesInverted());
 
     Plane xyFront = xzBase.planeXY();                // Front xy       
@@ -30,7 +30,7 @@ vector<Plane> Box::calculateBox(float dimension, int divisions){
     yzLeft.setPlaneVertices(yzLeft.planeVerticesInverted());
 
     
-    Plane xzTop = Plane(dimension, divisions);       // Top xz         
+    Plane xzTop = Plane(dimension, divisions, false);       // Top xz         
     xzTop.addY();
 
     Plane xyBack = xzBase.planeXY();                // Back xy          
@@ -41,12 +41,12 @@ vector<Plane> Box::calculateBox(float dimension, int divisions){
     yzRight.addX();
 
     faces.push_back(xzBase);   // Base  (I)
-    faces.push_back(xyFront);  // Front (N)
-    faces.push_back(yzRight);  // Right (N)
-
-    faces.push_back(xyBack);   // Back  (I)
     faces.push_back(yzLeft);   // Left  (I)
+    faces.push_back(xyFront);  // Front (N)
+
     faces.push_back(xzTop);    // Top   (D)
+    faces.push_back(yzRight);  // Right (N)
+    faces.push_back(xyBack);   // Back  (I)
 
     return faces;
 }
@@ -65,7 +65,6 @@ void Box::toFile(string file) {
     string outputFile = "../3D/" + file;
     outFile.open(outputFile, ios::out | ios::trunc);
 
-        
     vector<Plane> boxPlanes = getBoxPlanes();
     int totalPoints = 0;
     int totalIndexes = 0;
@@ -75,7 +74,7 @@ void Box::toFile(string file) {
         totalIndexes += p.getNumberOfIndexes();
     }
 
-    outFile << totalPoints << " " << totalIndexes << endl;
+    outFile << "02," << totalPoints << "," << totalIndexes << endl;
 
     for(Plane p : boxPlanes){
 

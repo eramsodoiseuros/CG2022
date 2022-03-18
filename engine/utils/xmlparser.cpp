@@ -3,20 +3,16 @@
 
 void parseCamera(TiXmlElement* cam, vector<Point_3D> *cam_specs) {
     
-    printf("\nentrei no parse cam\n");
-
     TiXmlElement* elem = cam->FirstChildElement();
 
     while (elem) {
 
         const char* name = elem->Value();
 
-        printf("\nencontrei um >%s<\n", name);
         if (strcmp(name, "position") == 0) {
             const char* x = elem->Attribute("x");
             const char* y = elem->Attribute("y");
             const char* z = elem->Attribute("z");
-            printf("\n\tposition -> %s %s %s\n", x, y, z);
 
             cam_specs->push_back(Point_3D(atof(x), atof(y), atof(z)));
         }
@@ -24,7 +20,6 @@ void parseCamera(TiXmlElement* cam, vector<Point_3D> *cam_specs) {
             const char* x = elem->Attribute("x");
             const char* y = elem->Attribute("y");
             const char* z = elem->Attribute("z");
-            printf("\n\tlookat -> %s %s %s\n", x, y, z);
 
             cam_specs->push_back(Point_3D(atof(x), atof(y), atof(z)));
         }
@@ -32,7 +27,6 @@ void parseCamera(TiXmlElement* cam, vector<Point_3D> *cam_specs) {
             const char* x = elem->Attribute("x");
             const char* y = elem->Attribute("y");
             const char* z = elem->Attribute("z");
-            printf("\n\tup -> %s %s %s\n", x, y, z);
 
             cam_specs->push_back(Point_3D(atof(x), atof(y), atof(z)));
         }
@@ -40,7 +34,6 @@ void parseCamera(TiXmlElement* cam, vector<Point_3D> *cam_specs) {
             const char* x = elem->Attribute("fov");
             const char* y = elem->Attribute("near");
             const char* z = elem->Attribute("far");
-            printf("\n\tfov -> %s %s %s\n", x, y, z);
 
             cam_specs->push_back(Point_3D(atof(x), atof(y), atof(z)));
 
@@ -64,8 +57,6 @@ void parseCor(TiXmlElement *color, std::vector<rgb> *cores){
     cor.setB(atof(b));
 
     cores->push_back(cor);
-
-    printf("estou a ler cor %s %s %s", r,g,b);
 }
 
 void parseFigura(TiXmlElement *models, std::vector<const char *> *files) {
@@ -117,7 +108,5 @@ void Parser::lerXML(char *filename, std::vector<const char *> *ficheiros, std::v
         parseGroup(group, ficheiros, cores);
         group = group->NextSiblingElement();
     }
-
-    printf("\nfinished com %d cores e %d files\n", cores->size(), ficheiros->size());
-
+    
 }

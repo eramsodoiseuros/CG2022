@@ -1,5 +1,7 @@
 #include "utils/camera.h"
 #include "utils/scene.h"
+#include "models/figures.h"
+#include "solarSystem/solarSystemReader.h"
 #pragma
 #include <iostream>
 #include <fstream>
@@ -7,12 +9,20 @@
 #include <vector>
 using namespace std;
 
-vector<string> files;
-vector<Point_3D> points;
-vector<Point_3D> cameraSettings;
 
-Camera *camera = Camera::getInstance();
-Scene s = Scene();
+// Objeto onde ficam guardados os .3D files!
+Figures storedFigures = Figures();
+
+vector<CelestialBody> solarSystem;
+
+
+// settings variables
+float posX = 0, posY = 0, posZ = 0,
+		rAngle = 0, rotateX = 0, rotateY = 0, rotateZ = 0,
+		scaleX = 0, scaleY = 0, scaleZ = 0,
+		r = 0, g = 0, b = 0;
+
+
 
 /**
  * gluPerspective settings - variables
@@ -22,63 +32,57 @@ float eyeX,eyeY,eyeZ, centerX,centerY,centerZ, upX,upY,upZ;
 float fovy, zNear, zFar;
 
 
-void cameraSetup(){
 
-	Point_3D pos = cameraSettings.at(0);
-	Point_3D lookAt = cameraSettings.at(1);
-	//Point_3D up = cameraSettings(2);
+void drawCelestialBody(CelestialBody cb) {
 
-	camera->setPos(pos.getX(), pos.getY(), pos.getZ());
-	camera->setLookAt(lookAt.getX(), lookAt.getY(), lookAt.getZ());
+	Settings planetSetts = cb.getSettings();
+	string primitiveFile = planetSetts.getPrimitiveName();
 
-	Point_3D persp = cameraSettings.at(3);
-	fovy = persp.getX(); zNear = persp.getY(); zFar = persp.getZ();
+
+	// translate
+	posX = planetSetts.getTranslX(); posY = planetSetts.getTranslY(); posZ = planetSetts.getTranslZ();
+	// rotate
+	rAngle = planetSetts.getRotateAngle(); rotateX = planetSetts.getRotateX(); rotateY = planetSetts.getRotateY(); rotateZ = planetSetts.getRotateZ();
+	// scale
+	scaleX = planetSetts.getScaleX(); scaleY = planetSetts.getScaleY(); scaleZ = planetSetts.getScaleZ();
+	// color
+	r = planetSetts.getColorR(); g = planetSetts.getColorG(); b = planetSetts.getColorB();
+
+	Primitive currentPrimitive = storedFigures.getSphere(primitiveFile);
+
+	vector<float> colorRGB = vector<float>();
+	colorRGB.push_back(r); colorRGB.push_back(g); colorRGB.push_back(b);
+	currentPrimitive.setColor(colorRGB);
+
+	glPushMatrix();
+	glScalef(scaleX, scaleY, scaleZ);
+	glRotatef(rAngle, rotateX, rotateY, rotateZ);
+	glTranslatef(posX, posY, posZ);
+
+	
+	
+	currentPrimitive.drawSphere();
+
+	vector<CelestialBody> moons = cb.getMoons();
+
+	if (moons.size() != 0) {
+
+		for (CelestialBody moon : moons) {
+
+			drawCelestialBody(moon);
+		}
+	}
+
+	glPopMatrix();
 }
 
 
-void getFigure(string s){
+void constructSolarSystem(vector<CelestialBody> solarSystem) {
 
-	string inputFile = "../3D/" + s;
-	string l = "";
-	vector<string> parser;
-	ifstream dFile(inputFile);
-	
-	if(!dFile.is_open()){
+	for (CelestialBody cb : solarSystem) {
 
-		cerr << "Could not open the specified file:" << inputFile << endl;
-		return ;
+		drawCelestialBody(cb);
 	}
-
-	bool fstLine = true;
-	int nPoints = 0;
-	int nIndexes = 0;
-
-	while(getline(dFile,l)){
-
-		stringstream ss(l);
-		while(ss.good()){
-			string subs;
-			getline(ss,subs,',');
-			parser.push_back(subs);
-		}
-
-		if(fstLine){
-			nPoints = stoi(parser.at(1));
-			nIndexes = stoi(parser.at(2));
-			fstLine = false;
-		}
-		else {
-
-			float x = stof(parser.at(0));
-			float y = stof(parser.at(1));
-			float z = stof(parser.at(2));
-			//cout << l;
-			//glVertex3f(x,y,z);
-			points.push_back(Point_3D(x,y,z));	
-		}
-		parser.clear();
-	}
-	dFile.close();
 }
 
 
@@ -105,7 +109,7 @@ void changeSize(int w, int h) {
     glViewport(0, 0, w, h);
 
 	// Set perspective
-	gluPerspective(fovy ,ratio, zNear , zFar);
+	gluPerspective(800.0f ,ratio, 1.0f, 1000.0f);
 
 	// return to the model view matrix mode
 	glMatrixMode(GL_MODELVIEW);
@@ -113,28 +117,6 @@ void changeSize(int w, int h) {
 }
 
 
-void drawPrimitives() {
-
-	rgb cor = rgb();
-	s.getCor();
-
-	for(string file : files) {
-
-		getFigure(file);
-
-		glBegin(GL_TRIANGLES);
-
-		//glColor3f(cor.getR(), cor.getG(), cor.getB());
-		glColor3f(1.0f,0.0f,0.0f);
-
-		for(Point_3D p : points){
-			glVertex3f(p.getX(), p.getY(), p.getZ());
-		}
-
-		glEnd();
-		points.clear();
-	}
-}
 
 static void idle() { glutPostRedisplay(); }
 
@@ -145,21 +127,52 @@ void renderScene(void) {
 
 	// set the camera
 	glLoadIdentity();
-	gluLookAt(camera->getPos().getX(), camera->getPos().getY(),
-              camera->getPos().getZ(), camera->getLookAt().getX(),
-              camera->getLookAt().getY(), camera->getLookAt().getZ(), 0.0f,
-              1.0f, 0.0f);
+	gluLookAt(0.0, 30.0, 5.0,
+		0.0, 0.0, 0.0,
+		0.0f, 1.0f, 0.0f);
 
 // put the geometric transformations here
 
 
 // put drawing instructions here
-
-	drawPrimitives();
+	constructSolarSystem(solarSystem);
 
 	// End of frame
 	glutSwapBuffers();
 }
+
+
+
+void getSolarSystemPrimitives(vector<CelestialBody> solarSystem) {
+
+	for (CelestialBody cb : solarSystem) {
+
+		string planetName = cb.getSettings().getPrimitiveName();
+		storedFigures.addPrimitive(planetName);
+
+		vector<CelestialBody> moons = cb.getMoons();
+		if (moons.size() != 0) {
+
+			for (CelestialBody innercb : moons) {
+
+				string moonName = innercb.getSettings().getPrimitiveName();
+				storedFigures.addPrimitive(moonName);
+			}
+		}
+	}
+}
+
+
+vector<CelestialBody> getSolarSystem(string solarSystemPath) {
+
+	solarSystem = readSolarSystem(solarSystemPath);
+	getSolarSystemPrimitives(solarSystem);
+
+	cout << "\n#> li " << solarSystem.size() << " corpos celestes!!" << endl;
+	return solarSystem;
+}
+
+
 
 
 
@@ -178,26 +191,25 @@ int main(int argc, char **argv) {
 	glutCreateWindow("Engine - Projeto CG");
 
 	glutDisplayFunc(renderScene);
-	glutKeyboardFunc(Camera::keyFunc);
+	//glutKeyboardFunc(Camera::keyFunc);
 	glutReshapeFunc(changeSize);
 	glutIdleFunc(idle);
-	glutMouseFunc(Camera::processMouseButtons);
-	glutMotionFunc(Camera::processMouseMotion);
+	//glutMouseFunc(Camera::processMouseButtons);
+	//glutMotionFunc(Camera::processMouseMotion);
 
 	#ifndef __APPLE__
 	glewInit();
 	#endif
 
-	s.build(argv[1]);
-	files = s.getFicheiros();
-	cameraSettings = s.getCameraSettings();
-	cameraSetup();
-	
-
+	// aqui
+	cout << argv[1] << endl;
+	getSolarSystem(argv[1]);
 
 //  OpenGL settings
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CW);
 	
 // enter GLUT's main cycle
 	glutMainLoop();

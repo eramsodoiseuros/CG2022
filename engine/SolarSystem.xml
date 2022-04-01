@@ -1,0 +1,408 @@
+<!-- <?xml version="1.0" encoding="UTF-8" standalone="yes"?> -->
+
+<!-- 
+Tamanhos dos objetos (Diametro) | Distancia a origem (Sol)
+(Tamanho Real / 1 000 000)      | (Distancia / 10 000 000)
+Sol = 1.391                     |   0
+    Mercurio    = 0.0048        |   5.791           
+    Venus       = 0.012104      |   10.82
+    Terra       = 0.012756      |   14.46
+        Lua     = 0.003475      |   0.03844
+    Marte       = 0.006794      |   22.794
+    Jupiter     = 0.142984      |   77.833
+        Ganyme  = 0.005262      |   0.107
+        Callisto= 0.004821      |   0.1883
+        IO      = 0.003643      |   0.04216
+        Europa  = 0.003122      |   0.06709
+    Saturno     = 0.120536      |   142.94
+        Titan   = 0.00515       |   0.122187
+        Rhea    = 0.001529      |   0.0527108
+    Urano       = 0.05118       |   287.099
+        Triton  = 0.002707      |   0.0354759
+    Neptuno     = 0.049532      |   450.44
+        Titania = 0.001578      |   0.1632917
+-->
+
+<!-- group (Planeta)
+        <rotate angle axisX axisY axisZ />  -> definir angulo e sobre que eixo esiste rotação
+        <scale scaleX scaleY scaleZ />      -> Aumentar o modelo
+        <color R G B />                     -> atribuir uma cor
+        <orbit radX radZ />                 -> define o raio da orbita 
+        <translate X Y Z />                 -> Distancia do sol
+
+        group (Satelite Natural) - Apenas destacamos os 10 maiores do sistema solar.
+-->
+<sistem>
+
+    <!-- Definições da camara -->
+    <camara>
+
+    </camara>
+
+    <figures>
+
+
+        <!-- Sol (Origem) -->
+        <group>
+            <translate X = 0 Y = 0 Z = 0 />
+            <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0 />      
+            <scale scaleX = 1 scaleY = 1 scaleZ = 1 />
+            <color R = 253 G = 184 B = 19 /> <!-- Sun / Yellow Orange -->
+
+            <models>
+                <model file = "sphere.3d" />
+            </models>
+
+        </group>
+
+
+
+        <!-- Mercurio T = 0.0048 Ds = 5.791   -->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 7 axisX= 1 axisY = 0 axisZ = 0 />
+            <scale scaleX = 5.791 scaleY = 0 scaleZ = 5.791 />
+            <orbit radX = 5.791 radZ = 5 /> <!-- Translate do planeta para X e valor ligeiramente alterado para Z-->
+
+            <!-- Planeta --> 
+            <group>
+                <translate X = 5 Y = 0 Z = 0/>
+                <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                <scale scaleX = 1 scaleY = 1 scaleZ = 1 />
+                <color R = 192 G = 192 B = 192/> <!-- Silver Gray -->
+                <models> 
+                    <model file = "sphere.3d" />
+                </models>
+            </group>
+
+        </group>
+
+
+
+        <!-- Venus T = 0.012104 Ds = 10.82 -->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+            <scale scaleX = 10.82 scaleY = 0 scaleZ = 10.82 />
+            <orbit radX = 10.82 radZ = 10 />
+
+            <!-- Planeta --> 
+            <group>
+                <translate X = 10 Y = 0 Z = 0/>
+                <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                <scale scaleX = 1 scaleY = 1 scaleZ = 1 />
+                <color R = 234 G = 224 B = 200/> <!-- Pearl -->
+                <models> 
+                    <model file = "sphere.3d" />
+                </models>
+            </group>
+
+        </group>    
+
+
+
+        <!-- Terra - T = 0.012756 D = 14.46
+            Lua - T = 0.003475 Dp = 0.03844  -->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+            <scale scaleX = 14.46 scaleY = 0 scaleZ = 14.46 />
+            <orbit radX = 14.46 radZ = 14 />
+
+            <!-- Planeta --> 
+            <group>
+                <translate X = 15 Y = 0 Z = 0/> 
+                <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                <scale scaleX = 1 scaleY = 1 scaleZ = 1 />
+                <color R = 0 G = 191 B = 255/> <!-- Deep Sky Blue -->
+                <models> 
+                    <model file = "sphere.3d" />
+                </models>
+
+
+                <!-- Lua distancia da terra 0.03844 -->
+                <group>
+                    <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+                    <scale scaleX = 0.03844  scaleY = 0 scaleZ = 0.03844  />
+                    <orbit radX = 0.03844 radZ = 0.03844 />
+
+                    <group>
+                        <translate X = 0 Y = 2 Z = 0/> 
+                        <rotate angle = 45 axisX = 0 axisY = 1 axisZ = 0/>
+                        <scale scaleX = 0.5 scaleY = 0.5 scaleZ = 0.5 />
+                        <color R = 255 G = 0 B = 0/> <!-- MISSING COLOR -->
+                        <models> 
+                            <model file = "sphere.3d" />
+                        </models>
+                    </group>
+                </group>
+
+
+            </group>
+
+        </group>    
+    
+
+
+
+        <!-- Marte - 0.006794 - 22.794-->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+            <scale scaleX = 22.794 scaleY = 0 scaleZ = 22.794 />
+            <orbit radX = 22.794 radZ = 22 />
+
+            <!-- Planeta --> 
+            <group>
+                <translate X = 20 Y = 0 Z = 0 /> 
+                <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                <scale scaleX = 1 scaleY = 1 scaleZ = 1 />
+                <color R = 255 G = 127 B = 80/> <!-- Coral -->
+                <models> 
+                    <model file = "sphere.3d" />
+                </models>
+
+            </group>
+
+        </group>
+
+
+        <!-- Jupiter T = 0.142984 Ds= 77.833 
+            Ganyme   T = 0.005262 Dp= 0.107      
+            Callisto T = 0.004821 Dp= 0.1883  
+            IO       T = 0.003643 Dp= 0.04216    
+            Europa   T = 0.003122 Dp= 0.06709  -->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+            <scale scaleX = 77.833  scaleY = 0 scaleZ = 77.833  />
+            <orbit radX = 77.833 radZ = 77 />
+
+            <!-- Planeta --> 
+            <group>
+                <translate X = 25 Y = 0 Z = 0/> 
+                <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                <scale scaleX = 1 scaleY = 1 scaleZ = 1 />
+                <color R = 210 G = 105 B = 30/> <!-- Chocolate -->
+                <models> 
+                    <model file = "sphere.3d" />
+                </models>
+
+                <!-- Ganyme Distancia de Jupiter -->
+                <group>
+                    <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+                    <scale scaleX = 0.107  scaleY = 0 scaleZ = 0.107 />
+                    <orbit radX = 0.11 radZ = 0.107 />
+
+                    <group>
+                        <translate X = 2 Y = 0 Z = 0/> 
+                        <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                        <scale scaleX = 0.5 scaleY = 0.5 scaleZ = 0.5 />
+                        <color R = 255 G = 0 B = 99/> <!-- MISSING COLOR -->
+                        <models> 
+                            <model file = "sphere.3d" />
+                        </models>
+                    </group>
+                </group>
+
+
+                <!-- Callisto  -->
+                <group>
+                    <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+                    <scale scaleX = 0.1883 scaleY = 0 scaleZ = 0.1883 />
+                    <orbit radX = 0.2 radZ = 0.19 />
+
+                    <group>
+                        <translate X = 4 Y = 0 Z = 0/> 
+                        <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                        <scale scaleX = 0.5 scaleY = 0.5 scaleZ = 0.5 />
+                        <color R = 255 G = 0 B = 0/> <!-- MISSING COLOR -->
+                        <models> 
+                            <model file = "sphere.3d" />
+                        </models>
+                    </group>
+                </group>
+
+
+                <!-- IO  -->
+                <group>
+                    <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+                    <scale scaleX = 0.04216 scaleY = 0 scaleZ = 0.04216 />
+                    <orbit radX = 0.042 radZ = 0.03 />
+
+                    <group>
+                        <translate X = 6 Y = 0 Z = 0/> 
+                        <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                        <scale scaleX = 0.5 scaleY = 0.5 scaleZ = 0.5 />
+                        <color R = 141 G = 111 B = 12/> <!-- MISSING COLOR -->
+                        <models> 
+                            <model file = "sphere.3d" />
+                        </models>
+                    </group>
+                </group>
+
+
+                <!-- Europa  -->
+                <group>
+                    <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+                    <scale scaleX = 0.06709 scaleY = 0 scaleZ = 0.06709 />
+                    <orbit radX = 0.07 radZ = 0.06 />
+
+                    <group>
+                        <translate X =8 Y = 0 Z = 0/> 
+                        <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                        <scale scaleX = 0.5 scaleY = 0.5 scaleZ = 0.5 />
+                        <color R = 44 G = 133 B = 233/> <!-- MISSING COLOR -->
+                        <models> 
+                            <model file = "sphere.3d" />
+                        </models>
+                    </group>
+                </group>        
+
+
+            </group>
+        </group>
+
+
+
+
+        <!-- Saturno  T = 0.120536  Ds = 142.94
+                Titan T = 0.00515   Dp = 0.122187
+                Rhea  T = 0.001529  Dp = 0.0527108-->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+            <scale scaleX = 142.94 scaleY = 0 scaleZ = 142.94 />
+            <orbit radX = 142.94 radZ = 142 />
+
+            <!-- Planeta --> 
+            <group>
+                <translate X = 30 Y = 0 Z = 0/> 
+                <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                <scale scaleX = 1 scaleY = 1 scaleZ = 1 />
+                <color R = 255 G = 140 B = 0/> <!-- Dark Orange -->
+                <models> 
+                    <model file = "sphere.3d" />
+                </models>
+
+            
+                <!-- Titan  -->
+                <group>
+                    <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+                    <scale scaleX = 0.122187 scaleY = 0 scaleZ = 0.122187 />
+                    <orbit radX = 0.12 radZ = 0.1 />
+
+                    <group>
+                        <translate X = 2 Y = 0 Z = 0/> 
+                        <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                        <scale scaleX = 0.5  scaleY = 0.5  scaleZ = 0.5  />
+                        <color R = 123 G = 41 B = 222/> <!-- MISSING COLOR -->
+                        <models> 
+                            <model file = "sphere.3d" />
+                        </models>
+                    </group>
+
+                </group>     
+
+                 <!-- Rhea  -->
+                <group>
+                    <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+                    <scale scaleX = 0.0527108 scaleY = 0 scaleZ = 0.0527108 />
+                    <orbit radX = 0.0527108 radZ = 0.05 />
+
+                    <group>
+                        <translate X = 4 Y = 0 Z = 0/> 
+                        <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                        <scale scaleX = 0.5  scaleY = 0.5  scaleZ = 0.5  />
+                        <color R = 51 G = 242 B = 111/> <!-- MISSING COLOR -->
+                        <models> 
+                            <model file = "sphere.3d" />
+                        </models>
+                    </group>
+
+                </group>  
+
+            </group>
+        </group>
+
+
+        <!-- Urano     T = 0.05118  Ds= 287.099
+                Triton T = 0.002707 Dp= 0.0354759 -->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+            <scale scaleX = 287.099 scaleY = 0 scaleZ = 287.099 />
+            <orbit radX = 287.099 radZ = 287 />
+
+            <!-- Planeta --> 
+            <group>
+                <translate X = 35 Y = 0 Z = 0/> 
+                <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                <scale scaleX = 1 scaleY = 1 scaleZ = 1 />
+                <color R = 255 G = 0 B = 0/> <!-- Light Steel Blue-->
+                <models> 
+                    <model file = "sphere.3d" />
+                </models>
+
+                <!-- Triton  -->
+                <group>
+                    <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+                    <scale scaleX = 0.0354759 scaleY = 0 scaleZ = 0.0354759 />
+                    <orbit radX = 0.04 radZ = 0.035 />
+
+                    <group>
+                        <translate X = 2 Y = 0 Z = 0/> 
+                        <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                        <scale scaleX = 0.5  scaleY = 0.5  scaleZ = 0.5  />
+                        <color R = 12 G = 14 B = 144/> <!-- MISSING COLOR -->
+                        <models> 
+                            <model file = "sphere.3d" />
+                        </models>
+                    </group>
+
+                </group>
+            </group>
+        </group>
+
+
+        <!-- Neptuno    T = 0.049532 Ds = 450.44
+                Titania T = 0.001578 Dp = 0.1632917-->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+            <scale scaleX = 450.44 scaleY = 0 scaleZ = 450.44 />
+            <orbit radX = 450.44 radZ = 450 />
+
+            <!-- Planeta --> 
+            <group>
+                <translate X = 40 Y = 0 Z = 0/> 
+                <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                <scale scaleX = 1 scaleY = 1 scaleZ = 1 />
+                <color R = 65 G = 105 B = 225/> <!-- Royal Blue -->
+                <models> 
+                    <model file = "sphere.3d" />
+                </models>
+
+                <!-- Titania  -->
+
+                <group>
+                    <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
+                    <scale scaleX = 0.1632917 scaleY = 0 scaleZ = 0.1632917 />
+                    <orbit radX = 0.1632917 radZ = 0.16 />
+
+                    <group>
+                        <translate X =2 Y = 0 Z = 0/> 
+                        <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
+                        <scale scaleX = 0.5  scaleY = 0.5  scaleZ = 0.5  />
+                        <color R = 255 G = 0 B = 0/> <!-- MISSING COLOR -->
+                        <models> 
+                            <model file = "sphere.3d" />
+                        </models>
+                    </group>
+
+                </group>
+
+            </group>
+        </group>
+    </figures>
+</sistem>

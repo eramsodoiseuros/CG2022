@@ -74,9 +74,10 @@ void drawCelestialBody(CelestialBody cb) {
 	glPopMatrix();
 
 	glPushMatrix();
-	glScalef(scaleX, scaleY, scaleZ);
-	glRotatef(rAngle, rotateX, rotateY, rotateZ);
 	glTranslatef(posX, posY, posZ);
+	
+	glRotatef(rAngle, rotateX, rotateY, rotateZ);
+	glScalef(scaleX, scaleY, scaleZ);
 
 	
 	

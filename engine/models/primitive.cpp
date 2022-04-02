@@ -110,7 +110,7 @@ void Primitive::getFigure(string primitive3D){
 		break;
     
     default:
-        primitiveName = string("caca");
+        primitiveName = string("none");
         break;
     }
 }
@@ -267,8 +267,7 @@ void Primitive::drawSphere(){
 	
 	glBegin(GL_TRIANGLES);
 
-		glColor3f(r/255, g/255, b/255);
-
+		glColor3f(r, g, b);
 
 		for(Point_3D p : points){
 			glVertex3f(p.getX(), p.getY(), p.getZ());

@@ -73,7 +73,7 @@ Sol             = 7             |   0
                 <translate X = 13  Y = 0 Z = 0 />
                 <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                 <scale scaleX = 0.25 scaleY = 0.25 scaleZ = 0.25 />
-                <color R = 0.6667 G = 0.6627 B = 0.6784> 
+                <color R = 0.6667 G = 0.6627 B = 0.6784 /> 
                 <!-- Silver Gray <color R = 192 G = 192 B = 192/> -->
                 <models> 
                     <model file = "sphere.3d" />
@@ -96,7 +96,7 @@ Sol             = 7             |   0
                 <translate X = 18 Y = 18 Z = 18/>
                 <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                 <scale scaleX = 0.6 scaleY = 0.6 scaleZ = 0.6 />
-                <color R = 0.918 G = 0.878 B = 0.784>
+                <color R = 0.918 G = 0.878 B = 0.784 />
                 <!-- Pearl <color R = 234 G = 224 B = 200/> -->
                 <models> 
                     <model file = "sphere.3d" />
@@ -119,7 +119,7 @@ Sol             = 7             |   0
                 <translate X = -21 Y = 0 Z = -21/> 
                 <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                 <scale scaleX = 0.65 scaleY = 0.65 scaleZ = 0.65 />
-                <color R = 0.0 G = 0.749 B = 1 >
+                <color R = 0.0 G = 0.749 B = 1 />
                 <!-- Deep Sky Blue <color R = 0 G = 191 B = 255/>   -->
                 <models> 
                     <model file = "sphere.3d" />
@@ -136,7 +136,7 @@ Sol             = 7             |   0
                         <translate X = 0.7 Y = 0.7 Z = 0/> 
                         <rotate angle = 45 axisX = 0 axisY = 1 axisZ = 0/>
                         <scale scaleX =  0.2 scaleY =  0.2 scaleZ =  0.2 />
-                        <color R = 0.502 G = 0.502 B = 0.502 > 
+                        <color R = 0.502 G = 0.502 B = 0.502 /> 
                         <!-- Gray <color R = 255 G = 0 B = 0/> -->
                         <models> 
                             <model file = "sphere.3d" />
@@ -206,7 +206,7 @@ Sol             = 7             |   0
                         <translate X = 7.4 Y = 7.4 Z = 7.4/> 
                         <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                         <scale scaleX = 0.26 scaleY = 0.26 scaleZ = 0.26 />
-                        <color R = 0.502 G = 0.502 B = 0.502 >  <!-- MISSING COLOR -->
+                        <color R = 0.502 G = 0.502 B = 0.502 />  <!-- MISSING COLOR -->
                         <models> 
                             <model file = "sphere.3d" />
                         </models>
@@ -224,7 +224,7 @@ Sol             = 7             |   0
                         <translate X = 7.5 Y = 7.5 Z = 0/> 
                         <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                         <scale scaleX = 0.24 scaleY = 0.24 scaleZ = 0.24 />
-                        <color R = 0.502 G = 0.502 B = 0.502 >  <!-- MISSING COLOR -->
+                        <color R = 0.502 G = 0.502 B = 0.502 />  <!-- MISSING COLOR -->
                         <models> 
                             <model file = "sphere.3d" />
                         </models>
@@ -242,7 +242,7 @@ Sol             = 7             |   0
                         <translate X = 7.2 Y = 0 Z = 0/> 
                         <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                         <scale scaleX = 0.18 scaleY = 0.18 scaleZ = 0.18 />
-                        <color R = 0.502 G = 0.502 B = 0.502 >  <!-- MISSING COLOR -->
+                        <color R = 0.502 G = 0.502 B = 0.502 />  <!-- MISSING COLOR -->
                         <models> 
                             <model file = "sphere.3d" />
                         </models>
@@ -260,7 +260,7 @@ Sol             = 7             |   0
                         <translate X = 0 Y = 0 Z = 7.3/> 
                         <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                         <scale scaleX = 0.15 scaleY = 0.15 scaleZ = 0.15 />
-                        <color R = 0.502 G = 0.502 B = 0.502 >  <!-- MISSING COLOR -->
+                        <color R = 0.502 G = 0.502 B = 0.502 />  <!-- MISSING COLOR -->
                         <models> 
                             <model file = "sphere.3d" />
                         </models>
@@ -303,7 +303,7 @@ Sol             = 7             |   0
                         <translate X = 6.3 Y = 6.3 Z = 0/> 
                         <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                         <scale scaleX = 0.26  scaleY = 0.26  scaleZ = 0.26  />
-                        <color R = 0.502 G = 0.502 B = 0.502 > <!-- MISSING COLOR -->
+                        <color R = 0.502 G = 0.502 B = 0.502 /> <!-- MISSING COLOR -->
                         <models> 
                             <model file = "sphere.3d" />
                         </models>
@@ -321,7 +321,7 @@ Sol             = 7             |   0
                         <translate X = 0 Y = 6.1 Z = 6.1/> 
                         <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                         <scale scaleX = 0.08  scaleY = 0.08  scaleZ = 0.08  />
-                        <color R = 0.502 G = 0.502 B = 0.502 > <!-- MISSING COLOR -->
+                        <color R = 0.502 G = 0.502 B = 0.502 /> <!-- MISSING COLOR -->
                         <models> 
                             <model file = "sphere.3d" />
                         </models>
@@ -361,7 +361,7 @@ Sol             = 7             |   0
                         <translate X = 2.7 Y = 2.7 Z = 2.7 /> 
                         <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                         <scale scaleX = 0.15  scaleY = 0.15  scaleZ = 0.15  />
-                        <color R = 0.502 G = 0.502 B = 0.502 > <!-- MISSING COLOR -->
+                        <color R = 0.502 G = 0.502 B = 0.502 /> <!-- MISSING COLOR -->
                         <models> 
                             <model file = "sphere.3d" />
                         </models>
@@ -402,7 +402,7 @@ Sol             = 7             |   0
                         <translate X = 2.8 Y = 0 Z = 0/> 
                         <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                         <scale scaleX = 0.08  scaleY = 0.08  scaleZ = 0.08  />
-                        <color R = 0.502 G = 0.502 B = 0.502 >  <!-- MISSING COLOR -->
+                        <color R = 0.502 G = 0.502 B = 0.502 />  <!-- MISSING COLOR -->
                         <models> 
                             <model file = "sphere.3d" />
                         </models>

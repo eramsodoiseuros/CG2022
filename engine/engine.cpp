@@ -12,8 +12,11 @@ using namespace std;
 
 // Objeto onde ficam guardados os .3D files!
 Figures storedFigures = Figures();
-Camera* camera = Camera::getInstance();
+
 vector<CelestialBody> solarSystem;
+
+// C�mara do engine
+Camera *camera = Camera::getInstance();
 
 
 // settings variables
@@ -22,21 +25,39 @@ float posX = 0, posY = 0, posZ = 0,
 		scaleX = 0, scaleY = 0, scaleZ = 0,
 		r = 0, g = 0, b = 0;
 
-
-
 /**
  * gluPerspective settings - variables
  * 
  */
 float fovy, zNear, zFar;
 
+/**
+ * @brief Setup das definições da câmara com os valores lidos no XML
+ * 
+ */
+void cameraSetup(){
+
+	//Point_3D pos = cameraSettings.at(0);
+	//Point_3D lookAt = cameraSettings.at(1);
+	//Point_3D up = cameraSettings(2);
+
+	//camera->setPos(pos.getX(), pos.getY(), pos.getZ());
+	//camera->setLookAt(lookAt.getX(), lookAt.getY(), lookAt.getZ());
+
+	//Point_3D persp = cameraSettings.at(3);
+	//fovy = persp.getX(); zNear = persp.getY(); zFar = persp.getZ();
+}
 
 
+/**
+ * @brief Dado um qualquer corpo celeste, desenha-o
+ * 
+ * @param cb Corpo celeste com as informações necessárias para a sua configuração
+ */
 void drawCelestialBody(CelestialBody cb) {
 
 	Settings planetSetts = cb.getSettings();
 	string primitiveFile = planetSetts.getPrimitiveName();
-
 
 	// translate
 	posX = planetSetts.getTranslX(); posY = planetSetts.getTranslY(); posZ = planetSetts.getTranslZ();
@@ -58,20 +79,14 @@ void drawCelestialBody(CelestialBody cb) {
 	glRotatef(rAngle, rotateX, rotateY, rotateZ);
 	glTranslatef(posX, posY, posZ);
 
-	
-	
 	currentPrimitive.drawSphere();
 
 	vector<CelestialBody> moons = cb.getMoons();
-
 	if (moons.size() != 0) {
-
 		for (CelestialBody moon : moons) {
-
 			drawCelestialBody(moon);
 		}
 	}
-
 	glPopMatrix();
 }
 
@@ -108,7 +123,7 @@ void changeSize(int w, int h) {
     glViewport(0, 0, w, h);
 
 	// Set perspective
-	gluPerspective(fovy ,ratio, zNear, zFar);
+	gluPerspective(800.0f ,ratio, 1.0f, 1000.0f);
 
 	// return to the model view matrix mode
 	glMatrixMode(GL_MODELVIEW);
@@ -122,8 +137,10 @@ void cameraSetup() {
 	zFar = perspective.getZ();
 }
 
+static void idle() {
+	 glutPostRedisplay(); 
+}
 
-static void idle() { glutPostRedisplay(); }
 
 void renderScene(void) {
 
@@ -136,6 +153,13 @@ void renderScene(void) {
 		camera->getPos().getZ(), camera->getLookAt().getX(),
 		camera->getLookAt().getY(), camera->getLookAt().getZ(), 
 		0.0f, 1.0f, 0.0f);
+
+	/*
+	gluLookAt(camera.getPos().getX(), camera.getPos().getY(), camera.getPos().getZ(), 
+				camera.getLookAt().getX(), camera.getLookAt().getY(), camera.getLookAt().getZ(), 
+				0.0f, 1.0f, 0.0f);
+	*/
+	
 
 // put the geometric transformations here
 
@@ -178,8 +202,6 @@ vector<CelestialBody> getSolarSystem(string solarSystemPath) {
 	cout << "\n#> li " << solarSystem.size() << " corpos celestes!!" << endl;
 	return solarSystem;
 }
-
-
 
 
 

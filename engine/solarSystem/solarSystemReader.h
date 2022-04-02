@@ -3,6 +3,7 @@
 
 #include "../utils/tinyxml.h"
 #include "../solarSystem/celestialBody.h"
+#include "../utils/camera.h"
 #include <vector>
 
 using namespace std;
@@ -23,6 +24,6 @@ CelestialBody parseCelestialBody(TiXmlElement *bodyXml, bool isSun);
 
 CelestialBody parseCelestialBodyWithMoons(TiXmlElement *bodyXml);
 
-vector<CelestialBody> readSolarSystem(string xmlPath);
+vector<CelestialBody> readSolarSystem(string xmlPath, Camera* c);
 
 #endif

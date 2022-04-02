@@ -12,7 +12,7 @@ using namespace std;
 
 // Objeto onde ficam guardados os .3D files!
 Figures storedFigures = Figures();
-
+Camera* camera = Camera::getInstance();
 vector<CelestialBody> solarSystem;
 
 
@@ -28,7 +28,6 @@ float posX = 0, posY = 0, posZ = 0,
  * gluPerspective settings - variables
  * 
  */
-float eyeX,eyeY,eyeZ, centerX,centerY,centerZ, upX,upY,upZ;
 float fovy, zNear, zFar;
 
 
@@ -109,13 +108,19 @@ void changeSize(int w, int h) {
     glViewport(0, 0, w, h);
 
 	// Set perspective
-	gluPerspective(800.0f ,ratio, 1.0f, 1000.0f);
+	gluPerspective(fovy ,ratio, zNear, zFar);
 
 	// return to the model view matrix mode
 	glMatrixMode(GL_MODELVIEW);
 
 }
 
+void cameraSetup() {
+	Point_3D perspective = camera->getPersp();
+	fovy = perspective.getX();
+	zNear = perspective.getY();
+	zFar = perspective.getZ();
+}
 
 
 static void idle() { glutPostRedisplay(); }
@@ -127,8 +132,9 @@ void renderScene(void) {
 
 	// set the camera
 	glLoadIdentity();
-	gluLookAt(0.0, 30.0, 5.0,
-		0.0, 0.0, 0.0,
+	gluLookAt(camera->getPos().getX(), camera->getPos().getY(),
+		camera->getPos().getZ(), camera->getLookAt().getX(),
+		camera->getLookAt().getY(), camera->getLookAt().getZ(), 
 		0.0f, 1.0f, 0.0f);
 
 // put the geometric transformations here
@@ -165,7 +171,8 @@ void getSolarSystemPrimitives(vector<CelestialBody> solarSystem) {
 
 vector<CelestialBody> getSolarSystem(string solarSystemPath) {
 
-	solarSystem = readSolarSystem(solarSystemPath);
+	solarSystem = readSolarSystem(solarSystemPath,camera);
+	cameraSetup();
 	getSolarSystemPrimitives(solarSystem);
 
 	cout << "\n#> li " << solarSystem.size() << " corpos celestes!!" << endl;
@@ -191,11 +198,11 @@ int main(int argc, char **argv) {
 	glutCreateWindow("Engine - Projeto CG");
 
 	glutDisplayFunc(renderScene);
-	//glutKeyboardFunc(Camera::keyFunc);
+	glutKeyboardFunc(Camera::keyFunc);
 	glutReshapeFunc(changeSize);
 	glutIdleFunc(idle);
-	//glutMouseFunc(Camera::processMouseButtons);
-	//glutMotionFunc(Camera::processMouseMotion);
+	glutMouseFunc(Camera::processMouseButtons);
+	glutMotionFunc(Camera::processMouseMotion);
 
 	#ifndef __APPLE__
 	glewInit();

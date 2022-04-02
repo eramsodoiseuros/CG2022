@@ -16,6 +16,7 @@ private:
     static Camera* c;
 	Point_3D position;
 	Point_3D lookAt;
+    Point_3D persp;
 	int startX;
     int startY;
     int tracking;
@@ -44,6 +45,7 @@ public:
 
         this->position = Point_3D(x, y, z);
         this->lookAt = Point_3D(0, 0, 0);
+        this->persp = Point_3D(45.0f, 1.0f, 1000.0f);
         this->startX = 0;
         this->startY = 0;
         this->tracking = 0;
@@ -277,6 +279,8 @@ public:
 
     Point_3D getLookAt();
 
+    Point_3D getPersp();
+
     int getStartX();
 
     int getStartY();
@@ -294,6 +298,8 @@ public:
     void setPos(float x, float y, float z);
 
     void setLookAt(float x, float y, float z);
+
+    void setPersp(float x, float y, float z);
 
     void setStartX(int startX);
 

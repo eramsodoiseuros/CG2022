@@ -6,6 +6,8 @@ Point_3D Camera::getPos() { return this->position; }
 
 Point_3D Camera::getLookAt() { return this->lookAt; }
 
+Point_3D Camera::getPersp() { return this->persp; }
+
 int Camera::getStartX() { return this->startX; }
 
 int Camera::getStartY() { return this->startY; }
@@ -30,6 +32,12 @@ void Camera::setLookAt(float x, float y, float z) {
     this->lookAt.setX(x);
     this->lookAt.setY(y);
     this->lookAt.setZ(z);
+}
+
+void Camera::setPersp(float x, float y, float z) {
+    this->persp.setX(x);
+    this->persp.setY(y);
+    this->persp.setZ(z);
 }
 
 void Camera::setStartX(int startX) { this->startX = startX; }

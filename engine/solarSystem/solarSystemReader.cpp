@@ -4,6 +4,7 @@
 
 #include "celestialBody.h"
 #include "solarSystemReader.h"
+#include "../utils/camera.h"
 
 
 void printAttrib(TiXmlElement* a){
@@ -73,6 +74,23 @@ Orbit createOrbit(vector<float> orbs){
   Orbit orb = Orbit(orbs);
   return orb;
 }
+   
+void parseCamera(TiXmlElement *camera, Camera* c) {
+    vector<float> cameraValues = vector<float>();
+
+    for (TiXmlElement* cameraV = camera->FirstChildElement(); cameraV != NULL; cameraV = cameraV->NextSiblingElement()) {
+        cameraValues = getSpecs(cameraV, cameraValues);
+    }
+    Point_3D pos = Point_3D(cameraValues.at(0), cameraValues.at(1), cameraValues.at(2));
+    Point_3D lookAt = Point_3D(cameraValues.at(3), cameraValues.at(4), cameraValues.at(5));
+    Point_3D up = Point_3D(cameraValues.at(6), cameraValues.at(7), cameraValues.at(8));
+    Point_3D persp = Point_3D(cameraValues.at(9), cameraValues.at(10), cameraValues.at(11));
+
+    c->setPos(pos.getX(), pos.getY(), pos.getZ());
+    c->setLookAt(lookAt.getX(), lookAt.getY(), lookAt.getZ());
+    c->setPersp(persp.getX(), persp.getY(), persp.getZ());
+}
+
 
 
 CelestialBody parseCelestialBody(TiXmlElement *bodyXml, bool isSun){
@@ -192,7 +210,7 @@ CelestialBody parseCelestialBodyWithMoons(TiXmlElement *bodyXml){
 
 
 
-vector<CelestialBody> readSolarSystem(string xmlPath){
+vector<CelestialBody> readSolarSystem(string xmlPath, Camera* c){
     
   vector<CelestialBody> solarSystem = vector<CelestialBody>();
 
@@ -206,7 +224,7 @@ vector<CelestialBody> readSolarSystem(string xmlPath){
   //printAttrib(rootElement);
 
   TiXmlElement *camera = rootElement->FirstChildElement(); // Camara
-  //printAttrib(camera);
+  parseCamera(camera,c);
 
   TiXmlElement *figures = camera->NextSiblingElement(); // Figures
   //printAttrib(figures);

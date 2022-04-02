@@ -9,17 +9,21 @@ Sol             = 7             |   0
     Terra       = 0.65          |   14
         Lua     = 0.20          |   0.04
     Marte       = 0.35          |   23
-    Jupiter     = 12            |   78
+
+Distancias demasiado grandes 
+Distancia / 
+
+    Jupiter     = 12            |   78      45
         Ganyme  = 0.26          |   0.11
         Callisto= 0.24          |   0.19
         IO      = 0.18          |   0.04
         Europa  = 0.15          |   0.07
-    Saturno     = 6             |   143
+    Saturno     = 6             |   143     75
         Titan   = 0.26          |   0.12
         Rhea    = 0.08          |   0.05
-    Urano       = 2.5           |   287
+    Urano       = 2.5           |   287     85
         Triton  = 0.15          |   0.04
-    Neptuno     = 2.5           |   450
+    Neptuno     = 2.5           |   450     90
         Titania = 0.08          |   0.16
 -->
 
@@ -65,8 +69,8 @@ Sol             = 7             |   0
         <group>
             <!-- Orbita -->
             <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-            <scale scaleX = 13  scaleY = 13 scaleZ = 13 />
-            <orbit radX = 5.791 radZ = 5 /> <!-- Translate do planeta para X e valor ligeiramente alterado para Z-->
+            <scale scaleX = 0  scaleY = 0 scaleZ = 0 />
+            <orbit radX = 13 radZ = 13 /> <!-- Translate do planeta para X e valor ligeiramente alterado para Z-->
 
             <!-- Planeta --> 
             <group>
@@ -88,12 +92,12 @@ Sol             = 7             |   0
         <group>
             <!-- Orbita -->
             <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-            <scale scaleX = 18 scaleY = 0 scaleZ = 18 />
-            <orbit radX = 10.82 radZ = 10 />
+            <scale scaleX = 0 scaleY = 0 scaleZ = 08 />
+            <orbit radX = 18 radZ = 18 />
 
             <!-- Planeta --> 
             <group>
-                <translate X = 18 Y = 18 Z = 18/>
+                <translate X = 18 Y = 0 Z = 0/>
                 <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                 <scale scaleX = 0.6 scaleY = 0.6 scaleZ = 0.6 />
                 <color R = 0.918 G = 0.878 B = 0.784 />
@@ -111,12 +115,12 @@ Sol             = 7             |   0
         <group>
             <!-- Orbita -->
             <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-            <scale scaleX = 21 scaleY = 0 scaleZ = 21 />
-            <orbit radX = 14.46 radZ = 14 />
+            <scale scaleX = 0 scaleY = 0 scaleZ = 0 />
+            <orbit radX = 21 radZ = 21 />
 
             <!-- Planeta --> 
             <group>
-                <translate X = -21 Y = 0 Z = -21/> 
+                <translate X = 21 Y = 0 Z = 0/> 
                 <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                 <scale scaleX = 0.65 scaleY = 0.65 scaleZ = 0.65 />
                 <color R = 0.0 G = 0.749 B = 1 />
@@ -129,12 +133,12 @@ Sol             = 7             |   0
                 <!-- Lua distancia da terra 0.03844 -->
                 <group>
                     <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-                    <scale scaleX = 0.7  scaleY = 0 scaleZ = 0.7  />
-                    <orbit radX = 0.03844 radZ = 0.03844 />
+                    <scale scaleX = 0  scaleY = 0 scaleZ = 0  />
+                    <orbit radX = 0.7 radZ = 0.7 />
 
                     <group>
                         <translate X = 0.7 Y = 0.7 Z = 0/> 
-                        <rotate angle = 45 axisX = 0 axisY = 1 axisZ = 0/>
+                        <rotate angle = 0 axisX = 0 axisY = 1 axisZ = 0/>
                         <scale scaleX =  0.2 scaleY =  0.2 scaleZ =  0.2 />
                         <color R = 0.502 G = 0.502 B = 0.502 /> 
                         <!-- Gray <color R = 255 G = 0 B = 0/> -->
@@ -155,12 +159,12 @@ Sol             = 7             |   0
         <group>
             <!-- Orbita -->
             <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-            <scale scaleX = 22.794 scaleY = 0 scaleZ = 22.794 />
-            <orbit radX = 22.794 radZ = 22 />
+            <scale scaleX = 0 scaleY = 0 scaleZ = 0 />
+            <orbit radX = 30 radZ = 30 />
 
             <!-- Planeta --> 
             <group>
-                <translate X = -30 Y = -30 Z = 0 /> 
+                <translate X = 30 Y = 0 Z = 0 /> 
                 <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                 <scale scaleX = 0.35  scaleY = 0.35  scaleZ = 0.35  />
                 <color R = 1 G = 0.498 B = 0.314/>
@@ -174,7 +178,7 @@ Sol             = 7             |   0
         </group>
 
 
-        <!-- Jupiter T = 7      Ds= 78
+        <!-- Jupiter T = 7      Ds= 45
             Ganyme   T = 0.26   Dp= 7.4     
             Callisto T = 0.24   Dp= 7.5  
             IO       T = 0.18   Dp= 7.2    
@@ -182,12 +186,12 @@ Sol             = 7             |   0
         <group>
             <!-- Orbita -->
             <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-            <scale scaleX = 77.833  scaleY = 0 scaleZ = 77.833  />
-            <orbit radX = 77.833 radZ = 77 />
+            <scale scaleX = 0  scaleY = 0 scaleZ = 0  />
+            <orbit radX = -45 radZ = -40 />
 
             <!-- Planeta --> 
             <group>
-                <translate X = 78 Y = 78 Z = 0/> 
+                <translate X = 45 Y = 0 Z = 0/> 
                 <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                 <scale scaleX = 7 scaleY = 7 scaleZ = 7 />
                 <color R = 0.2471 G = 0 B = 0.588/> 
@@ -199,11 +203,11 @@ Sol             = 7             |   0
                 <!-- Ganyme Distancia de Jupiter -->
                 <group>
                     <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-                    <scale scaleX = 0.107  scaleY = 0 scaleZ = 0.107 />
-                    <orbit radX = 0.11 radZ = 0.107 />
+                    <scale scaleX = 7.4  scaleY = 0 scaleZ = 0 />
+                    <orbit radX = 7.4 radZ = 7.4 />
 
                     <group>
-                        <translate X = 7.4 Y = 7.4 Z = 7.4/> 
+                        <translate X = 7.4 Y = 0 Z = 0/> 
                         <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                         <scale scaleX = 0.26 scaleY = 0.26 scaleZ = 0.26 />
                         <color R = 0.502 G = 0.502 B = 0.502 />  <!-- MISSING COLOR -->
@@ -217,11 +221,11 @@ Sol             = 7             |   0
                 <!-- Callisto  -->
                 <group>
                     <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-                    <scale scaleX = 0.24 scaleY = 0.24 scaleZ = 0.24 />
-                    <orbit radX = 0.2 radZ = 0.19 />
+                    <scale scaleX = 7.5 scaleY = 0 scaleZ = 0 />
+                    <orbit radX = 7.5 radZ = 7.5 />
 
                     <group>
-                        <translate X = 7.5 Y = 7.5 Z = 0/> 
+                        <translate X = -7.5 Y = 0 Z = 7.5/> 
                         <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                         <scale scaleX = 0.24 scaleY = 0.24 scaleZ = 0.24 />
                         <color R = 0.502 G = 0.502 B = 0.502 />  <!-- MISSING COLOR -->
@@ -235,11 +239,11 @@ Sol             = 7             |   0
                 <!-- IO  -->
                 <group>
                     <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-                    <scale scaleX = 0.04216 scaleY = 0 scaleZ = 0.04216 />
-                    <orbit radX = 0.042 radZ = 0.03 />
+                    <scale scaleX = 7.2 scaleY = 0 scaleZ = 0 />
+                    <orbit radX = 7.2 radZ = 7.2 />
 
                     <group>
-                        <translate X = 7.2 Y = 0 Z = 0/> 
+                        <translate X = 7.2 Y = 7.2 Z = -7.2/> 
                         <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                         <scale scaleX = 0.18 scaleY = 0.18 scaleZ = 0.18 />
                         <color R = 0.502 G = 0.502 B = 0.502 />  <!-- MISSING COLOR -->
@@ -253,11 +257,11 @@ Sol             = 7             |   0
                 <!-- Europa  -->
                 <group>
                     <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-                    <scale scaleX = 0.06709 scaleY = 0 scaleZ = 0.06709 />
-                    <orbit radX = 0.07 radZ = 0.06 />
+                    <scale scaleX = 7.3 scaleY = 0 scaleZ = 0 />
+                    <orbit radX = 7.3 radZ = 7.3 />
 
                     <group>
-                        <translate X = 0 Y = 0 Z = 7.3/> 
+                        <translate X = 7.3 Y = 0 Z = 7.3/> 
                         <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                         <scale scaleX = 0.15 scaleY = 0.15 scaleZ = 0.15 />
                         <color R = 0.502 G = 0.502 B = 0.502 />  <!-- MISSING COLOR -->
@@ -273,20 +277,20 @@ Sol             = 7             |   0
 
 
 
-        <!-- Saturno  T = 6      Ds = 143
+        <!-- Saturno  T = 6      Ds = 75
                 Titan T = 0.26   Dp = 6.3
                 Rhea  T = 0.08   Dp = 6.1-->
         <group>
             <!-- Orbita -->
             <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-            <scale scaleX = 142.94 scaleY = 0 scaleZ = 142.94 />
-            <orbit radX = 142.94 radZ = 142 />
+            <scale scaleX = 0 scaleY = 0 scaleZ = 0 />
+            <orbit radX = 75 radZ = 75 />
 
             <!-- Planeta --> 
             <group>
-                <translate X = 0 Y = 143 Z = -143/> 
+                <translate X = 75 Y = 0 Z = 0/> 
                 <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
-                <scale scaleX = 1 scaleY = 1 scaleZ = 1 />
+                <scale scaleX = 6 scaleY = 6 scaleZ = 6 />
                 <color R = 1 G = 0.549 B = 0/> <!-- Dark Orange -->
                 <models> 
                     <model file = "sphere.3d" />
@@ -296,8 +300,8 @@ Sol             = 7             |   0
                 <!-- Titan  -->
                 <group>
                     <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-                    <scale scaleX = 0.122187 scaleY = 0 scaleZ = 0.122187 />
-                    <orbit radX = 0.12 radZ = 0.1 />
+                    <scale scaleX = 0 scaleY = 0 scaleZ = 0 />
+                    <orbit radX = 6.3 radZ = 6.3 />
 
                     <group>
                         <translate X = 6.3 Y = 6.3 Z = 0/> 
@@ -314,8 +318,8 @@ Sol             = 7             |   0
                  <!-- Rhea  -->
                 <group>
                     <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-                    <scale scaleX = 0.0527108 scaleY = 0 scaleZ = 0.0527108 />
-                    <orbit radX = 0.0527108 radZ = 0.05 />
+                    <scale scaleX = 0 scaleY = 0 scaleZ = 0. />
+                    <orbit radX = 6.1 radZ = 6.1 />
 
                     <group>
                         <translate X = 0 Y = 6.1 Z = 6.1/> 
@@ -333,17 +337,17 @@ Sol             = 7             |   0
         </group>
 
 
-        <!-- Urano     T = 2.5  Ds= 287
+        <!-- Urano     T = 2.5  Ds= 85
                 Triton T = 0.15 Dp= 2.7 -->
         <group>
             <!-- Orbita -->
             <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-            <scale scaleX = 287.099 scaleY = 0 scaleZ = 287.099 />
-            <orbit radX = 287.099 radZ = 287 />
+            <scale scaleX = 0 scaleY = 0 scaleZ = 0 />
+            <orbit radX = 85 radZ = 85 />
 
             <!-- Planeta --> 
             <group>
-                <translate X = -287 Y = -287 Z = 0/> 
+                <translate X = 85 Y = 0 Z = 0/> 
                 <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                 <scale scaleX = 2.5 scaleY = 2.5 scaleZ = 2.5 />
                 <color R = 0.2745 G = 0.5098 B = 0.7059 /> <!-- Light Steel Blue-->
@@ -354,8 +358,8 @@ Sol             = 7             |   0
                 <!-- Triton  -->
                 <group>
                     <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-                    <scale scaleX = 0.0354759 scaleY = 0 scaleZ = 0.0354759 />
-                    <orbit radX = 0.04 radZ = 0.035 />
+                    <scale scaleX = 0 scaleY = 0 scaleZ = 0 />
+                    <orbit radX = 2.7 radZ = 2.7 />
 
                     <group>
                         <translate X = 2.7 Y = 2.7 Z = 2.7 /> 
@@ -373,17 +377,17 @@ Sol             = 7             |   0
 
 
 
-        <!-- Neptuno    T = 2.5  Ds = 450
+        <!-- Neptuno    T = 2.5  Ds = 95
                 Titania T = 0.08 Dp = 2.8-->
         <group>
             <!-- Orbita -->
             <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-            <scale scaleX = 450.44 scaleY = 0 scaleZ = 450.44 />
-            <orbit radX = 450.44 radZ = 450 />
+            <scale scaleX = 0 scaleY = 0 scaleZ = 0 />
+            <orbit radX = 95 radZ = 95 />
 
             <!-- Planeta --> 
             <group>
-                <translate X = 450 Y = -4500 Z = 0/> 
+                <translate X = 95 Y = 0 Z = 0/> 
                 <rotate angle = 0 axisX = 0 axisY = 0 axisZ = 0/>
                 <scale scaleX = 2.5 scaleY = 2.5 scaleZ = 2.5 />
                 <color R = 0.25 G = 0.41 B = 0.88/> <!-- Royal Blue -->
@@ -395,8 +399,8 @@ Sol             = 7             |   0
 
                 <group>
                     <rotate angle = 0 axisX= 0 axisY = 0 axisZ = 0 />
-                    <scale scaleX = 0.1632917 scaleY = 0 scaleZ = 0.1632917 />
-                    <orbit radX = 0.1632917 radZ = 0.16 />
+                    <scale scaleX = 0 scaleY = 0 scaleZ = 0 />
+                    <orbit radX = 2.8 radZ = 2.8 />
 
                     <group>
                         <translate X = 2.8 Y = 0 Z = 0/> 

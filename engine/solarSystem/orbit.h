@@ -52,7 +52,7 @@ class Orbit {
         void setRadX(float x);
         float getRadX();
         void setRadZ(float z);
-        float getRadY();
+        float getRadZ();
 };
 
 #endif

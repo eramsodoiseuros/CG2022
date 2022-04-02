@@ -31,10 +31,23 @@ float posX = 0, posY = 0, posZ = 0,
 float fovy, zNear, zFar;
 
 
+void drawOrbit(float radX, float radZ, vector<float> colorsRGB) {
+	float slice = M_PI / 180;
+
+	glBegin(GL_LINE_STRIP);
+	glColor3f(colorsRGB.at(0), colorsRGB.at(1), colorsRGB.at(2));
+	
+	for (float i = 0; i <= (2 * M_PI); i += slice)
+		glVertex3f(cos(i) * radX, 0, sin(i) * radZ);
+
+	glEnd();
+}
+
 
 void drawCelestialBody(CelestialBody cb) {
 
 	Settings planetSetts = cb.getSettings();
+	Orbit planetOrbit = cb.getOrbit();
 	string primitiveFile = planetSetts.getPrimitiveName();
 
 
@@ -42,6 +55,8 @@ void drawCelestialBody(CelestialBody cb) {
 	posX = planetSetts.getTranslX(); posY = planetSetts.getTranslY(); posZ = planetSetts.getTranslZ();
 	// rotate
 	rAngle = planetSetts.getRotateAngle(); rotateX = planetSetts.getRotateX(); rotateY = planetSetts.getRotateY(); rotateZ = planetSetts.getRotateZ();
+
+	float rOrbit = planetOrbit.getRotateAngle(); float orbX = planetOrbit.getRotateX(); float orbY = planetOrbit.getRotateY(); float orbZ = planetOrbit.getRotateZ();
 	// scale
 	scaleX = planetSetts.getScaleX(); scaleY = planetSetts.getScaleY(); scaleZ = planetSetts.getScaleZ();
 	// color
@@ -52,6 +67,11 @@ void drawCelestialBody(CelestialBody cb) {
 	vector<float> colorRGB = vector<float>();
 	colorRGB.push_back(r); colorRGB.push_back(g); colorRGB.push_back(b);
 	currentPrimitive.setColor(colorRGB);
+
+	glPushMatrix();
+	glRotatef(rOrbit, orbX, orbY, orbZ);
+	drawOrbit(planetOrbit.getRadX(), planetOrbit.getRadZ(), colorRGB);
+	glPopMatrix();
 
 	glPushMatrix();
 	glScalef(scaleX, scaleY, scaleZ);
@@ -69,6 +89,7 @@ void drawCelestialBody(CelestialBody cb) {
 		for (CelestialBody moon : moons) {
 
 			drawCelestialBody(moon);
+
 		}
 	}
 
@@ -178,8 +199,6 @@ vector<CelestialBody> getSolarSystem(string solarSystemPath) {
 	cout << "\n#> li " << solarSystem.size() << " corpos celestes!!" << endl;
 	return solarSystem;
 }
-
-
 
 
 

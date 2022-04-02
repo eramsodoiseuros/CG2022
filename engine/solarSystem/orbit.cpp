@@ -56,6 +56,6 @@ void  Orbit::setRadZ(float z){
     radZ = z;
 }
 
-float Orbit::getRadY(){
+float Orbit::getRadZ(){
     return radZ;
 }

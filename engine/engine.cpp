@@ -18,15 +18,15 @@ vector<CelestialBody> solarSystem;
 
 // settings variables
 float posX = 0, posY = 0, posZ = 0,
-		rAngle = 0, rotateX = 0, rotateY = 0, rotateZ = 0,
-		scaleX = 0, scaleY = 0, scaleZ = 0,
-		r = 0, g = 0, b = 0;
+rAngle = 0, rotateX = 0, rotateY = 0, rotateZ = 0,
+scaleX = 0, scaleY = 0, scaleZ = 0,
+r = 0, g = 0, b = 0;
 
 
 
 /**
  * gluPerspective settings - variables
- * 
+ *
  */
 float fovy, zNear, zFar;
 
@@ -36,7 +36,7 @@ void drawOrbit(float radX, float radZ, vector<float> colorsRGB) {
 
 	glBegin(GL_LINE_STRIP);
 	glColor3f(colorsRGB.at(0), colorsRGB.at(1), colorsRGB.at(2));
-	
+
 	for (float i = 0; i <= (2 * M_PI); i += slice)
 		glVertex3f(cos(i) * radX, 0, sin(i) * radZ);
 
@@ -75,12 +75,12 @@ void drawCelestialBody(CelestialBody cb) {
 
 	glPushMatrix();
 	glTranslatef(posX, posY, posZ);
-	
+
 	glRotatef(rAngle, rotateX, rotateY, rotateZ);
 	glScalef(scaleX, scaleY, scaleZ);
 
-	
-	
+
+
 	currentPrimitive.drawSphere();
 
 	vector<CelestialBody> moons = cb.getMoons();
@@ -112,7 +112,7 @@ void changeSize(int w, int h) {
 
 	// Prevent a divide by zero, when window is too short
 	// (you cant make a window with zero width).
-	if(h == 0)
+	if (h == 0)
 		h = 1;
 
 	// compute window's aspect ratio 
@@ -125,12 +125,12 @@ void changeSize(int w, int h) {
 
 	// Load Identity Matrix
 	glLoadIdentity();
-	
+
 	// Set the viewport to be the entire window
-    glViewport(0, 0, w, h);
+	glViewport(0, 0, w, h);
 
 	// Set perspective
-	gluPerspective(fovy ,ratio, zNear, zFar);
+	gluPerspective(fovy, ratio, zNear, zFar);
 
 	// return to the model view matrix mode
 	glMatrixMode(GL_MODELVIEW);
@@ -156,13 +156,13 @@ void renderScene(void) {
 	glLoadIdentity();
 	gluLookAt(camera->getPos().getX(), camera->getPos().getY(),
 		camera->getPos().getZ(), camera->getLookAt().getX(),
-		camera->getLookAt().getY(), camera->getLookAt().getZ(), 
+		camera->getLookAt().getY(), camera->getLookAt().getZ(),
 		0.0f, 1.0f, 0.0f);
 
-// put the geometric transformations here
+	// put the geometric transformations here
 
 
-// put drawing instructions here
+	// put drawing instructions here
 	constructSolarSystem(solarSystem);
 
 	// End of frame
@@ -193,7 +193,7 @@ void getSolarSystemPrimitives(vector<CelestialBody> solarSystem) {
 
 vector<CelestialBody> getSolarSystem(string solarSystemPath) {
 
-	solarSystem = readSolarSystem(solarSystemPath,camera);
+	solarSystem = readSolarSystem(solarSystemPath, camera);
 	cameraSetup();
 	getSolarSystemPrimitives(solarSystem);
 
@@ -204,7 +204,7 @@ vector<CelestialBody> getSolarSystem(string solarSystemPath) {
 
 
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
 
 	if (argc != 2) {
 		cout << "Invalid number of arguments\n";
@@ -224,22 +224,22 @@ int main(int argc, char **argv) {
 	glutMouseFunc(Camera::processMouseButtons);
 	glutMotionFunc(Camera::processMouseMotion);
 
-	#ifndef __APPLE__
+#ifndef __APPLE__
 	glewInit();
-	#endif
+#endif
 
 	// aqui
 	cout << argv[1] << endl;
 	getSolarSystem(argv[1]);
 
-//  OpenGL settings
+	//  OpenGL settings
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	glFrontFace(GL_CW);
-	
-// enter GLUT's main cycle
+	glFrontFace(GL_LINE);
+
+	// enter GLUT's main cycle
 	glutMainLoop();
-	
+
 	return 1;
 }

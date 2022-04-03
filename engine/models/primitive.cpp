@@ -264,7 +264,6 @@ void Primitive::drawSphere(){
 		return;
 	}
 
-	
 	glBegin(GL_TRIANGLES);
 
 		glColor3f(r, g, b);

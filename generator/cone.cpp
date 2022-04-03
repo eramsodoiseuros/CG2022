@@ -41,7 +41,7 @@ void Cone::toFile(std::string s) {
     float alpha = 0.0f;
     float r = 0.0f;
     float rUp = 0.0f;
-    float yy= altura/-2;
+    float yy = 0.0f;
 
     for(int i=0;i<slices;i++){
         alpha = i*sliceSize;

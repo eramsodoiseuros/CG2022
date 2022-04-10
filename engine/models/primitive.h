@@ -13,7 +13,10 @@ class Primitive {
     private:
         string filename;
         string primitiveName;
-        vector<Point_3D> points;
+        //GLuint vbuffer;
+        unsigned int vBuffer;
+        unsigned int nPoints;
+        unsigned int nIndexes;
         float r,g,b;
 
     public:
@@ -22,7 +25,6 @@ class Primitive {
 
         Primitive(string file) {
             filename = file;
-            points = vector<Point_3D>();
             getFigure(file);
             r = 1.0f; g = 0.0f; b = 0.0f;
         }
@@ -31,20 +33,17 @@ class Primitive {
 
         string getFilename();
         string getPrimitiveName();
-        vector<Point_3D> getPoints();
         vector<float> getColor();
+        int getVBO();
+        int getNPoints();
+        int getNIndexes();
 
-        void setFilename(string file);
-        void setPrimitiveName(string name);
-        void setPoints(vector<Point_3D> p);
         void setColor(vector<float> rgbColor);
-
+        void setFilename(string s);
+        void setPrimitiveName(string s);
         Primitive clone();
 
-        void drawPlane();
-        void drawBox();
-        void drawCone();
-        void drawSphere();
+        void draw();
 };
 
 #endif

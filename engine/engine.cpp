@@ -22,7 +22,8 @@ rAngle = 0, rotateX = 0, rotateY = 0, rotateZ = 0,
 scaleX = 0, scaleY = 0, scaleZ = 0,
 r = 0, g = 0, b = 0;
 
-
+int frame = 0, fps = 0, times, timeBase;
+char title[50] = "";
 
 /**
  * gluPerspective settings - variables
@@ -62,7 +63,7 @@ void drawCelestialBody(CelestialBody cb) {
 	// color
 	r = planetSetts.getColorR(); g = planetSetts.getColorG(); b = planetSetts.getColorB();
 
-	Primitive currentPrimitive = storedFigures.getSphere(primitiveFile);
+	Primitive currentPrimitive = storedFigures.getPrimitive(primitiveFile);
 
 	vector<float> colorRGB = vector<float>();
 	colorRGB.push_back(r); colorRGB.push_back(g); colorRGB.push_back(b);
@@ -79,9 +80,7 @@ void drawCelestialBody(CelestialBody cb) {
 	glRotatef(rAngle, rotateX, rotateY, rotateZ);
 	glScalef(scaleX, scaleY, scaleZ);
 
-
-
-	currentPrimitive.drawSphere();
+	currentPrimitive.draw();
 
 	vector<CelestialBody> moons = cb.getMoons();
 
@@ -164,6 +163,20 @@ void renderScene(void) {
 
 	// put drawing instructions here
 	constructSolarSystem(solarSystem);
+
+	// FPS CALCULATIONS
+	frame++;
+	times = glutGet(GLUT_ELAPSED_TIME);
+
+	if (times - timeBase > 1000) {
+
+		fps = frame * 1000.0 / (times - timeBase);
+		timeBase = times;
+		frame = 0;
+	}
+
+	sprintf(title, "CG@DI-UM - Fase 3 - Grupo 11 <-> FPS: %d - Time: %d ", fps, times / 1000);
+	glutSetWindowTitle(title);
 
 	// End of frame
 	glutSwapBuffers();

@@ -17,24 +17,9 @@ string Primitive::getFilename(){
     return string(filename);
 }
 
-/**
- * @brief devolve o nome da primitiva
- * 
- * @return string 
- */
 string Primitive::getPrimitiveName(){
 
     return string(primitiveName);
-}
-
-/**
- * @brief devolve os pontos utilizados para definir a primitiva
- * 
- * @return vector<Point_3D> 
- */
-vector<Point_3D> Primitive::getPoints() {
-
-    return points;
 }
 
 vector<float> Primitive::getColor(){
@@ -42,6 +27,16 @@ vector<float> Primitive::getColor(){
 	vector<float> color = vector<float>();
 	color.push_back(r);color.push_back(g);color.push_back(b);
 	return color;
+}
+
+int Primitive::getVBO(){
+	return vBuffer;
+}
+int Primitive::getNPoints(){
+	return nPoints;
+}
+int Primitive::getNIndexes() {
+	return nIndexes;
 }
 
 /**
@@ -63,9 +58,12 @@ void Primitive::getFigure(string primitive3D){
 	}
 
 	bool fstLine = true;
-    int primitiveType = 0;
-	int nPoints = 0;
-	int nIndexes = 0;
+	int primitiveType = 0;
+	int arraySize = 0;
+	float* points = NULL;
+
+	int index = 0;
+	glEnableClientState(GL_VERTEX_ARRAY);
 
 	while(getline(dFile,l)){
 
@@ -77,24 +75,39 @@ void Primitive::getFigure(string primitive3D){
 		}
 
 		if(fstLine){
-            primitiveType = stoi(parser.at(0));
-			nPoints = stoi(parser.at(1));
-			nIndexes = stoi(parser.at(2));
+			primitiveType = stoi(parser.at(0));
+			int np = stoi(parser.at(1));
+			nPoints = np;
+			int ni = stoi(parser.at(2));
+			nIndexes = ni;
 			fstLine = false;
+
+			arraySize = nIndexes * 3;
+			points = (float*) malloc(arraySize * sizeof(float));
+
 		}
 		else {
+			float x,y,z;
+			x = stof(parser.at(0));
+			y = stof(parser.at(1));
+			z = stof(parser.at(2));
 
-			float x = stof(parser.at(0));
-			float y = stof(parser.at(1));
-			float z = stof(parser.at(2));
-			points.push_back(Point_3D(x,y,z));	
+			points[index++] = x;
+			points[index++] = y;
+			points[index++] = z;
 		}
 		parser.clear();
 	}
+	
 	dFile.close();
 
+	// VBO
+	glGenBuffers(1, &vBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vBuffer);
+	glBufferData(GL_ARRAY_BUFFER, arraySize * sizeof(float), points, GL_STATIC_DRAW);
+	free(points);
 
-    switch (primitiveType)
+	switch (primitiveType)
     {
     case 1:
         primitiveName = string("plane");
@@ -113,37 +126,17 @@ void Primitive::getFigure(string primitive3D){
         primitiveName = string("none");
         break;
     }
+
 }
 
-/**
- * @brief define o nome do ficheiro 3d da primitiva
- * 
- * @param s 
- */
 void Primitive::setFilename(string s){
 
 	filename = string(s);
 }
 
-/**
- * @brief define o nome da primitiva
- * 
- * @param s 
- */
 void Primitive::setPrimitiveName(string s){
 
 	primitiveName = string(s);
-}
-
-
-/**
- * @brief define o conjunto dos pontos que definem a primitiva
- * 
- * @param ps 
- */
-void Primitive::setPoints(vector<Point_3D> ps){
-
-	points = vector<Point_3D>(ps);
 }
 
 /**
@@ -158,7 +151,6 @@ void Primitive::setColor(vector<float> rgbColor){
 	b = rgbColor.at(2);
 }
 
-
 /**
  * @brief Devolve a cópia de uma primitiva
  * 
@@ -169,108 +161,29 @@ Primitive Primitive::clone(){
 	Primitive p = Primitive();
 	p.setFilename(filename);
 	p.setPrimitiveName(primitiveName);
-	p.setPoints(points);
+	p.vBuffer = vBuffer;
+	p.nPoints = nPoints;
+	p.nIndexes = nIndexes;
+	p.r = r; p.g = g; p.b = b;
+
 	return p;
 }
 
-
 /**
- * @brief Desenha um plano
- * 
- * Se a primitiva não for efetivamente um plano, concluirá um erro
+ * @brief Desenha uma primitiva com VBO
  * 
  */
-void Primitive::drawPlane(){
+void Primitive::draw(){
 
-	if (primitiveName.compare("sphere")){
+	int totalPoints = nIndexes * 3;
 
-		cout << "\n#> error: not the right drawing function\n";
-		return;
-	}
+	// Para adicionar cores a cada triângulo, tem de se adicionar um VBO e redefinir o readFile
+	glColor3f(r,g,b);
 
-	glBegin(GL_TRIANGLES);
-
-		//glColor3f(cor.getR(), cor.getG(), cor.getB());
-		glColor3f(r, g, b);
-
-		for(Point_3D p : points){
-			glVertex3f(p.getX(), p.getY(), p.getZ());
-		}
-
-	glEnd();
-}
-
-/**
- * @brief Desenha uma box
- * 
- * Se a primitiva não for efetivamente uma box, concluirá um erro
- * 
- */
-void Primitive::drawBox(){
-
-	if (primitiveName.compare("box")){
-
-		cout << "\n#> error: not the right drawing function\n";
-		return;
-	}
-
-	glBegin(GL_TRIANGLES);
-
-		glColor3f(r, g, b);
-
-		for(Point_3D p : points){
-			glVertex3f(p.getX(), p.getY(), p.getZ());
-		}
-
-	glEnd();
-}
-
-/**
- * @brief Desenha um cone
- * 
- * Se a primitiva não for efetivamente um cone, concluirá um erro
- * 
- */
-void Primitive::drawCone(){
-
-	if (primitiveName.compare("cone")){
-
-		cout << "\n#> error: not the right drawing function\n";
-		return;
-	}
-
-	glBegin(GL_TRIANGLES);
-
-		glColor3f(r, g, b);
-
-		for(Point_3D p : points){
-			glVertex3f(p.getX(), p.getY(), p.getZ());
-		}
-
-	glEnd();
-}
-
-/**
- * @brief Desenha uma sphere
- * 
- * Se a primitiva não for efetivamente uma sphere, concluirá um erro
- * 
- */
-void Primitive::drawSphere(){
-
-	if (primitiveName.compare("sphere")){
-
-		cout << "\n#> error: not the right drawing function\n";
-		return;
-	}
-
-	glBegin(GL_TRIANGLES);
-
-		glColor3f(r, g, b);
-
-		for(Point_3D p : points){
-			glVertex3f(p.getX(), p.getY(), p.getZ());
-		}
-
-		glEnd();
+	// Dar bind ao identificador associado da primitiva
+	glBindBuffer(GL_ARRAY_BUFFER, vBuffer);
+	// Definir o modo de leitura do VBO (3 vértices por triangulo, utilizando floats)
+	glVertexPointer(3, GL_FLOAT, 0, 0);
+	// Draw da primitiva, a começar no índice 0, nPoints
+	glDrawArrays(GL_TRIANGLES, 0, totalPoints);
 }

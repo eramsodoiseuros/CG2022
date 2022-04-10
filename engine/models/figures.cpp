@@ -87,6 +87,19 @@ int Figures::removePrimitive(string file3d){
 }
 
 
+Primitive Figures::getPrimitive(string file3d){
+
+    for (Primitive p : primitives){
+
+        if (!p.getFilename().compare(file3d)){
+
+            return p.clone();
+        }
+    }
+    return nullptr;
+}
+
+
 /**
  * @brief devolve o primeiro plano presente na lista das primitivas
  * 
@@ -104,24 +117,6 @@ Primitive Figures::getPlane(){
 }
 
 /**
- * @brief devolve um plano específico, identificando o seu ficheiro 3d de origem
- * 
- * @param file3d 
- */
-Primitive Figures::getPlane(string file3d){
-
-    for (Primitive p : primitives){
-
-        if (!p.getFilename().compare(file3d)){
-
-            return p.clone();
-        }
-    }
-    return nullptr;
-
-}
-
-/**
  * @brief devolve a primeira box presente na lista das primitivas
  * 
  */
@@ -130,23 +125,6 @@ Primitive Figures::getBox(){
     for (Primitive p : primitives){
 
         if (!p.getPrimitiveName().compare("box")){
-
-            return p.clone();
-        }
-    }
-    return nullptr;
-}
-
-/**
- * @brief devolve uma box específica, identificando o seu ficheiro 3d de origem
- * 
- * @param file3d 
- */
-Primitive Figures::getBox(string file3d){
-
-    for (Primitive p : primitives){
-
-        if (!p.getFilename().compare(file3d)){
 
             return p.clone();
         }
@@ -171,23 +149,6 @@ Primitive Figures::getCone(){
 }
 
 /**
- * @brief devolve um cone específico, identificando o seu ficheiro 3d de origem
- * 
- * @param file3d 
- */
-Primitive Figures::getCone(string file3d){
-
-    for (Primitive p : primitives){
-
-        if (!p.getFilename().compare(file3d)){
-
-            return p.clone();
-        }
-    }
-    return nullptr;
-}
-
-/**
  * @brief devolve a primeira sphere presente na lista das primitivas
  * 
  */
@@ -202,25 +163,6 @@ Primitive Figures::getSphere(){
     }
     return nullptr;
 }
-
-/**
- * @brief devolve uma sphere específica, identificando o seu ficheiro 3d de origem
- * 
- * @param file3d 
- */
-Primitive Figures::getSphere(string file3d){
-
-
-    for (Primitive p : primitives){
-
-        if (!p.getFilename().compare(file3d)){
-
-            return p.clone();
-        }
-    }
-    return nullptr;
-}
-
 
 int Figures::getSize() {
 

@@ -24,18 +24,13 @@ class Figures {
         int removePrimitive(Primitive p);
         int removePrimitive(string file3d);
 
+        Primitive getPrimitive(string file3d);
+
         Primitive getPlane();
-        Primitive getPlane(string file3d);
-
         Primitive getBox();
-        Primitive getBox(string file3d);
-
         Primitive getCone();
-        Primitive getCone(string file3d);
-
         Primitive getSphere();
-        Primitive getSphere(string file3d);
-
+        
         int getSize();
 
 };

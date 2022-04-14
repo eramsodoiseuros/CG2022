@@ -5,9 +5,9 @@ PROJECT(TPCGMIEI)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-add_executable(${PROJECT_NAME} engine.cpp utils/GL_lib.h utils/camera.h utils/camera.cpp utils/rgb.h utils/rgb.cpp utils/tinyxml.h utils/tinyxml.cpp utils/tinyxmlerror.cpp utils/tinyxmlparser.cpp utils/xmlparser.h utils/xmlparser.cpp utils/tinystr.h utils/tinystr.cpp ../utils/point_3d.h ../utils/point_3d.cpp
- models/figures.cpp models/figures.h models/primitive.cpp models/primitive.h solarSystem/celestialBody.cpp solarSystem/celestialBody.h solarSystem/orbit.cpp solarSystem/orbit.h
- solarSystem/solarSystemReader.cpp solarSystem/solarSystemReader.h solarSystem/specs.cpp solarSystem/specs.h)
+add_executable(${PROJECT_NAME} src/engine.cpp headers/GL_lib.h headers/camera.h src/utils/camera.cpp headers/rgb.h src/utils/rgb.cpp headers/tinyxml.h src/utils/tinyxml.cpp src/utils/tinyxmlerror.cpp src/utils/tinyxmlparser.cpp headers/xmlparser.h src/utils/xmlparser.cpp headers/tinystr.h src/utils/tinystr.cpp ../utils/point_3d.h ../utils/point_3d.cpp
+ src/figures/figures.cpp headers/figures.h src/figures/primitive.cpp headers/primitive.h src/specs/celestialBody.cpp headers/celestialBody.h src/specs/orbit.cpp headers/orbit.h
+ src/specs/solarSystemReader.cpp headers/solarSystemReader.h src/specs/specs.cpp headers/specs.h)
 
 
 find_package(OpenGL REQUIRED)

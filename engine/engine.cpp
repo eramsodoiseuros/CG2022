@@ -75,14 +75,10 @@ void drawCelestialBody(CelestialBody cb) {
 
 	glPushMatrix();
 	glTranslatef(posX, posY, posZ);
-	
 	glRotatef(rAngle, rotateX, rotateY, rotateZ);
 	glScalef(scaleX, scaleY, scaleZ);
 
-	
-	
 	currentPrimitive.drawSphere();
-
 	vector<CelestialBody> moons = cb.getMoons();
 
 	if (moons.size() != 0) {
@@ -93,7 +89,6 @@ void drawCelestialBody(CelestialBody cb) {
 
 		}
 	}
-
 	glPopMatrix();
 }
 

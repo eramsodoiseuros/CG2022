@@ -6,6 +6,7 @@
 #include "tinyxml.h"
 #include "rgb.h"
 #include "../../utils/point_3d.h"
+#include "camera.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ class Parser {
 		Point_3D prespective;
 
 	public:
-    	void lerXML(char *filename, std::vector<const char *> *ficheiros, vector<rgb> *cores, vector<Point_3D> *cam);
+    	void lerXML(char *filename, Camera* c);
 };
 
 #endif

@@ -1,57 +1,62 @@
-#ifndef PRIMITIVE_HEADER
-#define PRIMITIVE_HEADER
+#ifndef PRIMITIVE_HEADER_FILE
+#define PRIMITIVE_HEADER_FILE
 
 #include <string>
 #include <vector>
-#include "../../utils/point_3d.h"
+#include "transformation.h"
 
 using namespace std;
 
-
-class Primitive {
+class Primitive{
 
     private:
-        string filename;                // filename from 3d file
-        string primitiveName;           // primitive name (ex: sphere, plane, ...)
-        unsigned int vBuffer[2];           // VBOs
-        unsigned int nPoints;           // number of points from the primitive
-        unsigned int nIndexes;          // number of indexes used to print primitive's points
-        float r,g,b;                    // r g and b values for primitive's color
+        string filename;            // 3d file name
+        unsigned int vBuffer[2];    // VBOs (points, ??)
+        unsigned int nPoints;       // primitive's number of points
+        unsigned int nIndexes;      // primitive's number of indexes used to write 3d file
+        float r,g,b;                // r,g,b values for primitive's color (4th phase CHANGE)
+
+        string textureFilename;                     // texture filename
+        vector<Transformation*> transformations;     // list of transformations
+
+        vector<Primitive> appendedPrimitives;
+        bool isPatch;
+
 
     public:
-        
-        Primitive() {
 
-            filename = string("");
-            primitiveName = string("");
-            vBuffer[0] = 0;
-            vBuffer[1] = 0;
-            nPoints = 0;
-            nIndexes = 0;
-            r = 0.0f; g = 0.0f; b = 0.0f;
-        }
+        void readPrimitive(string file);
+        // constructors
+        Primitive();
+        Primitive(string filename);
 
-        Primitive(string file) {
-            filename = file;
-            getFigure(file);
-            r = 1.0f; g = 0.0f; b = 0.0f;
-        }
-
-        void getFigure(string file);
-
+        //gets
         string getFilename();
-        string getPrimitiveName();
+        string getTextureFilename();
+        //unsigned int* getVBOs();
+        unsigned int getPointsVBO();
+        // unsigned int get???VBO();
+        unsigned int getNPoints();
+        unsigned int getNIndexes();
         vector<float> getColor();
-        unsigned int* getVBO();
-        int getNPoints();
-        int getNIndexes();
+        vector<Transformation*> getTransformations();
+        vector<Primitive> getAppendedPrimitives();
+        bool getIsPatch();
 
+        // sets
         void setColor(vector<float> rgbColor);
         void setFilename(string s);
-        void setPrimitiveName(string s);
+        void setTextureFilename(string s);
+        void setTransformations(vector<Transformation*> transf);
+        void setAppendedPrimitives(vector<Primitive> primitives);
+        void setIsPatch(bool patch);
+        
+        // drawing function
+        void addAppendedPrimitive(Primitive p);
+        void addTransformation(Transformation *a);
         Primitive clone();
-
-        void draw();
+        void printInfo();
+        void Draw();
 };
 
 #endif

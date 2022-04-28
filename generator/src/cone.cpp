@@ -28,12 +28,12 @@ void Cone::toFile(std::string s) {
 
     int n_indices = 0, n_pontos = 0;
        
-    std::string outputFile = "../../3D/" + s;
+    std::string outputFile = "../3D/" + s;
 
     file.open(outputFile);
     n_pontos = slices*3 + 6*stacks;
     n_indices = slices*3 + 6*stacks;
-    file << "03," << n_pontos << "," << n_indices << std::endl; 
+    file << n_pontos << "," << n_indices << std::endl; 
 
 
     float stackSize = altura/stacks;

@@ -46,24 +46,20 @@ Distancia /
         <projection fov = 800 near = 1 far = 1000 />
     </camara>
 
-    <!-- talvez inserir isto dentro da camera -->
-    <lights>
-        <light type=1 posX='0' posY='0' posZ='0'/> <!-- Há mais coisas adicionar aqui -->
-    </lights>
 
     <group>
+
+        
         <!-- Sol (Origem) -->
         <group>
         <!-- há diferença se o rotate ou translate acontece primeiro? -->
-            <translate X = 0 Y = 0 Z = 0 timeT = 0/>
             <rotate angle = 10 axisX = 1/>      
             <color R = 1 G = 0.549 B = 0/> <!-- Dark Orange -->
             <!-- <color R = 253 G = 184 B = 19 />  Sun / Yellow Orange -->
             
             <group>
-                <translate timeT = 0 align = True/>    
                 <rotate axisY = 1 timeR = 67 /> 
-                <scale scaleX = 7 scaleY = 7 saleZ = 7/>
+                <scale scaleX = 7 scaleY = 7 scaleZ = 7/>
             
                 <models>
                     <model file = "sphere.3d" texture = "sun" />
@@ -77,19 +73,42 @@ Distancia /
         <!-- Mercurio T = 0.25 Distancia(d)= 13   -->
         <group>
             <!-- Orbita -->
-            <rotate angle = 0 axisY = 0/>
-            <orbit radX = 13 radZ = 13 aux = 16/> <!-- Valores para obter a orbita do planeta-->
-
+            <rotate angle = 7 axisY = 1/>
+            <orbit radX = 13 radZ = 12/> <!-- Valores para obter a orbita do planeta-->
+            
             <!-- Planeta --> 
             <group>
-
-                <translate timeT = 0 align = True>
-                    <point X = 9.1923885 Z = 9.1923885 />
-                    <!-- FALTAM OS PONTOS -->
+                
+                <translate timeT = 8.8 align = True>
+                    <point X = 8.993 Z = 8.993 />
+                    <point X = 6.296 Z = 10.905 />
+                    <point X = 3.236 Z = 12.077 />
+                    <point X = 0 Z = 12.471 />
+                    <point X = -3.236 Z = 12.077 />
+                    <point X = -6.296 Z = 10.905 />
+                    <point X = -8.993 Z = 8.993 />
+                    <point X = -11.126 Z = 6.423 />
+                    <point X = -12.503 Z = 3.35 />
+                    <point X = -12.98 Z = 0 />
+                    <point X = -12.503 Z = -3.35 />
+                    <point X = -11.126 Z = -6.423 />
+                    <point X = -8.993 Z = -8.993 />
+                    <point X = -6.296 Z = -10.905 />
+                    <point X = -3.236 Z = -12.077 />
+                    <point X = 0 Z = -12.471 />
+                    <point X = 3.236 Z = -12.077 />
+                    <point X = 6.296 Z = -10.905 />
+                    <point X = 8.993 Z = -8.993 />
+                    <point X = 11.126 Z = -6.423 />
+                    <point X = 12.503 Z = -3.35 />
+                    <point X = 12.98 Z = 0 />
+                    <point X = 12.503 Z = 3.35 />
+                    <point X = 11.126 Z = 6.423 />
                 </translate>
-
-                <rotate axisX = 1 timeR = 11/>
+                
                 <scale scaleX = 0.25 scaleY = 0.25 scaleZ = 0.25 />
+                <rotate axisX = 1 timeR = 11/>
+                
                 <color R = 0.6667 G = 0.6627 B = 0.6784 /> 
                 <!-- Silver Gray <color R = 192 G = 192 B = 192/> --> 
 
@@ -105,17 +124,41 @@ Distancia /
         <!-- Venus T = 0.6 Ds = 18 -->
         <group>
             <!-- Orbita -->
-            <rotate angle = 0 axisY= 0/>
-            <orbit radX = 18 radZ = 18 aux = 16 />
+            <rotate angle = 3.4 axisY = 1/>
+            <orbit radX = 20 radZ = 18/>
 
             <!-- Planeta --> 
             <group>
 
-                <translate timeT = 0 align = True>
-                    <point X = 7.345 Y = 0 Z = 16.433 />
+                <translate timeT = 22.5 align = True >
+                    <point X = 4.674 Z = 17.445 />
+                    <point X = 0 Z = 17.999 />
+                    <point X = -4.674 Z = 17.445 />
+                    <point X = -9.114 Z = 15.787 />
+                    <point X = -13.058 Z = 13.058 />
+                    <point X = -16.208 Z = 9.357 />
+                    <point X = -18.259 Z = 4.892 />
+                    <point X = -19 Z = 0 />
+                    <point X = -18.259 Z = -4.892 />
+                    <point X = -16.208 Z = -9.357 />
+                    <point X = -13.058 Z = -13.058 />
+                    <point X = -9.14 Z = -15.787 />
+                    <point X = -4.674 Z = -17.445 />
+                    <point X = 0 Z = -17.99 />
+                    <point X = 4.674 Z = -17.445 />
+                    <point X = 9.114 Z = -15.787 />
+                    <point X = 13.058 Z = -13.058 />
+                    <point X = 16.208 Z = -9.357 />
+                    <point X = 18.259 Z = -4.892 />
+                    <point X = 19 Z = 0 />
+                    <point X = 18.259 Z = 4.892 />
+                    <point X = 16.208 Z = 9.357 />
+                    <point X = 13.058 Z = 13.058 />
+                    <point X = 9.114 Z = 15.787 />
+                    
                 </translate>
-
-                <rotate axisY = 0 axisZ = 0 timeR = 14/>
+                
+                <rotate axisY = 1 timeR = 14/>
                 <scale scaleX = 0.6 scaleY = 0.6 scaleZ = 0.6 />
                 <color R = 0.918 G = 0.878 B = 0.784 />
                 <!-- Pearl <color R = 234 G = 224 B = 200/> -->
@@ -132,14 +175,11 @@ Distancia /
         <group>
             <!-- Orbita -->
             <rotate angle = 0 axisY = 0 />
-            <orbit radX = 21 radZ = 21 aux = 16/>
+            <orbit radX = 21 radZ = 21/>
 
             <!-- Planeta --> 
             <group>
-                <translate timeT = 10 align = True> 
-                    <point X = 21 Y = 0 Z = 0  />
-                </translate>
-
+                <translate X = 21 Y = 0 Z = 0 />
                 <rotate axisY = 1 timeR = 18/>
 
                 <!-- POSSIBILIDADE DE CRIAR AQUI UM GRUPO-->
@@ -153,16 +193,14 @@ Distancia /
 
                 <!-- Lua distancia da terra 0.03844 -->
                 <group>
-                    <rotate angle = 25 axisY= 1/>
-                    <orbit radX = 1.6 radZ = 1.6 aux = 16/>
+                    <rotate angle = 25 axisY = 1/>
+                    <orbit radX = 1.6 radZ = 1.6/>
 
                     <group>
-                        <translate timeT = 0 align = True> 
-                            <point X = 1.6 Y = 0 Z = 0/>
-                        </translate>
+                        <translate X = 1.6 Y = 0 Z = 0/> 
                     
                         <rotate axisY = 1 timeR = 0/>
-                        <scale scaleX =  0.2 scaleY =  0.2 scaleZ =  0.2/>
+                        <scale scaleX = 0.2 scaleY = 0.2 scaleZ = 0.2/>
                         <color R = 0.502 G = 0.502 B = 0.502 /> 
                         <!-- Gray <color R = 255 G = 0 B = 0/> -->
                         <models> 
@@ -185,9 +223,7 @@ Distancia /
 
             <!-- Planeta --> 
             <group>
-                <translate  timeT = 0 align = True> 
-                    <point X = 24.78 Y = 0 Z = -3.309/>
-                </translate>
+                <translate X = 24.78 Y = 0 Z = -3.309/>
 
                 <rotate axisY = 0 axisZ = 0 timeR = 0/>
                 <scale scaleX = 0.35  scaleY = 0.35  scaleZ = 0.35  />
@@ -210,13 +246,11 @@ Distancia /
         <group>
             <!-- Orbita -->
             <rotate angle = 0 axisY = 0/>
-            <orbit radX = 45 radZ = 45 aux = 16 />
+            <orbit radX = 45 radZ = 45/>
 
             <!-- Planeta --> 
             <group>
-                <translate timeT = 23 align = True> 
-                    <point X = 0 Y = 0 Z = -45 />
-                </translate>
+                <translate Z = -45 />
 
                 <rotate axisX = 0 timeR = 0/>
                 <scale scaleX = 7 scaleY = 7 scaleZ = 7 />
@@ -229,14 +263,12 @@ Distancia /
                 <!-- Ganyme Distancia de Jupiter -->
                 <group>
                     <rotate angle = 0 axisY = 0 />
-                    <orbit radX = 2.5 radZ = 2.5 aux = 16 />
+                    <orbit radX = 2.5 radZ = 2.5 />
 
                     <group>
-                        <translate timeT = 4 align = True> 
-                            <point X = 2.5 Y = 0 Z = 0 />
-                        </translate>
+                        <translate X = 2.5 />
 
-                        <rotate axisX = 0 timeR = 0/>
+                        <rotate axisX = 1 />
                         <scale scaleX = 0.26 scaleY = 0.26 scaleZ = 0.26 />
                         <color R = 0.4 G = 0 B = 0.6 />  <!-- MISSING COLOR -->
 
@@ -254,11 +286,9 @@ Distancia /
                     <orbit radX = 2.1 radZ = 2.1 aux = 16 />
 
                     <group>
-                        <translate timeT = 0 align = True> 
-                            <point X = 0 Y = 0 Z = 2.1 />
-                        </translate>
+                        <translate X = 0 Y = 0 Z = 2.1 />
 
-                        <rotate axisY = 0 timeR = 0/>
+                        <rotate axisY = 1/>
                         <scale scaleX = 0.24 scaleY = 0.24 scaleZ = 0.24 />
                         <color R = 0 G = 0.502 B = 0.502 />  <!-- MISSING COLOR -->
 
@@ -276,11 +306,9 @@ Distancia /
                     <orbit radX = 1.7 radZ = 1.7 aux = 16/>
 
                     <group>
-                        <translate timeT = 0 align = True> 
-                            <point  X = -1.7 Y = 0 Z = 0 />
-                        </translate>
+                        <translate X = -1.7 Y = 0 Z = 0 />
 
-                        <rotate axisY = 0 timeR = 0/>
+                        <rotate axisY = 1/>
                         <scale scaleX = 0.18 scaleY = 0.18 scaleZ = 0.18 />
                         <color R = 0.502 G = 0.502 B = 0 />  <!-- MISSING COLOR -->
 
@@ -298,9 +326,7 @@ Distancia /
                     <orbit radX = 1.3 radZ = 1.3 aux = 16/>
 
                     <group>
-                        <translate timeT = 0 align = True> 
-                            <point X = 0 Y = 0 Z = -1.3 />
-                        </translate>
+                        <translate X = 0 Y = 0 Z = -1.3 /> 
 
                         <rotate axisY = 0 axisZ = 0 timeR = 0/>
                         <scale scaleX = 0.15 scaleY = 0.15 scaleZ = 0.15 />
@@ -329,9 +355,7 @@ Distancia /
      
             <!-- Planeta --> 
             <group>
-                <translate timeT = 0 align = True>
-                    <point  X = -75 Y = 0 Z = 0 />
-                </translate> 
+                <translate  X = -75 Y = 0 Z = 0 />
 
                 <rotate axisY = 0 axisZ = 0 timeR = 0/>
                 <scale scaleX = 6 scaleY = 6 scaleZ = 6 />
@@ -347,9 +371,7 @@ Distancia /
                     <orbit radX = 1.25 radZ = 1.25 aux = 16 />
 
                     <group>
-                        <translate timeT = 0 align = True> 
-                            <point X = 1.25 Y = 0 Z = 0 />
-                        </translate>
+                        <translate X = 1.25 Y = 0 Z = 0 />
 
                         <rotate axisZ = 0 timeR = 0/>
                         <scale scaleX = 0.043  scaleY = 0.043  scaleZ = 0.043  />
@@ -368,9 +390,7 @@ Distancia /
                     <orbit radX = 1.15 radZ = 1.15 aux = 16/>
 
                     <group>
-                        <translate timeT = 0 align = True> 
-                            <point X = -1.15 Y = 0 Z = 0 />
-                        </translate>
+                        <translate X = -1.15 Y = 0 Z = 0 />
 
                         <rotate axisY = 0 axisZ = 0 timeR = 21/>
                         <scale scaleX = 0.03  scaleY = 0.03  scaleZ = 0.03  />
@@ -392,13 +412,11 @@ Distancia /
         <group>
             <!-- Orbita -->
             <rotate angle = 0 axisY = 0/>
-            <orbit radX = 85 radZ = 85 aux = 16 />
+            <orbit radX = 85 radZ = 85/>
 
             <!-- Planeta --> 
             <group>
-                <translate timeT = 0 align = True> 
-                    <point X = 0 Y = 0 Z = 85/>
-                </translate>
+                <translate X = 0 Y = 0 Z = 85/>
 
                 <rotate axisY = 0 timeR = 0/>
                 <scale scaleX = 2.5 scaleY = 2.5 scaleZ = 2.5 />
@@ -414,9 +432,7 @@ Distancia /
                     <orbit radX = 1.2 radZ = 1.2 aux = 16/>
 
                     <group>
-                        <translate timeT = 0 align = True> 
-                            <point X = 1.2 Y = 0 Z = 0/>
-                        </translate>
+                        <translate X = 1.2 Y = 0 Z = 0/>
 
                         <rotate axisY = 0 timeR = 0/>
                         <scale scaleX = 0.15  scaleY = 0.15  scaleZ = 0.15  />
@@ -442,9 +458,7 @@ Distancia /
 
             <!-- Planeta --> 
             <group>
-                <translate timeT = 0 align = True> 
-                    <point X = 95 Y = 0 Z = 0 />
-                </translate>
+                <translate X = 95 Y = 0 Z = 0 />
 
                 <rotate axisY = 0 axisZ = 0 timeR = 0/>
                 <scale scaleX = 2.5 scaleY = 2.5 scaleZ = 2.5 />
@@ -460,9 +474,8 @@ Distancia /
                     <orbit radX = 1.2 radZ = 1.2 aux = 16 />
 
                     <group>
-                        <translate timeT = 0 align = True>
-                            <point X = 1.2 Y = 0 Z = 0/>
-                        </translate> 
+                        <translate X = 1.2 Y = 0 Z = 0/>
+
                         <rotate axisY = 0 timeR = 0/>
                         <scale scaleX = 0.08  scaleY = 0.08  scaleZ = 0.08  />
                         <color R = 0.25 G = 1 B = 1 />  <!-- MISSING COLOR -->

@@ -1,5 +1,9 @@
 #include "../../headers/xmlparser.h"
+#include "../../headers/rotation.h"
+#include "../../headers/translation.h"
+#include "../../headers/scale.h"
 #include <iostream>
+
 
 
 void parseValues(TiXmlElement* elem, char* value1, char* value2, char* value3, Point_3D* point) {
@@ -20,8 +24,12 @@ void parseValues(TiXmlElement* elem, char* value1, char* value2, char* value3, P
         }
         attribute = attribute->Next();
     }
-    (* point).setPointTo(x, y, z);
+    point->setX(x);
+    point->setY(y);
+    point->setZ(z);
 }
+
+
 
 void parseCamera2(TiXmlElement* camera, Camera* c) {
 
@@ -48,51 +56,53 @@ void parseCamera2(TiXmlElement* camera, Camera* c) {
     printf("\nposition -> %0.f, %0.f, %0.f", pos.getX(), pos.getY(), pos.getZ());
     printf("\nlookAt -> %2.f, %2.f, %2.f", lookAt.getX(), lookAt.getY(), lookAt.getZ());
     printf("\nup -> %2.f, %2.f, %2.f", up.getX(), up.getY(), up.getZ());
-    printf("\npersp -> %2.f, %2.f, %2.f", persp.getX(), persp.getY(), persp.getZ());
+    printf("\npersp -> %2.f, %2.f, %2.f\n\n\n", persp.getX(), persp.getY(), persp.getZ());
 
     c->setPos(pos.getX(), pos.getY(), pos.getZ());
     c->setLookAt(lookAt.getX(), lookAt.getY(), lookAt.getZ());
     c->setPersp(persp.getX(), persp.getY(), persp.getZ());
+    // what about UP ?
 }
 
 
 
-void parseCor(TiXmlElement *color, std::vector<rgb> *cores){
-    rgb cor = rgb ();
+void parseCor(TiXmlElement *color, std::vector<float> *cores){
 
     const char* r = color->Attribute("R");
     const char* g = color->Attribute("G");
     const char* b = color->Attribute("B");
 
-    cor.setR(atof(r));
-    cor.setG(atof(g));
-    cor.setB(atof(b));
-
-    cores->push_back(cor);
+    cores->push_back(atof(r));
+    cores->push_back(atof(g));
+    cores->push_back(atof(b));
 }
 
-void parseFigura(TiXmlElement *models, std::vector<const char *> *files) {
+
+
+void parseFigura(TiXmlElement *models, Primitive *p) {
+
     TiXmlElement *model = models->FirstChildElement("model");
-    const char* ficheiro = "";
-    ficheiro = model->Attribute("file");
 
-    const char* texture = "";
-    texture = model->Attribute("texture");
+    string filename = string(model->Attribute("file"));
+    string texture = string(model->Attribute("texture"));
 
-    files->push_back(ficheiro);
-    printf(ficheiro);
-}
-
-Point_3D parsePoint(TiXmlElement* element) {
-    Point_3D point = Point_3D();
-    parseValues(element, "X", "Y", "Z", &point);
-    return point;
+    cout << filename << " " << texture << "\n" << endl;
+    (*p).setFilename(filename);
+    (*p).setTextureFilename(texture);
+    (*p).readPrimitive(filename);
 }
 
 
-void parseTranslate2(TiXmlElement* operation) { 
+
+void parsePoint(TiXmlElement* element, Point_3D *p) {
+    parseValues(element, "X", "Y", "Z", p);
+}
+
+
+
+void parseTranslate2(TiXmlElement* operation, Primitive *p) { 
     TiXmlAttribute* attribute = operation->FirstAttribute();
-    vector<Point_3D> translatePoints;
+    vector<Point_3D*> translatePoints = vector<Point_3D*>();
 
     float time = 0;
     bool allign = false;
@@ -103,11 +113,8 @@ void parseTranslate2(TiXmlElement* operation) {
             if (strcmp(name, "true") == 0 || strcmp(name, "True") == 0) {
                 allign = true;
             }
-            else {
-                allign = false;
-            }
         }
-        if (strcmp(name, "time") == 0) {
+        else if (strcmp(name, "timeT") == 0) {
             time = atof(attribute->Value());
         }
         attribute = attribute->Next();
@@ -116,23 +123,31 @@ void parseTranslate2(TiXmlElement* operation) {
     printf("#> Warning, translation with time 0.\n");
 
     TiXmlElement* child = operation->FirstChildElement();
+    
     while (child) {
-        translatePoints.push_back(parsePoint(child));
+        Point_3D *point = new Point_3D();
+        parsePoint(child, point);
+        
+        translatePoints.push_back(point);
         child = child->NextSiblingElement();
     }
-    
 
+
+    Transformation *t = new Translation(0.0f,0.0f,0.0f,time,translatePoints);
+    (*p).addTransformation(t);
 }
 
-void parseTranslate(TiXmlElement *operation){
+
+
+void parseTranslate(TiXmlElement *operation, Primitive *p){
     TiXmlAttribute *attribute = operation->FirstAttribute();
 
     float x = 0, y = 0, z = 0;
 
     while (attribute) {
         const char* name = attribute->Name();
-        if (strcmp(name, "allign") == 0 || strcmp(name, "time") == 0) {  
-            parseTranslate2(operation);
+        if (strcmp(name, "allign") == 0 || strcmp(name, "timeT") == 0) {  
+            parseTranslate2(operation, p);
             return;
         }
         else {
@@ -148,13 +163,15 @@ void parseTranslate(TiXmlElement *operation){
         }
         attribute = attribute->Next();
     }
-  //  printf("\ntranslate concluido x=%0.f y=%0.f z=%0.f", x, y, z);
 
+    Transformation *t = new Translation(x,y,z);
+    (*p).addTransformation(t);
 }
 
-void parseRotation(TiXmlElement* operation) {
-    TiXmlAttribute* attribute = operation->FirstAttribute();
 
+
+void parseRotation(TiXmlElement* operation, Primitive *p) {
+    TiXmlAttribute* attribute = operation->FirstAttribute();
     float x = 0, y = 0, z = 0, time = 0, angle = 0;
 
     while (attribute) {
@@ -168,7 +185,7 @@ void parseRotation(TiXmlElement* operation) {
         if (strcmp(name, "axisZ") == 0) {
             z = atof(attribute->Value());
         }
-        if (strcmp(name, "time") == 0) {
+        if (strcmp(name, "timeR") == 0) {
             time = atof(attribute->Value());
         }
         if (strcmp(name, "angle") == 0) {
@@ -177,20 +194,24 @@ void parseRotation(TiXmlElement* operation) {
         attribute = attribute->Next();
     }
     if (time == 0 || angle == 0) {
-        printf("#> Warning, rotation with time 0.\n");
+        printf("#> Warning, rotation with time 0.");
     }
-  //  printf("\nrotate concluido x=%0.f y=%0.f z=%0.f angle=%0.f time=%0.f", x, y, z, angle, time);
+
+    Transformation *r = new Rotation(angle, x, y, z , time);
+    (*p).addTransformation(r);
 }
 
 
-void parseScale(TiXmlElement* operation) {
+
+void parseScale(TiXmlElement* operation, Primitive *p) {
 
     Point_3D scale = Point_3D();
-    parseValues(operation, "scaleX", "scaleY", "scaleZ",&scale);
-
-  
-    //printf("\nscale concluido x=%0.f y=%0.f z=%0.f", scale.getX(), scale.getY(), scale.getZ());
+    parseValues(operation, "scaleX", "scaleY", "scaleZ", &scale);
+    Transformation *s = new Scale(scale.getX(), scale.getY(), scale.getZ());
+    (*p).addTransformation(s);
 }
+
+
 
 Point_3D parseLightPoint(TiXmlElement* lights) { 
     Point_3D point = Point_3D();
@@ -198,11 +219,15 @@ Point_3D parseLightPoint(TiXmlElement* lights) {
     return point;
 }
 
+
+
 Point_3D parseLightDirec(TiXmlElement* lights) { 
     Point_3D point = Point_3D();
     parseValues(lights, "dirX", "dirY", "dirZ", &point);
     return point;
 }
+
+
 
 void parseLightSpot(TiXmlElement* lights) {
     TiXmlAttribute* attribute = lights->FirstAttribute();
@@ -238,6 +263,8 @@ void parseLightSpot(TiXmlElement* lights) {
     }
 }
 
+
+
 void parseLight(TiXmlElement* group) {
     TiXmlElement* lights = group->FirstChildElement();
 
@@ -257,57 +284,115 @@ void parseLight(TiXmlElement* group) {
     }
 }
 
-void parseGroup(TiXmlElement* group) {
+bool hasMoon(TiXmlElement* elem) {
+    TiXmlElement* nextElem = elem->NextSiblingElement();
+    if (nextElem) {
+        return (strcmp(nextElem->Value(), "group") == 0);
+    }
+    return false;
+}
+
+
+TiXmlElement* parseGroup(TiXmlElement* group, bool planet, bool* planetWmoons, Primitive *p) {
     TiXmlElement* elem = group->FirstChildElement();
-
+  
     while (elem) {
-
         const char* name = elem->Value();
 
-        if (strcmp(name, "group") == 0) {
-            parseGroup(elem);
-
+        if (planet) {
+            *planetWmoons = hasMoon(elem);
         }
-        else if (strcmp(name, "models") == 0) {
-          //  parseFigura(elem, files);
 
+        if (strcmp(name, "group") == 0) {
+            return elem;
+        }
+
+        else if (strcmp(name, "models") == 0) {
+            parseFigura(elem, p);
         }
         else if (strcmp(name, "color") == 0) {
-            //parseCor(elem, cores);
+            vector<float> rgb = vector<float>();
+            parseCor(elem, &rgb);
+            (*p).setColor(rgb);
         }
         else if (strcmp(name, "translate") == 0) {
-            parseTranslate(elem);
+            parseTranslate(elem, p);
         }
         else if (strcmp(name, "rotate") == 0) {
-            parseRotation(elem);
+            parseRotation(elem, p);
         }
         else if (strcmp(name, "scale") == 0) {
-            parseScale(elem);
+            parseScale(elem, p);
+        }
+
+        if (*planetWmoons) {
+            elem = elem->NextSiblingElement();
+            return elem;
         }
         elem = elem->NextSiblingElement();
+
+    }
+    return group;
+}
+
+
+void parsePlanet(TiXmlElement* group, Primitive *p) {
+    TiXmlElement* aux = group;
+    bool planetWmoons = false;
+
+    aux = parseGroup(aux,false,&planetWmoons, p);   //Parsing de orbita
+    aux = parseGroup(aux,true,&planetWmoons, p);    //Parsing de planeta
+
+
+    if (planetWmoons) {     //Se houver luas
+        while (aux) {       //Enquanto ha luas
+
+            Primitive moon = Primitive();
+            TiXmlElement* moons = aux;
+            planetWmoons = false;
+            moons = parseGroup(moons, false, &planetWmoons, &moon);    //Parsing de orbita de luas
+            moons = parseGroup(moons, true, &planetWmoons, &moon);     //Parsing de lua
+            aux = aux->NextSiblingElement();                    //Next
+            (*p).addAppendedPrimitive(moon);
+        }
     }
 }
 
 
-
-void Parser::lerXML(char *filename, Camera* c) {
+/**
+ * @brief Função principal de leitura de XML
+ * 
+ * @param filename 
+ * @param c 
+ */
+vector<Primitive> Parser::lerXML(char *filename, Camera* c) {
 
     TiXmlDocument config;
     if (!config.LoadFile(filename)) {
         cout << "file doesnt exist" << endl;
-        return;
+        return vector<Primitive>();
     }
 
     TiXmlElement *scene = config.FirstChildElement();
     TiXmlElement *camera = scene->FirstChildElement();
-    cout << "ola" << endl;
     parseCamera2(camera,c);
 
-    TiXmlElement *group = camera->NextSiblingElement();
 
-    while (group) { 
-        parseGroup(group);
-        group = group->NextSiblingElement();
+    vector<Primitive> primitives = vector<Primitive>();
+
+
+    TiXmlElement *group = camera->NextSiblingElement();
+    TiXmlElement* planetGroup = group->FirstChildElement();
+
+    while (planetGroup) {
+
+        Primitive planet = Primitive();
+
+        parsePlanet(planetGroup, &planet);
+        primitives.push_back(planet);
+        planetGroup = planetGroup->NextSiblingElement();
+        planet.printInfo();
     }
-    
+
+    return primitives;
 }

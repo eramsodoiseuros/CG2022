@@ -60,7 +60,7 @@ void Box::toFile(string file) {
 
     ofstream outFile;
     
-    string outputFile = "../../3D/" + file;
+    string outputFile = "../3D/" + file;
     outFile.open(outputFile, ios::out | ios::trunc);
 
     vector<Plane> boxPlanes = getBoxPlanes();
@@ -72,7 +72,7 @@ void Box::toFile(string file) {
         totalIndexes += p.getNumberOfIndexes();
     }
 
-    outFile << "02," << totalPoints << "," << totalIndexes << endl;
+    outFile << totalPoints << "," << totalIndexes << endl;
 
     for(Plane p : boxPlanes){
 

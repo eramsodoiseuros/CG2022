@@ -6,8 +6,9 @@ PROJECT(TPCGMIEI)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 add_executable(${PROJECT_NAME} src/engine.cpp headers/GL_lib.h headers/camera.h src/utils/camera.cpp headers/rgb.h src/utils/rgb.cpp headers/tinyxml.h src/utils/tinyxml.cpp src/utils/tinyxmlerror.cpp src/utils/tinyxmlparser.cpp headers/xmlparser.h src/utils/xmlparser.cpp headers/tinystr.h src/utils/tinystr.cpp ../utils/point_3d.h ../utils/point_3d.cpp
- src/figures/figures.cpp headers/figures.h src/figures/primitive.cpp headers/primitive.h src/specs/celestialBody.cpp headers/celestialBody.h src/specs/orbit.cpp headers/orbit.h
- src/specs/solarSystemReader.cpp headers/solarSystemReader.h src/specs/specs.cpp headers/specs.h)
+ src/figures/primitive.cpp headers/primitive.h
+ src/specs/rotation.cpp src/specs/scale.cpp src/specs/translation.cpp headers/rotation.h headers/scale.h headers/translation.h headers/transformation.h
+ )
 
 
 find_package(OpenGL REQUIRED)

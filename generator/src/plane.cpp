@@ -216,14 +216,14 @@ void Plane::toFile(string file){
 
     ofstream outFile;
     
-    string outputFile = "../../3D/" + file;
+    string outputFile = "../3D/" + file;
 
     outFile.open(outputFile, ios::out | ios::trunc);
 
     vector<Point_3D> pts = planePoints;
     vector<int> idxs = planePointsIndexes;
 
-    outFile << "01," << pts.size() << "," << idxs.size() << endl;
+    outFile << pts.size() << "," << idxs.size() << endl;
 
     for(int i : idxs){
 

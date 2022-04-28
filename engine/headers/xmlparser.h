@@ -1,12 +1,12 @@
 #ifndef ENGINE_XMLPARSER_H
 #define ENGINE_XMLPARSER_H
 
+#include "tinyxml.h"
 #include <string>
 #include <vector>
-#include "tinyxml.h"
-#include "rgb.h"
 #include "../../utils/point_3d.h"
 #include "camera.h"
+#include "primitive.h"
 
 using namespace std;
 
@@ -19,7 +19,7 @@ class Parser {
 		Point_3D prespective;
 
 	public:
-    	void lerXML(char *filename, Camera* c);
+    	vector<Primitive> lerXML(char *filename, Camera* c);
 };
 
 #endif

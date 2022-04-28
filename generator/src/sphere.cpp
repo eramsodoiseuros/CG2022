@@ -105,14 +105,14 @@ void Sphere::toFile(string file){
 
     ofstream outFile;
 
-    string outputFile = "../../3D/" + file;
+    string outputFile = "../3D/" + file;
 
     outFile.open(outputFile, ios::out | ios::trunc);
 
     vector<Point_3D> pts = spherePoints;
     vector<short> idxs = sphereIndexes;
 
-    outFile << "04," << pts.size() << "," << idxs.size() << endl;
+    outFile << pts.size() << "," << idxs.size() << endl;
 
     for(short i : idxs){
 
@@ -121,7 +121,3 @@ void Sphere::toFile(string file){
 
     outFile.close();
 }
-
-
-
-

@@ -1,22 +1,19 @@
 #include "../headers/camera.h"
-#include "../headers/scene.h"
-#include "../headers/figures.h"
-#include "../headers/solarSystemReader.h"
+#include "../headers/xmlparser.h"
 #pragma
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <typeinfo>
 using namespace std;
 
 
-// Objeto onde ficam guardados os .3D files!
-Figures storedFigures = Figures();
 // Camera
 Camera* camera = Camera::getInstance();
+// primitives
+vector<Primitive> scenePrimitives = vector<Primitive>();
 
-// Solar System bodies
-vector<CelestialBody> solarSystem;
 
 
 // settings variables
@@ -32,7 +29,7 @@ char title[50] = "";
 // gluPerspective settings - variables
 float fovy, zNear, zFar;
 
-
+/*
 void drawOrbit(float radX, float radZ, vector<float> colorsRGB) {
 	float slice = M_PI / 180;
 
@@ -44,64 +41,7 @@ void drawOrbit(float radX, float radZ, vector<float> colorsRGB) {
 
 	glEnd();
 }
-
-
-void drawCelestialBody(CelestialBody cb) {
-
-	Settings planetSetts = cb.getSettings();
-	Orbit planetOrbit = cb.getOrbit();
-	string primitiveFile = planetSetts.getPrimitiveName();
-
-
-	// translate
-	posX = planetSetts.getTranslX(); posY = planetSetts.getTranslY(); posZ = planetSetts.getTranslZ();
-	// rotate
-	rAngle = planetSetts.getRotateAngle(); rotateX = planetSetts.getRotateX(); rotateY = planetSetts.getRotateY(); rotateZ = planetSetts.getRotateZ();
-
-	float rOrbit = planetOrbit.getRotateAngle(); float orbX = planetOrbit.getRotateX(); float orbY = planetOrbit.getRotateY(); float orbZ = planetOrbit.getRotateZ();
-	// scale
-	scaleX = planetSetts.getScaleX(); scaleY = planetSetts.getScaleY(); scaleZ = planetSetts.getScaleZ();
-	// color
-	r = planetSetts.getColorR(); g = planetSetts.getColorG(); b = planetSetts.getColorB();
-
-	Primitive currentPrimitive = storedFigures.getPrimitive(primitiveFile);
-
-	vector<float> colorRGB = vector<float>();
-	colorRGB.push_back(r); colorRGB.push_back(g); colorRGB.push_back(b);
-	currentPrimitive.setColor(colorRGB);
-
-	glPushMatrix();
-	glRotatef(rOrbit, orbX, orbY, orbZ);
-	drawOrbit(planetOrbit.getRadX(), planetOrbit.getRadZ(), colorRGB);
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(posX, posY, posZ);
-	glRotatef(rAngle, rotateX, rotateY, rotateZ);
-	glScalef(scaleX, scaleY, scaleZ);
-
-	currentPrimitive.drawSphere();
-	vector<CelestialBody> moons = cb.getMoons();
-
-	if (moons.size() != 0) {
-
-		for (CelestialBody moon : moons) {
-
-			drawCelestialBody(moon);
-
-		}
-	}
-	glPopMatrix();
-}
-
-
-void constructSolarSystem(vector<CelestialBody> solarSystem) {
-
-	for (CelestialBody cb : solarSystem) {
-
-		drawCelestialBody(cb);
-	}
-}
+*/
 
 
 
@@ -149,15 +89,19 @@ void renderScene(void) {
 
 	// set the camera
 	glLoadIdentity();
-	gluLookAt(camera->getPos().getX(), camera->getPos().getY(),
-		camera->getPos().getZ(), camera->getLookAt().getX(),
-		camera->getLookAt().getY(), camera->getLookAt().getZ(),
+	gluLookAt(camera->getPos().getX(), camera->getPos().getY(),camera->getPos().getZ(),
+		camera->getLookAt().getX(), camera->getLookAt().getY(), camera->getLookAt().getZ(),
 		0.0f, 1.0f, 0.0f);
+
 
 	// put the geometric transformations here
 
 	// put drawing instructions here
-	constructSolarSystem(solarSystem);
+	for (Primitive p : scenePrimitives){
+
+		p.Draw();
+	}
+	
 
 	// FPS CALCULATIONS
 	frame++;
@@ -175,39 +119,6 @@ void renderScene(void) {
 
 	// End of frame
 	glutSwapBuffers();
-}
-
-
-
-void getSolarSystemPrimitives(vector<CelestialBody> solarSystem) {
-
-	for (CelestialBody cb : solarSystem) {
-
-		string planetName = cb.getSettings().getPrimitiveName();
-		storedFigures.addPrimitive(planetName);
-		cout << planetName << endl;
-
-		vector<CelestialBody> moons = cb.getMoons();
-		if (moons.size() != 0) {
-
-			for (CelestialBody innercb : moons) {
-
-				string moonName = innercb.getSettings().getPrimitiveName();
-				storedFigures.addPrimitive(moonName);
-			}
-		}
-	}
-}
-
-
-vector<CelestialBody> getSolarSystem(string solarSystemPath) {
-
-	solarSystem = readSolarSystem(solarSystemPath, camera);
-	cameraSetup();
-	getSolarSystemPrimitives(solarSystem);
-
-	cout << "\n#> li " << solarSystem.size() << " corpos celestes!!" << endl;
-	return solarSystem;
 }
 
 
@@ -234,13 +145,20 @@ int main(int argc, char** argv) {
 	glutMouseFunc(Camera::processMouseButtons);
 	glutMotionFunc(Camera::processMouseMotion);
 
-#ifndef __APPLE__
+	#ifndef __APPLE__
 	glewInit();
-#endif
+	#endif
 
 	// aqui
 	cout << argv[1] << endl;
-	getSolarSystem(argv[1]);
+	//getSolarSystem(argv[1]);
+	Parser p;
+	scenePrimitives = p.lerXML(argv[1], camera);
+	cameraSetup();
+
+	for (Primitive p : scenePrimitives) {
+		p.printInfo();
+	}
 
 	//  OpenGL settings
 	glEnable(GL_DEPTH_TEST);

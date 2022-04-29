@@ -53,12 +53,12 @@ Distancia /
         <!-- Sol (Origem) -->
         <group>
         <!-- há diferença se o rotate ou translate acontece primeiro? -->
-            <rotate angle = 10 axisX = 1/>      
+            <rotate angle = 1 axisX = 1/>      
             <color R = 1 G = 0.549 B = 0/> <!-- Dark Orange -->
             <!-- <color R = 253 G = 184 B = 19 />  Sun / Yellow Orange -->
             
             <group>
-                <rotate axisY = 1 timeR = 67 /> 
+                <rotate axisY = 1 timeR = 0.1997/> 
                 <scale scaleX = 7 scaleY = 7 scaleZ = 7/>
             
                 <models>
@@ -70,16 +70,19 @@ Distancia /
 
 
 
-        <!-- Mercurio T = 0.25 Distancia(d)= 13   -->
+        <!-- Mercurio T = 0.25 Distancia(d)= 13   
+            Orbita 3.38º Time = 0.88 
+            Tilt = 0º V = 4.787
+        -->
         <group>
             <!-- Orbita -->
-            <rotate angle = 7 axisY = 1/>
-            <orbit radX = 13 radZ = 12/> <!-- Valores para obter a orbita do planeta-->
+            <rotate angle = 3.38 axisY = 1/>
+            <orbit radX = 13 radZ = 12/>
             
             <!-- Planeta --> 
             <group>
                 
-                <translate timeT = 8.8 align = True>
+                <translate timeT = 0.88 align = True>
                     <point X = 8.993 Z = 8.993 />
                     <point X = 6.296 Z = 10.905 />
                     <point X = 3.236 Z = 12.077 />
@@ -106,9 +109,9 @@ Distancia /
                     <point X = 11.126 Z = 6.423 />
                 </translate>
                 
-                <scale scaleX = 0.25 scaleY = 0.25 scaleZ = 0.25 />
-                <rotate axisX = 1 timeR = 11/>
                 
+                <rotate axisX = 1 timeR = 4.787/> <!-- GRAUS VERIFICAR-->
+                <scale scaleX = 0.25 scaleY = 0.25 scaleZ = 0.25 />
                 <color R = 0.6667 G = 0.6627 B = 0.6784 /> 
                 <!-- Silver Gray <color R = 192 G = 192 B = 192/> --> 
 
@@ -121,16 +124,19 @@ Distancia /
 
 
 
-        <!-- Venus T = 0.6 Ds = 18 -->
+        <!-- Venus T = 0.6 Ds = 18 
+            Orbita 3.86 Time = 2.247 
+            Tilt = 177º V = 3.502       
+        -->
         <group>
             <!-- Orbita -->
-            <rotate angle = 3.4 axisY = 1/>
+            <rotate angle = 3.86 axisY = 1/>
             <orbit radX = 20 radZ = 18/>
 
             <!-- Planeta --> 
             <group>
 
-                <translate timeT = 22.5 align = True >
+                <translate timeT = 2.247 align = True >
                     <point X = 4.674 Z = 17.445 />
                     <point X = 0 Z = 17.999 />
                     <point X = -4.674 Z = 17.445 />
@@ -154,11 +160,10 @@ Distancia /
                     <point X = 18.259 Z = 4.892 />
                     <point X = 16.208 Z = 9.357 />
                     <point X = 13.058 Z = 13.058 />
-                    <point X = 9.114 Z = 15.787 />
-                    
+                    <point X = 9.114 Z = 15.787 />    
                 </translate>
                 
-                <rotate axisY = 1 timeR = 14/>
+                <rotate axisY = 177 timeR = 3.502/>
                 <scale scaleX = 0.6 scaleY = 0.6 scaleZ = 0.6 />
                 <color R = 0.918 G = 0.878 B = 0.784 />
                 <!-- Pearl <color R = 234 G = 224 B = 200/> -->
@@ -171,18 +176,45 @@ Distancia /
 
 
         <!-- Terra - T = 0.65 D = 21
+            Orbita 7.155 Time = 3.6525
+            Tilt = 23.5º V = 2.978  
+            
             Lua - T = 0.2 Dp = 0.7  -->
         <group>
             <!-- Orbita -->
-            <rotate angle = 0 axisY = 0 />
-            <orbit radX = 21 radZ = 21/>
+            <rotate angle = 0 axisY = 1 />
+            <orbit radX = 22 radZ = 22/>
 
             <!-- Planeta --> 
             <group>
-                <translate X = 21 Y = 0 Z = 0 />
-                <rotate axisY = 1 timeR = 18/>
-
-                <!-- POSSIBILIDADE DE CRIAR AQUI UM GRUPO-->
+                <translate timeT = 3.65 align = True>
+                    <point X = 22.00000 Y = 0.00000 />
+                    <point X = 21.24980 Y = 5.69614 /> 
+                    <point X = 19.05037 Y = 11.00380 />
+                    <point X = 15.55170 Y = 15.56100 />
+                    <point X = 10.99241 Y = 19.05694 />
+                    <point X = 5.68343 Y = 21.25320 /> 
+                    <point X = -0.01315 Y = 22.00000 />
+                    <point X = -5.70884 Y = 21.24639 />
+                    <point X = -11.01518 Y = 19.04379 />
+                    <point X = -15.57029 Y = 15.54240 />
+                    <point X = -19.06351 Y = 10.98102 />
+                    <point X = -21.25659 Y = 5.67073 />
+                    <point X = -21.99998 Y = -0.02630 />
+                    <point X = -21.24298 Y = -5.72153 />
+                    <point X = -19.03720 Y = -11.02656 />
+                    <point X = -15.53309 Y = -15.57958 />
+                    <point X = -10.96962 Y = -19.07007 />
+                    <point X = -5.65803 Y = -21.25998 />
+                    <point X = 0.03945 Y = -21.99996 />
+                    <point X = 5.73423 Y = -21.23955 />
+                    <point X = 11.03794 Y = -19.03061 />
+                    <point X = 15.58886 Y = -15.52377 />
+                    <point X = 19.07662 Y = -10.95822 />
+                    <point X = 21.26336 Y = -5.64532 />
+                </translate>
+                
+                <rotate axisY = 23.5 timeR = 2.978/>
                 <scale scaleX = 0.65 scaleY = 0.65 scaleZ = 0.65 />
                 <color R = 0.0 G = 0.749 B = 1 />
                 <!-- Deep Sky Blue <color R = 0 G = 191 B = 255/>   -->
@@ -193,13 +225,38 @@ Distancia /
 
                 <!-- Lua distancia da terra 0.03844 -->
                 <group>
-                    <rotate angle = 25 axisY = 1/>
+                    <rotate angle = 1 axisY = 1/>
                     <orbit radX = 1.6 radZ = 1.6/>
 
                     <group>
-                        <translate X = 1.6 Y = 0 Z = 0/> 
+                        <translate timeT = 0.27 align = True> 
+                            <point X = 1.60000 Y = 0.00000 />
+                            <point X = 1.54544 Y = 0.41426 />
+                            <point X = 1.38548 Y = 0.80028 />
+                            <point X = 1.13103 Y = 1.13171 />
+                            <point X = 0.79945 Y = 1.38596 />
+                            <point X = 0.41334 Y = 1.54569 />
+                            <point X = -0.00096 Y = 1.60000 />
+                            <point X = -0.41519 Y = 1.54519 />
+                            <point X = -0.80110 Y = 1.38500 />
+                            <point X = -1.13238 Y = 1.13036 />
+                            <point X = -1.38644 Y = 0.79862 />
+                            <point X = -1.54593 Y = 0.41242 />
+                            <point X = -1.60000 Y = -0.00191 />
+                            <point X = -1.54494 Y = -0.41611 />
+                            <point X = -1.38452 Y = -0.80193 />
+                            <point X = -1.12968 Y = -1.13306 />
+                            <point X = -0.79779 Y = -1.38691 />
+                            <point X = -0.41149 Y = -1.54618 />
+                            <point X = 0.00287 Y = -1.60000 />
+                            <point X = 0.41703 Y = -1.54469 />
+                            <point X = 0.80276 Y = -1.38404 />
+                            <point X = 1.13374 Y = -1.12900 />
+                            <point X = 1.38739 Y = -0.79696 />
+                            <point X = 1.54643 Y = -0.41057 />
+                        </translate>
                     
-                        <rotate axisY = 1 timeR = 0/>
+                        <rotate axisY = 1 timeR = 0.27/>
                         <scale scaleX = 0.2 scaleY = 0.2 scaleZ = 0.2/>
                         <color R = 0.502 G = 0.502 B = 0.502 /> 
                         <!-- Gray <color R = 255 G = 0 B = 0/> -->
@@ -215,17 +272,45 @@ Distancia /
     
 
 
-        <!-- Marte - 0.35 - 30-->
+        <!-- Marte - 0.35 - 30
+            Orbita = 5.65º  Time = 6.8693
+            Tilt = 25º  V = 2.4077      
+        -->
         <group>
             <!-- Orbita -->
-            <rotate angle = 0 axisY = 0 />
-            <orbit radX = 25 radZ = 25 aux = 16/>
+            <rotate angle = 5.65 axisY = 1 />
+            <orbit radX = 26 radZ = 25 />
 
             <!-- Planeta --> 
             <group>
-                <translate X = 24.78 Y = 0 Z = -3.309/>
+                <translate timeT = 6.8693 align = True >
+                    <point X = 26.00000 Y = 0.00000 />
+                    <point X = 25.11340 Y = 6.47288 />
+                    <point X = 22.51407 Y = 12.50431 />
+                    <point X = 18.37928 Y = 17.68295 />
+                    <point X = 12.99103 Y = 21.65561 />
+                    <point X = 6.71679 Y = 24.15137 />
+                    <point X = -0.01554 Y = 25.00000 />
+                    <point X = -6.74681 Y = 24.14363 />
+                    <point X = -13.01794 Y = 21.64067 />
+                    <point X = -18.40125 Y = 17.66181 />
+                    <point X = -22.52960 Y = 12.47843 />
+                    <point X = -25.12143 Y = 6.44401 />
+                    <point X = -25.99998 Y = -0.02988 />
+                    <point X = -25.10534 Y = -6.50174 />
+                    <point X = -22.49851 Y = -12.53018 />
+                    <point X = -18.35729 Y = -17.70406 />
+                    <point X = -12.96410 Y = -21.67053 />
+                    <point X = -6.68676 Y = -24.15907 />
+                    <point X = 0.04662 Y = -24.99996 />
+                    <point X = 6.77681 Y = -24.13586 />
+                    <point X = 13.04483 Y = -21.62569 />
+                    <point X = 18.42319 Y = -17.64065 />
+                    <point X = 22.54510 Y = -12.45252 />
+                    <point X = 25.12942 Y = -6.41513 />
+                </translate>
 
-                <rotate axisY = 0 axisZ = 0 timeR = 0/>
+                <rotate axisY = 25 timeR = 2.4077 />
                 <scale scaleX = 0.35  scaleY = 0.35  scaleZ = 0.35  />
                 <color R = 1 G = 0.498 B = 0.314/>
                 <!-- <color R = 255 G = 127 B = 80/> Coral  -->
@@ -239,20 +324,49 @@ Distancia /
 
 
         <!-- Jupiter T = 7      Ds= 45
+            Orbita = 6.09 Time = 43.3194
+            Tilt = 3º  V = 1.307  
+
+
             Ganyme   T = 0.26   Dp= 7.4     
             Callisto T = 0.24   Dp= 7.5  
             IO       T = 0.18   Dp= 7.2    
             Europa   T = 0.15   Dp= 7.3  -->
         <group>
             <!-- Orbita -->
-            <rotate angle = 0 axisY = 0/>
-            <orbit radX = 45 radZ = 45/>
+            <rotate angle = 6.09 axisY = 1/>
+            <orbit radX = 47 radZ = 45/>
 
             <!-- Planeta --> 
             <group>
-                <translate Z = -45 />
+                <translate timeT = 43.3194 align = True>
+                    <point X = 47.00000 Y = 0.00000 />
+                    <point X = 45.39730 Y = 11.65119 /> 
+                    <point X = 40.69851 Y = 22.50776 /> 
+                    <point X = 33.22409 Y = 31.82931 /> 
+                    <point X = 23.48378 Y = 38.98011 /> 
+                    <point X = 12.14188 Y = 43.47246 /> 
+                    <point X = -0.02809 Y = 44.99999 /> 
+                    <point X = -12.19615 Y = 43.45853 />
+                    <point X = -23.53243 Y = 38.95320 />
+                    <point X = -33.26380 Y = 31.79127 />
+                    <point X = -40.72658 Y = 22.46117 />
+                    <point X = -45.41182 Y = 11.59922 />
+                    <point X = -46.99997 Y = -0.05379 />
+                    <point X = -45.38272 Y = -11.70313 />
+                    <point X = -40.67038 Y = -22.55433 />
+                    <point X = -33.18432 Y = -31.86731 />
+                    <point X = -23.43510 Y = -39.00695 />
+                    <point X = -12.08760 Y = -43.48632 />
+                    <point X = 0.08427 Y = -44.99993 />
+                    <point X = 12.25040 Y = -43.44454 />
+                    <point X = 23.58104 Y = -38.92624 />
+                    <point X = 33.30347 Y = -31.75317 />
+                    <point X = 40.75460 Y = -22.41454 />
+                    <point X = 45.42626 Y = -11.54724 />
+                </translate>
 
-                <rotate axisX = 0 timeR = 0/>
+                <rotate axisX = 3 timeR = 1.307/>
                 <scale scaleX = 7 scaleY = 7 scaleZ = 7 />
                 <color R = 0.2471 G = 0 B = 0.588/> 
                 <!-- Chocolate <color R = 210 G = 105 B = 30/>  -->
@@ -346,18 +460,46 @@ Distancia /
 
 
         <!-- Saturno  T = 6      Ds = 75
-                Titan T = 0.26   Dp = 6.3
-                Rhea  T = 0.08   Dp = 6.1-->
+            Orbit = 5.51 T = 107.5
+            Tilt = 27 V =0.969
+
+            Titan T = 0.26   Dp = 6.3
+            Rhea  T = 0.08   Dp = 6.1-->
         <group>
             <!-- Orbita -->
-            <rotate angle = 0 axisY = 0 />
-            <orbit radX = 75 radZ = 75 aux = 16/>
+            <rotate angle = 5.51 axisY = 1 />
+            <orbit radX = 76 radZ = 75/>
      
             <!-- Planeta --> 
             <group>
-                <translate  X = -75 Y = 0 Z = 0 />
+                <translate timeT = 107.5 align = True>
+                    <point X = 76.00000 Y = 0.00000 />
+                    <point X = 73.40840 Y = 19.41864 />
+                    <point X = 65.81036 Y = 37.51294 />
+                    <point X = 53.72405 Y = 53.04885 />
+                    <point X = 37.97377 Y = 64.96684 />
+                    <point X = 19.63368 Y = 72.45410 />
+                    <point X = -0.04542 Y = 74.99999 />
+                    <point X = -19.72143 Y = 72.43088 />
+                    <point X = -38.05244 Y = 64.92200 />
+                    <point X = -53.78827 Y = 52.98544 />
+                    <point X = -65.85575 Y = 37.43528 />
+                    <point X = -73.43187 Y = 19.33204 />
+                    <point X = -75.99995 Y = -0.08965 />
+                    <point X = -73.38483 Y = -19.50522 />
+                    <point X = -65.76487 Y = -37.59054 />
+                    <point X = -53.65976 Y = -53.11219 />
+                    <point X = -37.89505 Y = -65.01159 />
+                    <point X = -19.54591 Y = -72.47720 />
+                    <point X = 0.13627 Y = -74.99988 />
+                    <point X = 19.80915 Y = -72.40757 />
+                    <point X = 38.13105 Y = -64.87707 />
+                    <point X = 53.85241 Y = -52.92196 />
+                    <point X = 65.90105 Y = -37.35757 />
+                    <point X = 73.45524 Y = -19.24540 />
+                </translate>
 
-                <rotate axisY = 0 axisZ = 0 timeR = 0/>
+                <rotate axisY = 27 timeR = 0.969/>
                 <scale scaleX = 6 scaleY = 6 scaleZ = 6 />
                 <color R = 1 G = 0.6824 B = 0.2588 />
                 <models> 
@@ -408,17 +550,45 @@ Distancia /
 
 
         <!-- Urano     T = 2.5  Ds= 85
+            orbit = 6.48 T =  306
+            Tilt = 98 V = 0.681
+
                 Triton T = 0.15 Dp= 2.7 -->
         <group>
             <!-- Orbita -->
-            <rotate angle = 0 axisY = 0/>
-            <orbit radX = 85 radZ = 85/>
+            <rotate angle = 6.48 axisY = 1/>
+            <orbit radX = 86 radZ = 84/>
 
             <!-- Planeta --> 
             <group>
-                <translate X = 0 Y = 0 Z = 85/>
+                <translate timeT = 306 align = True>
+                    <point X = 86.00000 Y = 0.00000 />
+                    <point X = 83.06740 Y = 21.74888 /> 
+                    <point X = 74.46962 Y = 42.01449 /> 
+                    <point X = 60.79301 Y = 59.41472 /> 
+                    <point X = 42.97032 Y = 72.76286 /> 
+                    <point X = 22.21706 Y = 81.14859 /> 
+                    <point X = -0.05140 Y = 83.99998 /> 
+                    <point X = -22.31636 Y = 81.12259 />
+                    <point X = -43.05934 Y = 72.71264 />
+                    <point X = -60.86568 Y = 59.34370 />
+                    <point X = -74.52098 Y = 41.92752 />
+                    <point X = -83.09396 Y = 21.65188 />
+                    <point X = -85.99994 Y = -0.10041 />
+                    <point X = -83.04073 Y = -21.84585 />
+                    <point X = -74.41815 Y = -42.10141 />
+                    <point X = -60.72025 Y = -59.48565 />
+                    <point X = -42.88124 Y = -72.81298 />
+                    <point X = -22.11774 Y = -81.17447 />
+                    <point X = 0.15420 Y = -83.99986 />
+                    <point X = 22.41562 Y = -81.09648 />
+                    <point X = 43.14829 Y = -72.66232 />
+                    <point X = 60.93826 Y = -59.27259 />
+                    <point X = 74.57224 Y = -41.84048 />
+                    <point X = 83.12040 Y = -21.55485 />
+                </translate>
 
-                <rotate axisY = 0 timeR = 0/>
+                <rotate axisY = 98 timeR = 0.681/>
                 <scale scaleX = 2.5 scaleY = 2.5 scaleZ = 2.5 />
                 <color R = 0.2745 G = 0.5098 B = 0.7059 /> <!-- Light Steel Blue-->
 
@@ -450,17 +620,44 @@ Distancia /
 
 
         <!-- Neptuno    T = 2.5  Ds = 95
+            orbit = 6.43 T = 594.5
+            Tilt = 28 V = 0.543
                 Titania T = 0.08 Dp = 2.8-->
         <group>
             <!-- Orbita -->
-            <rotate angle = 0 axisX= 0/>
-            <orbit radX = 95 radZ = 95 aux = 16 />
+            <rotate angle = 6.43 axisX= 1/>
+            <orbit radX = 95 radZ = 95 />
 
             <!-- Planeta --> 
             <group>
-                <translate X = 95 Y = 0 Z = 0 />
+                <translate timeT = 594.5 align = True>
+                    <point X = 95.00000 Y = 0.00000 />
+                    <point X = 91.76050 Y = 24.59695 />
+                    <point X = 82.26295 Y = 47.51639 />
+                    <point X = 67.15507 Y = 67.19522 />
+                    <point X = 47.46721 Y = 82.29133 />
+                    <point X = 24.54210 Y = 91.77519 />
+                    <point X = -0.05678 Y = 94.99998 />
+                    <point X = -24.65179 Y = 91.74579 />
+                    <point X = -47.56555 Y = 82.23453 />
+                    <point X = -67.23534 Y = 67.11489 />
+                    <point X = -82.31969 Y = 47.41802 />
+                    <point X = -91.78984 Y = 24.48725 />
+                    <point X = -94.99993 Y = -0.11356 />
+                    <point X = -91.73104 Y = -24.70662 />
+                    <point X = -82.20609 Y = -47.61469 />
+                    <point X = -67.07470 Y = -67.27544 />
+                    <point X = -47.36881 Y = -82.34801 />
+                    <point X = -24.43238 Y = -91.80446 />
+                    <point X = 0.17034 Y = -94.99985 />
+                    <point X = 24.76144 Y = -91.71625 />
+                    <point X = 47.66381 Y = -82.17762 />
+                    <point X = 67.31552 Y = -67.03448 />
+                    <point X = 82.37631 Y = -47.31959 />
+                    <point X = 91.81905 Y = -24.37751 />
+                </translate>
 
-                <rotate axisY = 0 axisZ = 0 timeR = 0/>
+                <rotate axisY = 28 timeR = 0.543/>
                 <scale scaleX = 2.5 scaleY = 2.5 scaleZ = 2.5 />
                 <color R = 0.25 G = 0.41 B = 0.88/> <!-- Royal Blue -->
                 <models> 

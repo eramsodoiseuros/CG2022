@@ -332,7 +332,7 @@ void Patch::toFile(){
     if (outFile.is_open()){
         
         int size = patchPoints.size();
-        outFile << size << "," << "00" << endl;
+        outFile << size << "," << (size/3) << endl;
         for (int i = 0; i < size; i++){
             outFile << patchPoints.at(i).toString();
         }

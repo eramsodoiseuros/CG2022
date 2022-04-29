@@ -16,7 +16,6 @@ Primitive::Primitive(){
     r = g = b = 0.0f;
     transformations = vector<Transformation*>();
 	appendedPrimitives = vector<Primitive>();
-	isPatch = false;
 }
 
 
@@ -50,19 +49,6 @@ void Primitive::readPrimitive(string primitive3D){
 	int arraySize = 0;
 	float* points = NULL;
 
-	stringstream ss(primitive3D);
-	while(ss.good()){
-		string subs;
-		getline(ss, subs, '.');
-		parser.push_back(subs);
-	}
-	bool patch = false;
-	string extension = string(parser.at(parser.size() - 1));
-	if (!extension.compare("patch"))
-		isPatch = true;
-
-	parser.clear();
-	
 	int index = 0;
 
 	while(getline(dFile,l)){
@@ -79,10 +65,7 @@ void Primitive::readPrimitive(string primitive3D){
 			nIndexes = stoi(parser.at(1));
 			fstLine = false;
 
-			if (isPatch == true)
-				arraySize = nPoints * 3;
-			else
-				arraySize = nIndexes * 3;
+			arraySize = nIndexes * 3 * 3;
 			points = (float*) malloc(arraySize * sizeof(float));
 
 		}
@@ -157,13 +140,6 @@ vector<Primitive> Primitive::getAppendedPrimitives(){
 	return vector<Primitive>(appendedPrimitives);
 }
 
-bool Primitive::getIsPatch(){
-	return isPatch;
-}
-
-void Primitive::setIsPatch(bool patch){
-	isPatch = patch;
-}
 
 void Primitive::setColor(vector<float> rgbColor){
     r = rgbColor.at(0);
@@ -210,7 +186,6 @@ Primitive Primitive::clone(){
 
     p.setTransformations(transformations);
 	p.setAppendedPrimitives(appendedPrimitives);
-	p.setIsPatch(isPatch);
     p.nPoints = nPoints;
     p.nIndexes = nIndexes;
     p.vBuffer[0] = vBuffer[0];
@@ -222,13 +197,11 @@ Primitive Primitive::clone(){
 
 void Primitive::Draw(){
 
-    int totalPoints = 0;
-    if(isPatch)
-        totalPoints = nPoints * 3;
-    else
-        totalPoints = nIndexes * 3;
+    int totalPoints = nIndexes * 3;
 
 	glPushMatrix();
+	
+	glColor3f(r, g, b);
 
 	for (Transformation* t : transformations){
 		t->Apply();
@@ -236,7 +209,6 @@ void Primitive::Draw(){
 
     glEnableClientState(GL_VERTEX_ARRAY);
 	// Para adicionar cores a cada triângulo, tem de se adicionar um VBO e redefinir o readFile
-	glColor3f(r,g,b);
 
 	// Dar bind ao identificador associado da primitiva
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[0]);

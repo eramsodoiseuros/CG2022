@@ -371,7 +371,7 @@ void Translation::Apply(){
         elapsedT = glutGet(GLUT_ELAPSED_TIME) % (int)(time * 1000);
         globalT = elapsedT / (time * 1000);
 
-        //drawCurve();
+        drawCurve();
 
         getCatmullPoint(globalT, pos, deriv);
         glTranslatef(pos[0], pos[1], pos[2]);

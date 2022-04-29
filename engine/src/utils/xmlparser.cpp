@@ -2,6 +2,7 @@
 #include "../../headers/rotation.h"
 #include "../../headers/translation.h"
 #include "../../headers/scale.h"
+#include <sstream>
 #include <iostream>
 
 
@@ -83,10 +84,10 @@ void parseFigura(TiXmlElement *models, Primitive *p) {
 
     TiXmlElement *model = models->FirstChildElement("model");
 
+    
     string filename = string(model->Attribute("file"));
     string texture = string(model->Attribute("texture"));
 
-    cout << filename << " " << texture << "\n" << endl;
     (*p).setFilename(filename);
     (*p).setTextureFilename(texture);
     (*p).readPrimitive(filename);

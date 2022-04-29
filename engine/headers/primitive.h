@@ -20,8 +20,6 @@ class Primitive{
         vector<Transformation*> transformations;     // list of transformations
 
         vector<Primitive> appendedPrimitives;
-        bool isPatch;
-
 
     public:
 
@@ -41,7 +39,6 @@ class Primitive{
         vector<float> getColor();
         vector<Transformation*> getTransformations();
         vector<Primitive> getAppendedPrimitives();
-        bool getIsPatch();
 
         // sets
         void setColor(vector<float> rgbColor);
@@ -49,7 +46,6 @@ class Primitive{
         void setTextureFilename(string s);
         void setTransformations(vector<Transformation*> transf);
         void setAppendedPrimitives(vector<Primitive> primitives);
-        void setIsPatch(bool patch);
         
         // drawing function
         void addAppendedPrimitive(Primitive p);

@@ -863,7 +863,7 @@ Distancia /
 
                 <group>
                     <rotate angle = 0.340 axisY = 1/>
-                    <orbit radX = 1.2 radZ = 1.2 aux = 16 />
+                    <orbit radX = 1.2 radZ = 1.2 />
 
                     <group>
                         <translate timeT = 8.706 align = True>
@@ -906,7 +906,46 @@ Distancia /
             </group>
         </group>
         
+        
         <!-- COMETA -->
-      
+        <group>
+            <rotate angle = 30 axisY = 1 axisZ = 1 />
+            <orbit radX = 100 radZ = 150 />
+
+            <group> 
+                <translate timeT = 25 align = True>  
+                    <point X = 100.00000 Y = 5 Z = 20.00000 />
+                    <point X = 96.59000 Y = 5 Z = 58.83729 />   
+                    <point X = 86.59258 Y = 5 Z = 95.02588 />   
+                    <point X = 70.68954 Y = 5 Z = 126.09771 />  
+                    <point X = 49.96549 Y = 5 Z = 149.93368 />  
+                    <point X = 25.83379 Y = 5 Z = 164.90819 />  
+                    <point X = -0.05977 Y = 5 Z = 169.99997 />  
+                    <point X = -25.94925 Y = 5 Z = 164.86177 /> 
+                    <point X = -50.06900 Y = 5 Z = 149.84400 /> 
+                    <point X = -70.77404 Y = 5 Z = 125.97089 /> 
+                    <point X = -86.65230 Y = 5 Z = 94.87056 />  
+                    <point X = -96.62088 Y = 5 Z = 58.66407 />  
+                    <point X = -99.99993 Y = 5 Z = 19.82070 />  
+                    <point X = -96.55899 Y = 5 Z = -19.01045 /> 
+                    <point X = -86.53273 Y = 5 Z = -55.18109 /> 
+                    <point X = -70.60494 Y = 5 Z = -86.22438 /> 
+                    <point X = -49.86191 Y = 5 Z = -110.02318 />
+                    <point X = -25.71830 Y = 5 Z = -124.95441 />
+                    <point X = 0.17930 Y = 5 Z = -129.99976 />
+                    <point X = 26.06467 Y = 5 Z = -124.81514 />
+                    <point X = 50.17243 Y = 5 Z = -109.75413 />
+                    <point X = 70.85844 Y = 5 Z = -85.84391 />
+                    <point X = 86.71191 Y = 5 Z = -54.71514 />
+                    <point X = 96.65163 Y = 5 Z = -18.49080 />
+                </translate>
+                <rotate axisX = 1 timeR = 10/>
+                <scale scaleX = 5 scaleY = 5  scaleZ = 5  />
+                <color R = 0.25 G = 1 B = 1 />  <!-- MISSING COLOR -->
+                <models> 
+                    <model file = "sphere.3d" texture = "COMETA"/>
+                </models>
+            </group>
+        </group>
     </group>
 </scene>

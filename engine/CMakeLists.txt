@@ -5,10 +5,26 @@ PROJECT(TPCGMIEI)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-add_executable(${PROJECT_NAME} src/engine.cpp headers/GL_lib.h headers/camera.h src/utils/camera.cpp headers/rgb.h src/utils/rgb.cpp headers/tinyxml.h src/utils/tinyxml.cpp src/utils/tinyxmlerror.cpp src/utils/tinyxmlparser.cpp headers/xmlparser.h src/utils/xmlparser.cpp headers/tinystr.h src/utils/tinystr.cpp ../utils/point_3d.h ../utils/point_3d.cpp
- src/figures/primitive.cpp headers/primitive.h
- src/specs/rotation.cpp src/specs/scale.cpp src/specs/translation.cpp headers/rotation.h headers/scale.h headers/translation.h headers/transformation.h
- )
+add_executable(${PROJECT_NAME}
+    src/engine.cpp
+    src/primitive.cpp headers/primitive.h
+
+    src/utils/camera.cpp headers/camera.h
+    src/utils/tinystr.cpp headers/tinystr.h
+    src/utils/tinyxml.cpp headers/tinyxml.h
+    src/utils/tinyxmlerror.cpp
+    src/utils/tinyxmlparser.cpp
+    src/utils/xmlparser.cpp headers/xmlparser.h
+
+    headers/transformation.h
+    src/specs/rotation.cpp headers/rotation.h
+    src/specs/scale.cpp headers/scale.h
+    src/specs/translation.cpp headers/translation.h
+    
+    ../utils/point_3d.cpp ../utils/point_3d.h 
+
+    headers/GL_lib.h
+)
 
 
 find_package(OpenGL REQUIRED)

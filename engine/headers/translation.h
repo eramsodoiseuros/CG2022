@@ -20,7 +20,7 @@ class Translation : public Transformation{
         // constructors
         Translation();
         Translation(float x, float y, float z);
-        Translation(float x, float y, float z, float time, vector<Point_3D*> catmull);
+        Translation(float x, float y, float z, float time, bool align, vector<Point_3D*> catmull);
         
         // gets & sets
         float getX();

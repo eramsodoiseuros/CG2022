@@ -29,20 +29,6 @@ char title[50] = "";
 // gluPerspective settings - variables
 float fovy, zNear, zFar;
 
-/*
-void drawOrbit(float radX, float radZ, vector<float> colorsRGB) {
-	float slice = M_PI / 180;
-
-	glBegin(GL_LINE_STRIP);
-	glColor3f(colorsRGB.at(0), colorsRGB.at(1), colorsRGB.at(2));
-
-	for (float i = 0; i <= (2 * M_PI); i += slice)
-		glVertex3f(cos(i) * radX, 0, sin(i) * radZ);
-
-	glEnd();
-}
-*/
-
 
 
 void changeSize(int w, int h) {
@@ -80,6 +66,21 @@ void cameraSetup() {
 }
 
 
+void updateFPS(){
+	frame++;
+	times = glutGet(GLUT_ELAPSED_TIME);
+
+	if (times - timeBase > 1000) {
+
+		fps = frame * 1000.0 / (times - timeBase);
+		timeBase = times;
+		frame = 0;
+	}
+
+	sprintf(title, "CG@DI-UM - Fase 3 - Grupo 11 <-> FPS: %d - Time: %d ", fps, times / 1000);
+	glutSetWindowTitle(title);
+}
+
 static void idle() { glutPostRedisplay(); }
 
 void renderScene(void) {
@@ -104,18 +105,7 @@ void renderScene(void) {
 	
 
 	// FPS CALCULATIONS
-	frame++;
-	times = glutGet(GLUT_ELAPSED_TIME);
-
-	if (times - timeBase > 1000) {
-
-		fps = frame * 1000.0 / (times - timeBase);
-		timeBase = times;
-		frame = 0;
-	}
-
-	sprintf(title, "CG@DI-UM - Fase 3 - Grupo 11 <-> FPS: %d - Time: %d ", fps, times / 1000);
-	glutSetWindowTitle(title);
+	updateFPS();
 
 	// End of frame
 	glutSwapBuffers();
@@ -155,10 +145,6 @@ int main(int argc, char** argv) {
 	Parser p;
 	scenePrimitives = p.lerXML(argv[1], camera);
 	cameraSetup();
-
-	for (Primitive p : scenePrimitives) {
-		p.printInfo();
-	}
 
 	//  OpenGL settings
 	glEnable(GL_DEPTH_TEST);

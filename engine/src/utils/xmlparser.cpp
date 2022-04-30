@@ -39,7 +39,7 @@ void parseCamera2(TiXmlElement* camera, Camera* c) {
     TiXmlElement* elem = camera->FirstChildElement();
     while (elem) {
         const char* name = elem->Value();
-        printf("\n name: %s", name);
+
         if (strcmp(name, "position") == 0) {
             parseValues(elem, "X", "Y", "Z", &pos);
         }
@@ -54,15 +54,14 @@ void parseCamera2(TiXmlElement* camera, Camera* c) {
         }
         elem = elem->NextSiblingElement();
     }
-    printf("\nposition -> %0.f, %0.f, %0.f", pos.getX(), pos.getY(), pos.getZ());
-    printf("\nlookAt -> %2.f, %2.f, %2.f", lookAt.getX(), lookAt.getY(), lookAt.getZ());
-    printf("\nup -> %2.f, %2.f, %2.f", up.getX(), up.getY(), up.getZ());
-    printf("\npersp -> %2.f, %2.f, %2.f\n\n\n", persp.getX(), persp.getY(), persp.getZ());
+    //printf("\nposition -> %0.f, %0.f, %0.f", pos.getX(), pos.getY(), pos.getZ());
+    //printf("\nlookAt -> %2.f, %2.f, %2.f", lookAt.getX(), lookAt.getY(), lookAt.getZ());
+    //printf("\nup -> %2.f, %2.f, %2.f", up.getX(), up.getY(), up.getZ());
+    //printf("\npersp -> %2.f, %2.f, %2.f\n\n\n", persp.getX(), persp.getY(), persp.getZ());
 
     c->setPos(pos.getX(), pos.getY(), pos.getZ());
     c->setLookAt(lookAt.getX(), lookAt.getY(), lookAt.getZ());
     c->setPersp(persp.getX(), persp.getY(), persp.getZ());
-    // what about UP ?
 }
 
 
@@ -121,7 +120,7 @@ void parseTranslate2(TiXmlElement* operation, Primitive *p) {
         attribute = attribute->Next();
     }
 
-    printf("#> Warning, translation with time 0.\n");
+    printf("\n#> Warning, translation with time 0.");
 
     TiXmlElement* child = operation->FirstChildElement();
     
@@ -133,8 +132,7 @@ void parseTranslate2(TiXmlElement* operation, Primitive *p) {
         child = child->NextSiblingElement();
     }
 
-
-    Transformation *t = new Translation(0.0f,0.0f,0.0f,time,translatePoints);
+    Transformation *t = new Translation(0.0f,0.0f,0.0f,time,align,translatePoints);
     (*p).addTransformation(t);
 }
 
@@ -195,7 +193,7 @@ void parseRotation(TiXmlElement* operation, Primitive *p) {
         attribute = attribute->Next();
     }
     if (time == 0 || angle == 0) {
-        printf("#> Warning, rotation with time 0.");
+        printf("\n#> Warning, rotation with time 0.");
     }
 
     Transformation *r = new Rotation(angle, x, y, z , time);
@@ -242,22 +240,22 @@ void parseLightSpot(TiXmlElement* lights) {
         if (strcmp(name, "posX") == 0) {
             posX = atof(attribute->Value());
         }
-        if (strcmp(name, "posY") == 0) {
+        else if (strcmp(name, "posY") == 0) {
             posY = atof(attribute->Value());
         }
-        if (strcmp(name, "posZ") == 0) {
+        else if (strcmp(name, "posZ") == 0) {
             posZ = atof(attribute->Value());
         }
-        if (strcmp(name, "dirX") == 0) {
+        else if (strcmp(name, "dirX") == 0) {
             dirX = atof(attribute->Value());
         }
-        if (strcmp(name, "dirY") == 0) {
+        else if (strcmp(name, "dirY") == 0) {
             dirY = atof(attribute->Value());
         }
-        if (strcmp(name, "dirZ") == 0) {
+        else if (strcmp(name, "dirZ") == 0) {
             dirZ = atof(attribute->Value());
         }
-        if (strcmp(name, "cutoff") == 0) {
+        else if (strcmp(name, "cutoff") == 0) {
             cutoff = atof(attribute->Value());
         }
         attribute = attribute->Next();
@@ -392,7 +390,7 @@ vector<Primitive> Parser::lerXML(char *filename, Camera* c) {
         parsePlanet(planetGroup, &planet);
         primitives.push_back(planet);
         planetGroup = planetGroup->NextSiblingElement();
-        planet.printInfo();
+        //planet.printInfo();
     }
 
     return primitives;

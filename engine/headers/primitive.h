@@ -10,14 +10,14 @@ using namespace std;
 class Primitive{
 
     private:
-        string filename;            // 3d file name
-        unsigned int vBuffer[2];    // VBOs (points, ??)
-        unsigned int nPoints;       // primitive's number of points
-        unsigned int nIndexes;      // primitive's number of indexes used to write 3d file
-        float r,g,b;                // r,g,b values for primitive's color (4th phase CHANGE)
+        string filename;                            // 3d file name
+        unsigned int vBuffer[2];                    // VBOs (points, ??)
+        unsigned int nPoints;                       // primitive's number of points
+        unsigned int nIndexes;                      // primitive's number of indexes used to write 3d file
+        float r,g,b;                                // r,g,b values for primitive's color (4th phase CHANGE)
 
         string textureFilename;                     // texture filename
-        vector<Transformation*> transformations;     // list of transformations
+        vector<Transformation*> transformations;    // list of transformations
 
         vector<Primitive> appendedPrimitives;
 
@@ -31,9 +31,6 @@ class Primitive{
         //gets
         string getFilename();
         string getTextureFilename();
-        //unsigned int* getVBOs();
-        unsigned int getPointsVBO();
-        // unsigned int get???VBO();
         unsigned int getNPoints();
         unsigned int getNIndexes();
         vector<float> getColor();

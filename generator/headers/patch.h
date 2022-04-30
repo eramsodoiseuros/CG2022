@@ -23,17 +23,7 @@ class Patch{
     
     public:
 
-        Patch(string filename, unsigned int tess, string outputFile){
-            patchFile = string(filename);
-            patchOutputFile = string(outputFile);
-            tesselation = tess;
-            nPatches = 0;
-            nVertices = 0;
-            patchIndices = vector<vector<int>>();
-            patchVertices = vector<Point_3D>();
-
-            parsePatchFile();
-        }
+        Patch(string filename, unsigned int tess, string outputFile);
 
         unsigned int getNPatches();
         unsigned int getNVertices();

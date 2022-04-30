@@ -3,16 +3,58 @@
 #include <sstream>
 #include <iostream>
 
+/**
+ * @brief Construct a new Patch:: Patch object
+ * 
+ * @param filename 
+ * @param tess 
+ * @param outputFile 
+ */
+Patch::Patch(string filename, unsigned int tess, string outputFile){
+    
+    patchFile = string(filename);
+    patchOutputFile = string(outputFile);
+    tesselation = tess;
+    nPatches = 0;
+    nVertices = 0;
+    patchIndices = vector<vector<int>>();
+    patchVertices = vector<Point_3D>();
 
+    parsePatchFile();
+}
+
+/**
+ * @brief devolve o número de patches
+ * 
+ * @return unsigned int 
+ */
 unsigned int Patch::getNPatches(){
     return nPatches;
 }
+
+/**
+ * @brief devolve o número de pontos
+ * 
+ * @return unsigned int 
+ */
 unsigned int Patch::getNVertices(){
     return nVertices;
 }
+
+/**
+ * @brief devolve o nome do ficheiro do patch
+ * 
+ * @return string 
+ */
 string Patch::getPatchFilename(){
     return string(patchFile);
 }
+
+/**
+ * @brief devolve o nome do ficheiro de output gerado
+ * 
+ * @return string 
+ */
 string Patch::getOutputFilename(){
     return string(patchOutputFile);
 }
@@ -286,6 +328,13 @@ void Patch::calculateCurve(vector<Point_3D> *result, int patchLevel, float u, fl
     Point_3D p03 = calculatePatchVertex(patchLevel, u + interval, v);
     Point_3D p04 = calculatePatchVertex(patchLevel, u + interval, v + interval);
 
+    /**
+     *      2 ----- 4
+     *      |       |
+     *      |       |
+     *      1 ----- 3
+     */
+
     result->push_back(p01);
     result->push_back(p04);
     result->push_back(p02);
@@ -295,7 +344,11 @@ void Patch::calculateCurve(vector<Point_3D> *result, int patchLevel, float u, fl
     result->push_back(p03);
 }
 
-
+/**
+ * @brief cálculo dos pontos que formam a superfície de bezier
+ * 
+ * @param result 
+ */
 void Patch::patchResultPoints(vector<Point_3D> *result){
 
     float u, v, interval;
@@ -303,7 +356,10 @@ void Patch::patchResultPoints(vector<Point_3D> *result){
     for (int i = 0; i < nPatches; i++){
 
         u = 0.0f; v = 0.0f;
-        interval = (float) 1.0 / tesselation;
+        if (tesselation == 0)
+            interval = 1;
+        else
+            interval = (float) 1.0 / tesselation;
 
         for (int uSlice = 0; uSlice < tesselation; uSlice++){
 
@@ -319,6 +375,10 @@ void Patch::patchResultPoints(vector<Point_3D> *result){
 }
 
 
+/**
+ * @brief escrita da informação da figura num ficheiro 3d
+ * 
+ */
 void Patch::toFile(){
 
     vector<Point_3D> patchPoints = vector<Point_3D>();
@@ -332,6 +392,7 @@ void Patch::toFile(){
     if (outFile.is_open()){
         
         int size = patchPoints.size();
+        // Número de pontos, número de índices
         outFile << size << "," << (size/3) << endl;
         for (int i = 0; i < size; i++){
             outFile << patchPoints.at(i).toString();

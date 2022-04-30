@@ -11,16 +11,22 @@ Translation::Translation(){
     catmullCurvePoints = vector<Point_3D*>();
 }
 
-
+/**
+ * @brief Construct a new Translation:: Translation object
+ * 
+ * @param x 
+ * @param y 
+ * @param z 
+ */
 Translation::Translation(float x, float y, float z){
 
     this->x = x; 
     this->y = y; 
     this->z = z; 
     this->time = 0.0f;
+    this->align = false;
     this->catmullCurvePoints = vector<Point_3D*>();
 }
-
 
 /**
  * @brief Construct a new Translation:: Translation object
@@ -31,16 +37,14 @@ Translation::Translation(float x, float y, float z){
  * @param time 
  * @param catmull 
  */
-Translation::Translation(float x, float y, float z, float time, vector<Point_3D*> catmull){
+Translation::Translation(float x, float y, float z, float time, bool align, vector<Point_3D*> catmull){
 
     this->x = x; 
     this->y = y; 
     this->z = z; 
     this->time = time;
+    this->align = align;
     this->catmullCurvePoints = vector<Point_3D*>(catmull);
-
-    for (Point_3D* p : catmull)
-        printf("\n#> %s", p->toString());
 }
 
 /**
@@ -358,18 +362,17 @@ void Translation::drawCurve(){
  */
 void Translation::Apply(){
 
-    float elapsedT = 0, globalT = 0;
-    float deriv[3];
-    // y axis
-    static float yAxis[3] = {0.0f, 1.0f, 0.0f};
-    float pos[3], zAxis[3],
-    rotationMatrix[16];  // easier because of c++ matrix mult.
-
 
     if (time != 0 && catmullCurvePoints.size() != 0){
 
-        elapsedT = glutGet(GLUT_ELAPSED_TIME) % (int)(time * 1000);
-        globalT = elapsedT / (time * 1000);
+        // y axis
+        static float yAxis[3] = {0.0f, 1.0f, 0.0f};
+        float pos[3], zAxis[3], deriv[3];
+        float rotationMatrix[16];  // easier because of c++ matrix mult.
+
+
+        float elapsedT = glutGet(GLUT_ELAPSED_TIME) % (int)(time * 1000);
+        float globalT = elapsedT / (time * 1000);
 
         drawCurve();
 

@@ -381,7 +381,7 @@ Distancia /
                 </translate>
 
                 <rotate angle = 3 axisX = 1 />
-                <rotate axisY = 1 timeR = -13.07/>
+                <rotate axisY = 1 timeR = -9/>
                 <scale scaleX = 7 scaleY = 7 scaleZ = 7 />
 
                 <!-- Chocolate <color R = 210 G = 105 B = 30/>  -->

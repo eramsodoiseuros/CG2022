@@ -6,7 +6,14 @@
 #include <iostream>
 
 
-
+/**
+ * @brief Parses a tag with 3 attributes with names equal to the strings value
+ *
+ * @param elem
+ * @param value1
+ * @param value2
+ * @param value3
+ */
 void parseValues(TiXmlElement* elem, char* value1, char* value2, char* value3, Point_3D* point) {
     TiXmlAttribute* attribute = elem->FirstAttribute();
 
@@ -31,7 +38,12 @@ void parseValues(TiXmlElement* elem, char* value1, char* value2, char* value3, P
 }
 
 
-
+/**
+ * @brief Parses the camera's values
+ *
+ * @param camera
+ * @param c
+ */
 void parseCamera2(TiXmlElement* camera, Camera* c) {
 
     Point_3D pos = Point_3D(), lookAt = Point_3D(), up = Point_3D(), persp = Point_3D();
@@ -54,18 +66,25 @@ void parseCamera2(TiXmlElement* camera, Camera* c) {
         }
         elem = elem->NextSiblingElement();
     }
+    //Debugg
     //printf("\nposition -> %0.f, %0.f, %0.f", pos.getX(), pos.getY(), pos.getZ());
     //printf("\nlookAt -> %2.f, %2.f, %2.f", lookAt.getX(), lookAt.getY(), lookAt.getZ());
     //printf("\nup -> %2.f, %2.f, %2.f", up.getX(), up.getY(), up.getZ());
     //printf("\npersp -> %2.f, %2.f, %2.f\n\n\n", persp.getX(), persp.getY(), persp.getZ());
 
+    //Setting the values
     c->setPos(pos.getX(), pos.getY(), pos.getZ());
     c->setLookAt(lookAt.getX(), lookAt.getY(), lookAt.getZ());
     c->setPersp(persp.getX(), persp.getY(), persp.getZ());
 }
 
 
-
+/**
+ * @brief Parses a color
+ *
+ * @param color
+ * @param cores
+ */
 void parseCor(TiXmlElement *color, std::vector<float> *cores){
 
     const char* r = color->Attribute("R");
@@ -78,7 +97,12 @@ void parseCor(TiXmlElement *color, std::vector<float> *cores){
 }
 
 
-
+/**
+ * @brief Parses the tag model, finding the file and texture strings
+ *
+ * @param models
+ * @param p
+ */
 void parseFigura(TiXmlElement *models, Primitive *p) {
 
     TiXmlElement *model = models->FirstChildElement("model");
@@ -93,13 +117,24 @@ void parseFigura(TiXmlElement *models, Primitive *p) {
 }
 
 
-
+/**
+ * @brief Parses a point (X,Y,Z)
+ *
+ * @param element
+ * @param p
+ */
 void parsePoint(TiXmlElement* element, Point_3D *p) {
     parseValues(element, "X", "Y", "Z", p);
 }
 
 
+/**
+ * @brief Parses a translation with the attributes time and allign and a subgroup with a list of points
+ *
+ * @param operation
+ * @param p
 
+ */
 void parseTranslate2(TiXmlElement* operation, Primitive *p) { 
     TiXmlAttribute* attribute = operation->FirstAttribute();
     vector<Point_3D*> translatePoints = vector<Point_3D*>();
@@ -138,7 +173,14 @@ void parseTranslate2(TiXmlElement* operation, Primitive *p) {
 }
 
 
+/**
+ * @brief Find if its an instant translation (tag with atributes X,Y and Z) and parses it or a time-based translation (tag with time and allign),
+ * sending it to the function parseTranslate2
+ *
+ * @param operation
+ * @param p
 
+ */
 void parseTranslate(TiXmlElement *operation, Primitive *p){
     TiXmlAttribute *attribute = operation->FirstAttribute();
 
@@ -169,7 +211,12 @@ void parseTranslate(TiXmlElement *operation, Primitive *p){
 }
 
 
-
+/**
+ * @brief Parses a rotation, sending a warning if both time and angle are 0
+ *
+ * @param operation
+ * @param p
+ */
 void parseRotation(TiXmlElement* operation, Primitive *p) {
     TiXmlAttribute* attribute = operation->FirstAttribute();
     float x = 0, y = 0, z = 0, time = 0, angle = 0;
@@ -202,7 +249,12 @@ void parseRotation(TiXmlElement* operation, Primitive *p) {
 }
 
 
-
+/**
+ * @brief Parses a scale
+ *
+ * @param operation
+ * @param p
+ */
 void parseScale(TiXmlElement* operation, Primitive *p) {
 
     Point_3D scale = Point_3D();
@@ -212,7 +264,12 @@ void parseScale(TiXmlElement* operation, Primitive *p) {
 }
 
 
-
+/**
+ * @brief Parses a light of type "point"
+ *
+ * @param lights
+ * @return Point_3D
+ */
 Point_3D parseLightPoint(TiXmlElement* lights) { 
     Point_3D point = Point_3D();
     parseValues(lights, "posX", "posY", "posZ", &point);
@@ -220,7 +277,12 @@ Point_3D parseLightPoint(TiXmlElement* lights) {
 }
 
 
-
+/**
+ * @brief Parses a light of type "directional"
+ *
+ * @param lights
+ * @return Point_3D
+ */
 Point_3D parseLightDirec(TiXmlElement* lights) { 
     Point_3D point = Point_3D();
     parseValues(lights, "dirX", "dirY", "dirZ", &point);
@@ -228,7 +290,11 @@ Point_3D parseLightDirec(TiXmlElement* lights) {
 }
 
 
-
+/**
+ * @brief Parses a light of type "spotlight" (for now its only reading but not saving anywhere)
+ *
+ * @param lights
+ */
 void parseLightSpot(TiXmlElement* lights) {
     TiXmlAttribute* attribute = lights->FirstAttribute();
 
@@ -264,7 +330,11 @@ void parseLightSpot(TiXmlElement* lights) {
 }
 
 
-
+/**
+ * @brief Parses the light types (only parsing and saving in a Point_3D, not currently being used)
+ *
+ * @param group
+ */
 void parseLight(TiXmlElement* group) {
     TiXmlElement* lights = group->FirstChildElement();
 
@@ -284,6 +354,13 @@ void parseLight(TiXmlElement* group) {
     }
 }
 
+/**
+ * @brief Finds if a planet has moons (if it has, one of the siblings has to be called group)
+ *
+ * @param elem
+ * @return
+ */
+
 bool hasMoon(TiXmlElement* elem) {
     TiXmlElement* nextElem = elem->NextSiblingElement();
     if (nextElem) {
@@ -292,7 +369,15 @@ bool hasMoon(TiXmlElement* elem) {
     return false;
 }
 
-
+/**
+ * @brief parses a group, reading their child's name and choosing the correct parsing option
+ *
+ * @param group
+ * @param planet        true if it's parsing a planet
+ * @param planetWmoons  true if the planet being parsed has moons
+ * @param p
+ * @return
+ */
 TiXmlElement* parseGroup(TiXmlElement* group, bool planet, bool* planetWmoons, Primitive *p) {
     TiXmlElement* elem = group->FirstChildElement();
   
@@ -335,7 +420,13 @@ TiXmlElement* parseGroup(TiXmlElement* group, bool planet, bool* planetWmoons, P
     return group;
 }
 
-
+/**
+ * @brief Parses a planet, including orbit, moons and moon's orbits
+ *
+ * @param group
+ * @param p
+ * @return
+ */
 void parsePlanet(TiXmlElement* group, Primitive *p) {
     TiXmlElement* aux = group;
     bool planetWmoons = false;
@@ -391,7 +482,6 @@ vector<Primitive> Parser::lerXML(char *filename, Camera* c) {
         parsePlanet(planetGroup, &planet);
         primitives.push_back(planet);
         planetGroup = planetGroup->NextSiblingElement();
-        //planet.printInfo();
     }
 
     return primitives;

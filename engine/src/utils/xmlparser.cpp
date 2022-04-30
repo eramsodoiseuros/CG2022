@@ -119,8 +119,9 @@ void parseTranslate2(TiXmlElement* operation, Primitive *p) {
         }
         attribute = attribute->Next();
     }
-
+    if (time == 0){
     printf("\n#> Warning, translation with time 0.");
+    }
 
     TiXmlElement* child = operation->FirstChildElement();
     
@@ -192,7 +193,7 @@ void parseRotation(TiXmlElement* operation, Primitive *p) {
         }
         attribute = attribute->Next();
     }
-    if (time == 0 || angle == 0) {
+    if (time == 0 && angle == 0) {
         printf("\n#> Warning, rotation with time 0.");
     }
 

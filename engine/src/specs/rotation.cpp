@@ -129,10 +129,10 @@ void Rotation::Apply(){
     }
     else{
 
-        float elapsed, gr;
+        float elapsed, newAngle;
         elapsed = glutGet(GLUT_ELAPSED_TIME) % (int)(time * 1000);
-        gr = (elapsed*360) / (time * 1000);
+        newAngle = (elapsed*360) / (time * 1000);
 
-        glRotatef(angle+gr, x, y, z);
+        glRotatef(angle+newAngle, x, y, z);
     }
 }

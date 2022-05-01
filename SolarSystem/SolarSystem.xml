@@ -48,28 +48,30 @@ Distancia /
 
 
     <group>
-
-        
         <!-- Sol (Origem) -->
         <group>
-            <rotate angle = 1 axisX = 1/>      
-            <color R = 1 G = 0.549 B = 0/> <!-- Dark Orange -->
-            <!-- <color R = 253 G = 184 B = 19 />  Sun / Yellow Orange -->
+            <!-- Orbit -->
+            <rotate angle = 1 axisY = 1/>      
             
             <group>
+
                 <rotate axisY = 1 timeR = 19.97/> 
                 <scale scaleX = 14 scaleY = 14 scaleZ = 14/>
             
+                <!-- <color R = 253 G = 184 B = 19 />  Sun / Yellow Orange -->
+                <color R = 1 G = 0.549 B = 0/> <!-- Dark Orange -->
                 <models>
+                    <!-- Models, Name-->
                     <model file = "sphere.3d" texture = "sun" />
                 </models>
-            </group>
 
+            </group>
         </group>
 
 
 
-        <!-- Mercurio T = 0.25 Distancia(d)= 13   
+        <!--Planeta 
+            Mercurio T = 0.25 Distancia(d)= 13   
             Orbita 3.38º Time = 88 
             Tilt = 0º V = 47.87
         -->
@@ -78,19 +80,17 @@ Distancia /
             <rotate angle = 3.38 axisY = 1/>
             <orbit radX = 20 radZ = 19/>
             
-            <!-- Planeta --> 
+            <!-- Mercurio --> 
             <group>
-                
                 <translate timeT = 88 align = True>
-
-                    <point X = 20.00000 Z = 0.00000 />
-                    <point X = 19.31800 Z = -4.91939 />  
-                    <point X = 17.31852 Z = -9.50328 />  
-                    <point X = 14.13791 Z = -13.43904 /> 
-                    <point X = 9.99310 Z = -16.45827 />  
-                    <point X = 5.16676 Z = -18.35504 />  
-                    <point X = -0.01195 Z = -19.00000 /> 
-                    <point X = -5.18985 Z = -18.34916 /> 
+                    <point X = 20.00000  Z = 0.00000 />
+                    <point X = 19.31800  Z = -4.91939 />  
+                    <point X = 17.31852  Z = -9.50328 />  
+                    <point X = 14.13791  Z = -13.43904 /> 
+                    <point X = 9.99310   Z = -16.45827 />  
+                    <point X = 5.16676   Z = -18.35504 />  
+                    <point X = -0.01195  Z = -19.00000 /> 
+                    <point X = -5.18985  Z = -18.34916 /> 
                     <point X = -10.01380 Z = -16.44691 />
                     <point X = -14.15481 Z = -13.42298 />
                     <point X = -17.33046 Z = -9.48360 /> 
@@ -99,26 +99,22 @@ Distancia /
                     <point X = -19.31180 Z = 4.94132 />
                     <point X = -17.30655 Z = 9.52294 />
                     <point X = -14.12099 Z = 13.45509 />
-                    <point X = -9.97238 Z = 16.46960 />
-                    <point X = -5.14366 Z = 18.36089 />
-                    <point X = 0.03586 Z = 18.99997 />
-                    <point X = 5.21293 Z = 18.34325 />
-                    <point X = 10.03449 Z = 16.43552 />
-                    <point X = 14.17169 Z = 13.40690 />
-                    <point X = 17.34238 Z = 9.46392 />
-                    <point X = 19.33033 Z = 4.87550 />
-                    
+                    <point X = -9.97238  Z = 16.46960 />
+                    <point X = -5.14366  Z = 18.36089 />
+                    <point X = 0.03586   Z = 18.99997 />
+                    <point X = 5.21293   Z = 18.34325 />
+                    <point X = 10.03449  Z = 16.43552 />
+                    <point X = 14.17169  Z = 13.40690 />
+                    <point X = 17.34238  Z = 9.46392 />
+                    <point X = 19.33033  Z = 4.87550 />   
                 </translate>
                                 
-                <!-- axisY = Planet Tilt, Mercury não tem nenhuma inclinação
+                <!-- axisY = eixo pelo qual faz rotaçao, Mercury não tem nenhuma inclinação
                      timeR = Velocidade da sua rotaçao -->
-
                 <rotate axisY = 1 timeR = 47.87/> 
                 <scale scaleX = 0.5 scaleY = 0.5 scaleZ = 0.5 />   
-
                 <!-- Silver Gray <color R = 192 G = 192 B = 192/> --> 
                 <color R = 0.6667 G = 0.6627 B = 0.6784 /> 
-
                 <models> 
                     <model file = "sphere.3d" texture = "Mercury"/>
                 </models>
@@ -137,9 +133,8 @@ Distancia /
             <rotate angle = 38.6 axisY = 1/>
             <orbit radX = 27 radZ = 25/>
 
-            <!-- Planeta --> 
+            <!-- Venus --> 
             <group>
-
                 <translate timeT = 224.7 align = True >
                     <point X = 27.00000 Z = -0.00000 />
                     <point X = 26.07930 Z = -6.47288 />
@@ -166,7 +161,7 @@ Distancia /
                     <point X = 23.41221 Z = 12.45252 />
                     <point X = 26.09594 Z = 6.41513 />  
                 </translate>
-                
+
                 <rotate angle = 177 axisX = 1 />
                 <rotate axisY = 1 timeR = 35.02/>
                 <scale scaleX = 1.2 scaleY = 1.2 scaleZ = 1.2 />
@@ -174,6 +169,7 @@ Distancia /
                 <color R = 0.918 G = 0.878 B = 0.784 />
 
                 <models> 
+                    <!-- Models, Name-->
                     <model file = "sphere.3d" texture = "Venus"/>
                 </models>
 
@@ -193,6 +189,7 @@ Distancia /
 
             <!-- Planeta --> 
             <group>
+                <!--Pontos de translação (Orbita do planeta)-->
                 <translate timeT = 365.25 align = True>
                     <point X = 32.00000 Z = -0.00000 />
                     <point X = 30.90880 Z = -8.02637 />
@@ -220,10 +217,11 @@ Distancia /
                     <point X = 30.92852 Z = 7.95477 />
                 </translate>
                 
+                <!-- Inclinaçao do planeta -->
                 <rotate angle = 23.5 axisX = 1 />
+                <!-- Rotação do planeta -->
                 <rotate axisY = 1 timeR = 29.78/>
                 <scale scaleX = 1.3 scaleY = 1.3 scaleZ = 1.3 />
-
                 <!-- Deep Sky Blue <color R = 0 G = 191 B = 255/>   -->
                 <color R = 0.0 G = 0.749 B = 1 />
 
@@ -231,13 +229,14 @@ Distancia /
                     <model file = "sphere.3d" texture = "Earth" />
                 </models>
 
-
-                <!-- Lua distancia da terra 0.03844 -->
+                <!-- Lua -->
                 <group>
+                    <!-- Orbita -->
                     <rotate angle = 1 axisY = 1/>
                     <orbit radX = 1.75 radZ = 1.75/>
 
                     <group>
+                        <!-- Pontos de translação (Orbita da lua)-->
                         <translate timeT = 27 align = True> 
                             <point X = 1.75000 Z = -0.00000 />
                             <point X = 1.69033 Z = -0.45310 />
@@ -264,20 +263,18 @@ Distancia /
                             <point X = 1.51746 Z = 0.87168 />
                             <point X = 1.69140 Z = 0.44906 />
                         </translate>
-                    
+                        <!-- Rotação da Lua -->
                         <rotate axisY = 1 timeR = 27/>
                         <scale scaleX = 0.4 scaleY = 0.4 scaleZ = 0.4/>
-
                         <!-- Gray <color R = 255 G = 0 B = 0/> -->
                         <color R = 0.502 G = 0.502 B = 0.502 /> 
 
                         <models> 
                             <model file = "sphere.3d" texture = "Earth_Moon" />
                         </models>
+
                     </group>
                 </group>
-
-
             </group>
         </group>    
     

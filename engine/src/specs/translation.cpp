@@ -362,14 +362,11 @@ void Translation::drawCurve(){
  */
 void Translation::Apply(){
 
-
     if (time != 0 && catmullCurvePoints.size() != 0){
-
         // y axis
         static float yAxis[3] = {0.0f, 1.0f, 0.0f};
         float pos[3], zAxis[3], deriv[3];
         float rotationMatrix[16];  // easier because of c++ matrix mult.
-
 
         float elapsedT = glutGet(GLUT_ELAPSED_TIME) % (int)(time * 1000);
         float globalT = elapsedT / (time * 1000);

@@ -269,7 +269,6 @@ void Primitive::Draw(){
     int totalPoints = nIndexes * 3;
 
 	glPushMatrix();
-	
 	glColor3f(r, g, b);
 
 	for (Transformation* t : transformations){

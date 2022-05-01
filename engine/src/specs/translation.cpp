@@ -379,9 +379,11 @@ void Translation::Apply(){
         normalizeVector(yAxis);
         vectorsCross(deriv, yAxis, zAxis);
         vectorsCross(zAxis, deriv, yAxis);
-        //  x, y, z, rotMatrix
-        calculateRotMatrix(deriv, yAxis, zAxis, rotationMatrix);
-        glMultMatrixf(rotationMatrix);
+        if (align) {
+            //  x, y, z, rotMatrix
+            calculateRotMatrix(deriv, yAxis, zAxis, rotationMatrix);
+            glMultMatrixf(rotationMatrix);
+        }
     }
 
     else {

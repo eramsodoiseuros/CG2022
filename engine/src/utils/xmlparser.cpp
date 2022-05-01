@@ -167,7 +167,11 @@ void parseTranslate2(TiXmlElement* operation, Primitive *p) {
         translatePoints.push_back(point);
         child = child->NextSiblingElement();
     }
-
+    
+    if (translatePoints.size() < 4) {
+        cout << "\n#Error: Number of points lower than 4. \n" << endl;
+        exit(EXIT_FAILURE);
+    }
     Transformation *t = new Translation(0.0f,0.0f,0.0f,time,align,translatePoints);
     (*p).addTransformation(t);
 }

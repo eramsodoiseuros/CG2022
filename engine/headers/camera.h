@@ -33,6 +33,7 @@ public:
     Camera() {
         this->horizontal_angle = 0;
         this->vertical_angle = 0;
+        // porque?
         this->r = 60;
 
         float x =
@@ -43,12 +44,15 @@ public:
         float z =
             this->r * cosf(this->vertical_angle) * cosf(this->horizontal_angle);
 
+        // eye position
         this->position = Point_3D(x, y, z);
+        // direction point
         this->lookAt = Point_3D(0, 0, 0);
         this->persp = Point_3D(45.0f, 1.0f, 1000.0f);
         this->startX = 0;
         this->startY = 0;
         this->tracking = 0;
+        // porque?
         this->rotating_step = 0.03;
 
         this->camera_speed = 2;
@@ -62,6 +66,48 @@ public:
 		return c;
 	}
 
+
+    static void specialKeyFunc(int key, int x, int y) {
+
+        switch (key) {
+
+            case GLUT_KEY_RIGHT: {
+                // LookRight
+                if (c->camera_mode == FIRST) {
+                    c->updateHorizontalAngle(-c->rotating_step);
+                    c->updateLookAt();
+                }
+                break;
+            }
+            case GLUT_KEY_LEFT: {
+                // LookLeft
+                if (c->camera_mode == FIRST) {
+                    c->updateHorizontalAngle(c->rotating_step);
+                    c->updateLookAt();
+                }
+                break;
+            }
+            case GLUT_KEY_UP: {
+                // LookUp
+                if (c->camera_mode == FIRST) {
+                    c->updateVerticalAngle(c->rotating_step);
+                    c->updateLookAt();
+                }
+                break;
+            }
+            case GLUT_KEY_DOWN: {
+                // LookDown
+                if (c->camera_mode == FIRST) {
+                    c->updateVerticalAngle(-c->rotating_step);
+                    c->updateLookAt();
+                }
+                break;
+            }
+        }
+    }
+
+
+
     static void keyFunc(unsigned char key, int x, int y) {
 
         switch (key) {
@@ -73,38 +119,7 @@ public:
                 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
                 break;
             }
-            case 'l': {
-                // LookRight
-                if (c->camera_mode == FIRST) {
-                    c->updateHorizontalAngle(-c->rotating_step);
-                    c->updateLookAt();
-                }
-                break;
-            }
-            case 'h': {
-                // LookLeft
-                if (c->camera_mode == FIRST) {
-                    c->updateHorizontalAngle(c->rotating_step);
-                    c->updateLookAt();
-                }
-                break;
-            }
-            case 'k': {
-                // LookUp
-                if (c->camera_mode == FIRST) {
-                    c->updateVerticalAngle(c->rotating_step);
-                    c->updateLookAt();
-                }
-                break;
-            }
-            case 'j': {
-                // LookDown
-                if (c->camera_mode == FIRST) {
-                    c->updateVerticalAngle(-c->rotating_step);
-                    c->updateLookAt();
-                }
-                break;
-            }
+            
             case 'w': {
                 // MoveForward
                 if (c->camera_mode == FIRST) {
@@ -125,6 +140,8 @@ public:
                 }
                 break;
             }
+
+            // sobe a câmara (direcao p/origem)
             case 'q': {
                 if (c->camera_mode == FIRST) {
                     c->fpsMoveUp();
@@ -134,6 +151,8 @@ public:
                 }
                 break;
             }
+            
+             // desce a câmara (direcao p/origem)
             case 'z': {
                 if (c->camera_mode == FIRST) {
                     c->fpsMoveDown();
@@ -143,6 +162,8 @@ public:
                 }
                 break;
             }
+
+
             case 'a': {
                 if (c->camera_mode == FIRST) {
                     c->fpsMoveLeft();
@@ -161,7 +182,7 @@ public:
                 }
                 break;
             }
-            case 'v': {
+            case 'm': {
                 c->nextCameraMode();
             }
         }
@@ -187,7 +208,7 @@ public:
 
     static void processMouseMotion(int xx, int yy) {
 
-        int deltaX, deltaY;
+        int deltaX = 0, deltaY = 0;
 
         if (!c->getTracking())
             return;
@@ -246,9 +267,10 @@ public:
 
                 float normalizeDeltaX = (float)deltaX / 11.0f;
 
-                x = c->r * cosf(0) * sinf(c->horizontal_angle - M_PI / 2);
+                // aqui estavam "- M_PI"
+                x = c->r * cosf(0) * sinf(c->horizontal_angle + M_PI / 2);
                 y = c->r * sinf(0);
-                z = c->r * cosf(0) * cosf(c->horizontal_angle - M_PI / 2);
+                z = c->r * cosf(0) * cosf(c->horizontal_angle + M_PI / 2);
 
                 lookVector = {x, y, z};
                 lookVector.normalize();

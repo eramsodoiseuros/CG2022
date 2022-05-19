@@ -67,11 +67,12 @@ void Camera::nextCameraMode() {
     this->vertical_angle = -this->vertical_angle;
 
     this->r =
-        sqrt(pow(this->position.getX(), 2) + pow(this->position.getY(), 2) +
-             pow(this->position.getZ(), 2));
+        sqrt(powf(this->position.getX(), 2) + powf(this->position.getY(), 2) +
+             powf(this->position.getZ(), 2));
 
     float x =
         this->r * cosf(this->vertical_angle) * sinf(this->horizontal_angle);
+    // estava vertical
     float y = this->r * sinf(this->vertical_angle);
     float z =
         this->r * cosf(this->vertical_angle) * cosf(this->horizontal_angle);
@@ -113,6 +114,7 @@ void Camera::updateLookAt() {
 
     float x =
         this->r * cosf(this->vertical_angle) * sinf(this->horizontal_angle);
+    
     float y = this->r * sinf(this->vertical_angle);
     float z =
         this->r * cosf(this->vertical_angle) * cosf(this->horizontal_angle);

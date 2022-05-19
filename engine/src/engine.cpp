@@ -130,6 +130,7 @@ int main(int argc, char** argv) {
 
 	glutDisplayFunc(renderScene);
 	glutKeyboardFunc(Camera::keyFunc);
+	glutSpecialFunc(Camera::specialKeyFunc);
 	glutReshapeFunc(changeSize);
 	glutIdleFunc(idle);
 	glutMouseFunc(Camera::processMouseButtons);

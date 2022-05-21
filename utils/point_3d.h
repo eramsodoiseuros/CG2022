@@ -74,9 +74,7 @@ public:
     */
     char* toString();
 
-    Point_3D crossProduct(Point_3D p);
-
-    void normalize();
+    Point_3D* calcular_normal(Point_3D vetorA, Point_3D vetorB, Point_3D vetorC);
 };
 
 

@@ -47,8 +47,6 @@ vector<Point_3D> Sphere::calculateSphere(Point_3D center, float radius, int stac
         return points;
 }
 
-
-
 vector<short> Sphere::calculateIndexes(){
 
         vector<short> indexes;
@@ -86,20 +84,15 @@ vector<short> Sphere::calculateIndexes(){
         return indexes;
 }
 
-
 std::vector<Point_3D> Sphere::getSpherePoints(){
 
     return vector<Point_3D>(spherePoints);
 }
 
-
-
 std::vector<short> Sphere::getSpherePointsIndexes(){
 
     return vector<short>(sphereIndexes);
 }
-
-
 
 void Sphere::toFile(string file){
 

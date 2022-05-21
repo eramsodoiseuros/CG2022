@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include "../../utils/point_3d.h"
+#include "../../utils/point_2d.h"
 #include <vector>
 
 /*

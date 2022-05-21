@@ -1,5 +1,6 @@
 #include "../headers/camera.h"
 #include "../headers/xmlparser.h"
+#include "../headers/lights.h"
 #pragma
 #include <iostream>
 #include <fstream>
@@ -11,9 +12,12 @@ using namespace std;
 
 // Camera
 Camera* camera = Camera::getInstance();
+
+// luzes
+Lights l = Lights();
+
 // primitives
 vector<Primitive> scenePrimitives = vector<Primitive>();
-
 
 
 // settings variables
@@ -28,8 +32,6 @@ char title[50] = "";
 
 // gluPerspective settings - variables
 float fovy, zNear, zFar;
-
-
 
 void changeSize(int w, int h) {
 
@@ -94,7 +96,6 @@ void renderScene(void) {
 		camera->getLookAt().getX(), camera->getLookAt().getY(), camera->getLookAt().getZ(),
 		0.0f, 1.0f, 0.0f);
 
-
 	// put the geometric transformations here
 
 	// put drawing instructions here
@@ -152,6 +153,10 @@ int main(int argc, char** argv) {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_LINE);
+	
+	// luzes
+	glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
 
 	// enter GLUT's main cycle
 	glutMainLoop();

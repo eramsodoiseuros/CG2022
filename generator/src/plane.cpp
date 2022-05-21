@@ -143,10 +143,8 @@ vector<int> Plane::calculatePlaneVertices(){
 
             pointsIndex.push_back(i);                           // 1
             pointsIndex.push_back(i + 1);                       // 2
-            pointsIndex.push_back(i + (divisions + 2));         // 4
-                
+            pointsIndex.push_back(i + (divisions + 2));         // 4 
         }
-
     }
 
     return pointsIndex;
@@ -165,7 +163,6 @@ vector<int> Plane::planeVerticesInverted(){
         
         for(int i = j; i < limit02; i++){
             
-            
             pointsIndex.push_back(i);                           // 1
             pointsIndex.push_back(i + (divisions + 2));         // 4
             pointsIndex.push_back(i + 1);                       // 2
@@ -173,15 +170,12 @@ vector<int> Plane::planeVerticesInverted(){
             pointsIndex.push_back(i);                           // 1
             pointsIndex.push_back(i + (divisions + 1));         // 3
             pointsIndex.push_back(i + (divisions + 2));         // 4
-            
-
         }
 
     }
 
     return pointsIndex;
 }
-
 
 
 /**
@@ -196,18 +190,15 @@ vector<int> Plane::planeVerticesInverted(){
  */
 
 std::pair<vector<Point_3D>, vector<int>> Plane::PlaneInfo() {
-
     return std::make_pair(planePoints, planePointsIndexes);
 }
 
 std::vector<Point_3D> Plane::getPlanePoints(){
-
     return vector<Point_3D>(planePoints);
 }
 
 
 std::vector<int> Plane::getPlanePointsIndexes(){
-
     return vector<int>(planePointsIndexes);
 }
 
@@ -332,7 +323,6 @@ void Plane::addY(){
         planePoints[i] = p;
     }
 }
-
 void Plane::addZ(){
 
     int size = planePoints.size();

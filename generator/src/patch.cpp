@@ -393,9 +393,27 @@ void Patch::toFile(){
         
         int size = patchPoints.size();
         // Número de pontos, número de índices
-        outFile << size << "," << (size/3) << endl;
-        for (int i = 0; i < size; i++){
-            outFile << patchPoints.at(i).toString();
+        outFile << size << "," << (size) << endl;
+        
+        
+        for (int i = 0; i < size; i += 3) {
+
+            // point 1 2 3
+            Point_3D p1 = patchPoints.at(i);
+            Point_3D p2 = patchPoints.at(i+1);
+            Point_3D p3 = patchPoints.at(i+2);
+
+            // calculate normal from triangle
+            Point_3D normal = getNormal(p1,p2,p3);
+
+            // output vertex
+            outFile << p1.toString();
+            outFile << p2.toString();
+            outFile << p3.toString();
+
+            // output normal
+            outFile << normal.toString();
+
         }
         
         outFile.close();

@@ -5,7 +5,11 @@
 #include <cstdlib>
 #include <cstdio>
 #include <math.h>
+#include <string>
+#include <sstream>
+#include <iostream>
 
+using namespace std;
 
 class Point_3D {
 private:
@@ -15,13 +19,9 @@ private:
 
 public:
 
-    Point_3D() = default;
+    Point_3D();
+    Point_3D(float p1, float p2, float p3);
 
-    Point_3D(float p1, float p2, float p3) {
-        this->x = p1;
-        this->y = p2;
-        this->z = p3;
-    }
 
     /**
     *	Retorna a coordenada em X do ponto
@@ -72,10 +72,20 @@ public:
     *	Formata uma string com o conteudo do Ponto
     *	@return `char*`	correspondente ao conteudo do Ponto
     */
-    char* toString();
+    string toString();
 
-    Point_3D* calcular_normal(Point_3D vetorA, Point_3D vetorB, Point_3D vetorC);
+    Point_3D Point_3D::crossProduct(Point_3D p);
+    
+    void Point_3D::normalize();
+
+
 };
+
+Point_3D sum(Point_3D p1, Point_3D p2);
+Point_3D mul(Point_3D p1, Point_3D p2);
+Point_3D sub(Point_3D p1, Point_3D p2);
+
+Point_3D getNormal(Point_3D p1, Point_3D p2, Point_3D p3);
 
 
 #endif //GENERATOR_POINT_3D_H

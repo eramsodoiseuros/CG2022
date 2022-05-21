@@ -8,6 +8,43 @@
 
 using namespace std;
 
+Plane::Plane() {
+
+    length = 0;
+    divisions = 0;
+    p1 = Point_3D();
+    p2 = Point_3D();
+    p3 = Point_3D();
+    planePoints = vector<Point_3D>();
+    planePointsIndexes = vector<int>();
+    nPoints = 0;
+    nIndexes = 0;
+}
+
+Plane::Plane(float l, int div, bool onXZ) {
+
+    length = l;
+    divisions = div;
+
+    float y = 0.0f;
+    float reference = length / 2.0f;
+    if (!onXZ) y = -reference;
+
+
+    p1 = Point_3D(-reference, y, reference);             // external points (plane's limits)
+    p2 = Point_3D(reference, y, reference);
+    p3 = Point_3D(reference, y, -reference);
+    p4 = Point_3D(-reference, y, -reference);
+
+
+    planePoints = calculatePlanePoints();                       // calculate plane's points
+    planePointsIndexes = calculatePlaneVertices();              // get point's indexes
+    nPoints = planePoints.size();
+    nIndexes = planePointsIndexes.size();
+}
+
+
+
 Point_3D Plane::getP1(){
     return p1;
 }
@@ -216,12 +253,36 @@ void Plane::toFile(string file){
 
     outFile << pts.size() << "," << idxs.size() << endl;
 
-    for(int i : idxs){
+    if (outFile.is_open()){
+        for (int i = 0; i < nIndexes; i += 3) {
 
-        outFile << pts.at(i).toString();
+            // index 1 2 3
+            int index1 = idxs.at(i);
+            int index2 = idxs.at(i+1);
+            int index3 = idxs.at(i + 2);
+
+            // point 1 2 3
+            Point_3D p1 = pts.at(index1);
+            Point_3D p2 = pts.at(index2);
+            Point_3D p3 = pts.at(index3);
+
+            // calculate normal from triangle
+            Point_3D normal = getNormal(p1,p2,p3);
+
+            // output vertex
+            outFile << p1.toString();
+            outFile << p2.toString();
+            outFile << p3.toString();
+
+            // output normal
+            outFile << normal.toString();
+
+        }
+        outFile.close();
     }
 
-    outFile.close();
+    // else....
+
 }
 
 

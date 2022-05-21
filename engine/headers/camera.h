@@ -33,6 +33,7 @@ public:
     Camera() {
         this->horizontal_angle = 0;
         this->vertical_angle = 0;
+
         // porque?
         this->r = 60;
 
@@ -208,6 +209,8 @@ public:
 
     static void processMouseMotion(int xx, int yy) {
 
+        // nao funciona
+        //int deltaX = acos(c->position.getZ() / c->r), deltaY = atan2(c->position.getY(), c->position.getX());
         int deltaX = 0, deltaY = 0;
 
         if (!c->getTracking())

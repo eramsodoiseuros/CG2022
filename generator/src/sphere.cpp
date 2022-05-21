@@ -104,12 +104,33 @@ void Sphere::toFile(string file){
 
     vector<Point_3D> pts = spherePoints;
     vector<short> idxs = sphereIndexes;
+    int nIndexes = idxs.size();
 
     outFile << pts.size() << "," << idxs.size() << endl;
 
-    for(short i : idxs){
+    for (int i = 0; i < nIndexes; i += 3) {
 
-        outFile << pts.at(i).toString();
+        // index 1 2 3
+        int index1 = idxs.at(i);
+        int index2 = idxs.at(i+1);
+        int index3 = idxs.at(i + 2);
+
+        // point 1 2 3
+        Point_3D p1 = spherePoints.at(index1);
+        Point_3D p2 = spherePoints.at(index2);
+        Point_3D p3 = spherePoints.at(index3);
+
+        // calculate normal from triangle
+        Point_3D normal = getNormal(p1,p2,p3);
+
+        // output vertex
+        outFile << p1.toString();
+        outFile << p2.toString();
+        outFile << p3.toString();
+
+        // output normal
+        outFile << normal.toString();
+
     }
 
     outFile.close();

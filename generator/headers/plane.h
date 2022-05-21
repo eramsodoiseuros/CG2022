@@ -36,29 +36,10 @@ class Plane {
 	
 	public:
 
-        Plane() = default;
-
-        Plane(float l, int div, bool onXZ){
-
-                length = l;
-                divisions = div;
-
-                float y = 0.0f;
-                float reference = length / 2.0f;
-                if(!onXZ) y = - reference;
-
-
-                        p1 = Point_3D(-reference, y, reference);             // external points (plane's limits)
-                        p2 = Point_3D(reference, y, reference);
-                        p3 = Point_3D(reference, y, -reference);
-                        p4 = Point_3D(-reference, y, -reference);
-                
-
-                planePoints = calculatePlanePoints();                       // calculate plane's points
-                planePointsIndexes = calculatePlaneVertices();              // get point's indexes
-                nPoints = planePoints.size();
-                nIndexes = planePointsIndexes.size();
-        }
+        // constructors
+        Plane();
+        Plane(float l, int div, bool onXZ);
+        
 
                 /**
         *	Retorna o ponto pretendido do plano

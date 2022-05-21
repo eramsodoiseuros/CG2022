@@ -14,8 +14,7 @@ Primitive::Primitive(){
 
     filename = "";
     textureFilename = "";
-    vBuffer[0] = 0;
-    vBuffer[1] = 0;
+	vBuffer[2];
     nPoints = 0;
     nIndexes = 0;
     r = g = b = 0.0f;
@@ -32,8 +31,7 @@ Primitive::Primitive(string filename){
 
     readPrimitive(filename);
     textureFilename = "";
-
-    vBuffer[1] = 0;
+	vBuffer[2];
     r = g = b = 0.0f;
     transformations = vector<Transformation*>();
 	appendedPrimitives = vector<Primitive>();
@@ -55,16 +53,28 @@ void Primitive::readPrimitive(string primitive3D){
 		return ;
 	}
 
+	// auxiliar variables for parsing
 	string l = "";
 	vector<string> parser = vector<string>();
 
+	// flag to check if we are in the first line
 	bool fstLine = true;
-	int arraySize = 0;
-	float* points = NULL;
 
-	int index = 0;
+	int pointsArraySize = 0;
+	int normalsArraySize = 0;
+	// points array
+	float* points = NULL;
+	// normals array
+	float* normals = NULL;
+
+	int pointsIndex = 0;
+	int normalsIndex = 0;
+
+	// [0-2]=points, [3]=normal, [4-5]=texture
+	int type = 0;
 
 	while(getline(dFile,l)){
+
 
 		// separar todos os dados pela vírgula que os delimita
 		stringstream ss(l);
@@ -80,10 +90,11 @@ void Primitive::readPrimitive(string primitive3D){
 			nIndexes = stoi(parser.at(1));
 			fstLine = false;
 
-			// nIndices * 3 = Número de linhas com vértices
-			// nIndices * 3 * 3 = Cada vértice são 3 valores (x,y,z)
-			arraySize = nIndexes * 3 * 3;
-			points = (float*) malloc(arraySize * sizeof(float));
+			pointsArraySize = nIndexes * 3;
+			normalsArraySize = nIndexes;
+
+			points = (float*) malloc(pointsArraySize * sizeof(float));
+			normals = (float*) malloc(normalsArraySize * sizeof(float));
 
 		}
 		else {
@@ -92,9 +103,21 @@ void Primitive::readPrimitive(string primitive3D){
 			y = stof(parser.at(1));
 			z = stof(parser.at(2));
 
-			points[index++] = x;
-			points[index++] = y;
-			points[index++] = z;
+			if (type >= 0 && type <= 2){
+				points[pointsIndex++] = x;
+				points[pointsIndex++] = y;
+				points[pointsIndex++] = z;
+				type++;
+			}
+			else if (type == 3){
+				normals[normalsIndex++] = x;
+				normals[normalsIndex++] = y;
+				normals[normalsIndex++] = z;
+
+				type = 0;
+				// enquanto não houver texture, voltar aqui a 0!
+				// quando houver textura, o type tem de incrementar aqui
+			}
 		}
 		parser.clear();
 	}
@@ -102,12 +125,26 @@ void Primitive::readPrimitive(string primitive3D){
 	dFile.close();
 
 	glEnableClientState(GL_VERTEX_ARRAY);
-	// VBO
-	glGenBuffers(1, &vBuffer[0]);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	
+	
+	// VBOs
+	glGenBuffers(2, vBuffer);
+
+	// points
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[0]);
-	glBufferData(GL_ARRAY_BUFFER, arraySize * sizeof(float), points, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, pointsArraySize * sizeof(float), points, GL_STATIC_DRAW);
+
+	// normals
+	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[1]);
+	glBufferData(GL_ARRAY_BUFFER, normalsArraySize * sizeof(float), normals, GL_STATIC_DRAW);
+
 	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+
 	free(points);
+	free(normals);
 }
 
 
@@ -276,15 +313,23 @@ void Primitive::Draw(){
 	}
 
     glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	
 	// Para adicionar cores a cada triângulo, tem de se adicionar um VBO e redefinir o readFile
 
 	// Dar bind ao identificador associado da primitiva
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[0]);
 	// Definir o modo de leitura do VBO (3 vértices por triangulo, utilizando floats)
 	glVertexPointer(3, GL_FLOAT, 0, 0);
+
+	//// normals
+	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[1]);
+	glNormalPointer(GL_FLOAT, 0, 0);
+
 	// Draw da primitiva, a começar no índice 0, nPoints
 	glDrawArrays(GL_TRIANGLES, 0, totalPoints);
 	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
 
 	for (Primitive p : appendedPrimitives){
 		p.Draw();

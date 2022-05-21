@@ -232,7 +232,8 @@ public:
             } else {
 
                 c->updateHorizontalAngle(-deltaXinRad);
-                c->updateVerticalAngle(-deltaYinRad);
+                // vertical estava '-'
+                c->updateVerticalAngle(deltaYinRad);
                 c->updateCameraPos();
             }
 
@@ -291,7 +292,8 @@ public:
 
             } else {
 
-                c->updateR((float)deltaY * 0.1f);
+                // estava '+'
+                c->updateR(-(float)deltaY * 0.1f);
                 c->updateCameraPos();
             }
         }

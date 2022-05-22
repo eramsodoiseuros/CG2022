@@ -61,16 +61,9 @@ void Cone::toFile(std::string s) {
         p2 = polarToPoint3D(raio,yy,alpha+sliceSize);
         p3 = polarToPoint3D(raio,yy,alpha);
 
-        pontos.push_back(p1);
-        pontos.push_back(p2);
-        pontos.push_back(p3);
-
-        file << p1.to_string();
-        file << p2.to_string();
-        file << p3.to_string();
-
         n0 = getNormal(p1,p2,p3);
-        normais.push_back(n0);
+
+        file << p1.to_string() << p2.to_string() << p3.to_string() << n0.to_string();
     }
 
     for(int i = 0; i < stacks; i++){
@@ -85,31 +78,17 @@ void Cone::toFile(std::string s) {
             p2 = polarToPoint3D(r,yy+stackSize*i,alpha);
             p3 = polarToPoint3D(r,yy+stackSize*i,alpha+sliceSize);
 
-            pontos.push_back(p1);
-            pontos.push_back(p2);
-            pontos.push_back(p3);
-
-            file << p1.to_string();
-            file << p2.to_string();
-            file << p3.to_string();
-
             n1 = getNormal(p1,p2,p3);
-            normais.push_back(n1);
+
+            file << p1.to_string() << p2.to_string() << p3.to_string() << n1.to_string();
 
             p4 = polarToPoint3D(rUp,yy+stackSize*(i+1),alpha);
             p5 = polarToPoint3D(r,yy+stackSize*i,alpha+sliceSize);
             p6 = polarToPoint3D(rUp,yy+stackSize*(i+1),alpha+sliceSize);
 
-            pontos.push_back(p4);
-            pontos.push_back(p5);
-            pontos.push_back(p6);
-
-            file << p4.to_string();
-            file << p5.to_string();
-            file << p6.to_string();
-
             n2 = getNormal(p4,p5,p6);
-            normais.push_back(n2);
+
+            file << p4.to_string() << p5.to_string() << p6.to_string() << n2.to_string();
         }
     }
 

@@ -16,11 +16,7 @@ class Cone {
         float altura;
         int stacks;
         int slices;
-        
-        vector<Point_3D> pontos;
-        vector<Point_3D> normais;
-        vector<Point_2D> texturas;
-
+    
     public:
         Cone(float r, float h, int s1, int s2) {
             this->raio = r;

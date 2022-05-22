@@ -86,11 +86,11 @@ void Point_3D::normalize() {
 Point_3D getNormal(Point_3D p1, Point_3D p2, Point_3D p3){
 
     /*
-        A = p1 - p2
-        B = p3 - p2
+        A = p2 - p1
+        B = p3 - p1
     */
     Point_3D a = Point_3D(p2.getX() - p1.getX(), p2.getY() - p1.getY(), p2.getZ() - p1.getZ());
-    Point_3D b = Point_3D(p3.getX() - p2.getX(), p3.getY() - p2.getY(), p3.getZ() - p2.getZ());
+    Point_3D b = Point_3D(p3.getX() - p1.getX(), p3.getY() - p1.getY(), p3.getZ() - p1.getZ());
     
     Point_3D normal = a.crossProduct(b);
     normal.normalize();

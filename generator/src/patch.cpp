@@ -294,10 +294,22 @@ Point_3D Patch::calculatePatchVertex(int index, float u, float v){
         }
     }
 
+    /* auxiliar vectors:
+        U = [U^3    U^2   U   1]
+        V = [V^3    V^2   V   1]
+    */
     float V[4] = {v * v * v, v * v, v, 1};
     float U[4] = {u * u * u, u * u, u, 1};
 
+    /*
+        P(u,v) = U * MBezier * Mpts * MBezier^T * V
 
+        mv = MBezier^T * V
+        pM = Mpts * mv
+        finalM = pM * MBezier
+
+        P(u,v) = U * finalM
+    */
     float mv[4];
     vectorByMatrix(V, (float*) BezierMatrix, mv);
     Point_3D pM[4];

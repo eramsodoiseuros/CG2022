@@ -52,7 +52,7 @@ Primitive::Primitive(string filename){
     isAmbiente = false;
     ambiente = Point_3D(1,1,1);
 
-    isDifusa = true;
+    isDifusa = false;
     difusa = Point_3D(1,1,1);
 
     isEspecular = true;
@@ -390,38 +390,38 @@ void Primitive::Draw(){
     if (isLuzEmissiva()) {
         
         Point_3D e = getEmissiva();
-        float l2[] = { e.getX(), e.getY(), e.getZ(), 1.0 };
-        glMaterialfv(GL_FRONT, GL_EMISSION, l2);
-        glMaterialf(GL_FRONT,GL_SHININESS,128);
+        float l0[] = { e.getX(), e.getY(), e.getZ(), 1.0 };
+        glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, l0);
+        glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,128);
 
     }
 
     if (isLuzAmbiente()) {
 
         Point_3D a = getAmbiente();
-        float l3[] = { a.getX(), a.getY(), a.getZ(), 1.0 };
-        glMaterialfv(GL_FRONT, GL_AMBIENT, l3);
-        glMaterialf(GL_FRONT,GL_SHININESS,128);
+        float l1[] = { a.getX(), a.getY(), a.getZ(), 1.0 };
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, l1);
+        glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,128);
 
     }
 
     if (isLuzDifusa()) {
 
         Point_3D d = getDifusa();
-        float l0[] = { d.getX(), d.getY(), d.getZ(), 1.0 };
-        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, l0);
-        glMaterialf(GL_FRONT,GL_SHININESS,128);
+        float l2[] = { d.getX(), d.getY(), d.getZ(), 1.0 };
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, l2);
+        glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,128);
 
     }
 
     if (isLuzEspecular()) {
 
         Point_3D s = getEspecular();
-        float l1[] = { s.getX(), s.getY(), s.getZ(), 1.0 };
-        glMaterialfv(GL_FRONT, GL_SPECULAR, l1);
-        glMaterialf(GL_FRONT,GL_SHININESS,128);
+        float l3[] = { s.getX(), s.getY(), s.getZ(), 1.0 };
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, l3);
+        glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,128);
 
-    }
+    } 
 
 	for (Primitive p : appendedPrimitives){
 		p.Draw();

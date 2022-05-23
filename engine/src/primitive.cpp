@@ -92,8 +92,7 @@ void Primitive::readPrimitive(string primitive3D){
 	int pointsIndex = 0;
 	int normalsIndex = 0;
 
-	// [0-2]=points, [3]=normal, [4-5]=texture
-	int type = 0;
+	float x1,x2,x3,y1,y2,y3,z1,z2,z3,n1,n2,n3;
 
 	while(getline(dFile,l)){
 
@@ -120,26 +119,18 @@ void Primitive::readPrimitive(string primitive3D){
 
 		}
 		else {
-			float x,y,z;
-			x = stof(parser.at(0));
-			y = stof(parser.at(1));
-			z = stof(parser.at(2));
+			
+			// p1, p2, p3
+			x1 = stof(parser.at(0)); y1 = stof(parser.at(1)); z1 = stof(parser.at(2)); 
+			x2 = stof(parser.at(3)); y2 = stof(parser.at(4)); z2 = stof(parser.at(5));
+			x3 = stof(parser.at(6)); y3 = stof(parser.at(7)); z3 = stof(parser.at(8));
+			// normal
+			n1 = stof(parser.at(9)); n2 = stof(parser.at(10)); n3 = stof(parser.at(11));
 
-			if (type >= 0 && type <= 2){
-				points[pointsIndex++] = x;
-				points[pointsIndex++] = y;
-				points[pointsIndex++] = z;
-				type++;
-			}
-			else if (type == 3){
-				normals[normalsIndex++] = x;
-				normals[normalsIndex++] = y;
-				normals[normalsIndex++] = z;
+			points[pointsIndex++] = x1; points[pointsIndex++] = y1; points[pointsIndex++] = z1; normals[normalsIndex++] = n1;
+			points[pointsIndex++] = x2; points[pointsIndex++] = y2; points[pointsIndex++] = z2; normals[normalsIndex++] = n2;
+			points[pointsIndex++] = x3; points[pointsIndex++] = y3; points[pointsIndex++] = z3; normals[normalsIndex++] = n3;
 
-				type = 0;
-				// enquanto não houver texture, voltar aqui a 0!
-				// quando houver textura, o type tem de incrementar aqui
-			}
 		}
 		parser.clear();
 	}

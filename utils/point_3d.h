@@ -81,6 +81,7 @@ public:
 
 };
 
+Point_3D polarToPoint3D(float radius,float height, float alpha);
 Point_3D sum(Point_3D p1, Point_3D p2);
 Point_3D mul(Point_3D p1, Point_3D p2);
 Point_3D sub(Point_3D p1, Point_3D p2);

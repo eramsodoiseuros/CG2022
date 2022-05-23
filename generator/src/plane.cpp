@@ -251,36 +251,41 @@ void Plane::toFile(string file){
     vector<Point_3D> pts = planePoints;
     vector<int> idxs = planePointsIndexes;
 
-    outFile << pts.size() << "," << idxs.size() << endl;
-
     if (outFile.is_open()){
-        for (int i = 0; i < nIndexes; i += 3) {
 
-            // index 1 2 3
-            int index1 = idxs.at(i);
-            int index2 = idxs.at(i+1);
-            int index3 = idxs.at(i + 2);
+        outFile << pts.size() << "," << idxs.size() << endl;
 
-            // point 1 2 3
-            Point_3D p1 = pts.at(index1);
-            Point_3D p2 = pts.at(index2);
-            Point_3D p3 = pts.at(index3);
+        int limit = divisions * divisions;
+        for(int j = 0; j < limit; j += (divisions + 1)){
 
-            // calculate normal from triangle
-            Point_3D normal = getNormal(p1,p2,p3);
+            int limit02 = j + divisions;
 
-            // output vertex
-            outFile << p1.toString();
-            outFile << p2.toString();
-            outFile << p3.toString();
+            for(int i = j; i < limit02; i++){
 
-            // output normal
-            outFile << normal.toString();
+                Point_3D p1 = pts.at(i);
+                Point_3D p2 = pts.at(i + (divisions + 2));
+                Point_3D p3 = pts.at(i + (divisions + 1));
+                Point_3D normal = getNormal(p1,p2,p3);
 
+                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << normal.toString() << ", " << endl; 
+
+                //pointsIndex.push_back(i);                           // 1
+                //pointsIndex.push_back(i + (divisions + 2));         // 4
+                //pointsIndex.push_back(i + (divisions + 1));         // 3
+
+                p1 = pts.at(i);
+                p2 = pts.at(i + 1);
+                p3 = pts.at(i + (divisions + 2));
+                normal = getNormal(p1, p2, p3);
+
+                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << normal.toString() << ", " << endl; 
+                //pointsIndex.push_back(i);                           // 1
+                //pointsIndex.push_back(i + 1);                       // 2
+                //pointsIndex.push_back(i + (divisions + 2));         // 4 
+            }
         }
         outFile.close();
     }
-
     // else....
 
 }

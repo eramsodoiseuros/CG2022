@@ -18,12 +18,7 @@ class Cone {
         int slices;
     
     public:
-        Cone(float r, float h, int s1, int s2) {
-            this->raio = r;
-            this->altura = h;
-            this->slices = s1;
-            this->stacks = s2;
-        }
+        Cone(float r, float h, int s1, int s2);
 
         /**
         *	Retorna o raio da base

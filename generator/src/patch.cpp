@@ -418,16 +418,9 @@ void Patch::toFile(){
             // calculate normal from triangle
             Point_3D normal = getNormal(p1,p2,p3);
 
-            // output vertex
-            outFile << p1.toString();
-            outFile << p2.toString();
-            outFile << p3.toString();
-
-            // output normal
-            outFile << normal.toString();
-
+            // output vertex + normal
+            outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << normal.toString() << ", " << endl;
         }
-        
         outFile.close();
     }
 }

@@ -58,53 +58,48 @@ vector<Plane> Box::getBoxPlanes(){
 
 void Box::toFile(string file) {
 
-    ofstream outFile;
     
+    ofstream outFile;
     string outputFile = "../3D/" + file;
-    outFile.open(outputFile, ios::out | ios::trunc);
 
-    vector<Plane> boxPlanes = getBoxPlanes();
     int totalPoints = 0;
     int totalIndexes = 0;
 
+    vector<Plane> boxPlanes = getBoxPlanes();
     for(Plane p : boxPlanes){
         totalPoints += p.getNumberOfPoints();
         totalIndexes += p.getNumberOfIndexes();
     }
 
-    outFile << totalPoints << "," << totalIndexes << endl;
+    outFile.open(outputFile, ios::out | ios::trunc);
+    if(outFile.is_open()){
 
-    for(Plane p : boxPlanes){
+        outFile << totalPoints << "," << totalIndexes << endl;
+        for(Plane p : boxPlanes){
 
-        vector<Point_3D> points = p.getPlanePoints();
-        vector<int> indexes = p.getPlanePointsIndexes();
-        int nIndexes = indexes.size();
+            vector<Point_3D> points = p.getPlanePoints();
+            vector<int> indexes = p.getPlanePointsIndexes();
+            int nIndexes = indexes.size();
 
-        for (int i = 0; i < nIndexes; i += 3) {
+            for (int i = 0; i < nIndexes; i += 3) {
 
-            // index 1 2 3
-            int index1 = indexes.at(i);
-            int index2 = indexes.at(i+1);
-            int index3 = indexes.at(i + 2);
+                // index 1 2 3
+                int index1 = indexes.at(i);
+                int index2 = indexes.at(i + 1);
+                int index3 = indexes.at(i + 2);
 
-            // point 1 2 3
-            Point_3D p1 = points.at(index1);
-            Point_3D p2 = points.at(index2);
-            Point_3D p3 = points.at(index3);
+                // point 1 2 3
+                Point_3D p1 = points.at(index1);
+                Point_3D p2 = points.at(index2);
+                Point_3D p3 = points.at(index3);
 
-            // calculate normal from triangle
-            Point_3D normal = getNormal(p1,p2,p3);
+                // calculate normal from triangle
+                Point_3D normal = getNormal(p1,p2,p3);
 
-            // output vertex
-            outFile << p1.toString();
-            outFile << p2.toString();
-            outFile << p3.toString();
-
-            // output normal
-            outFile << normal.toString();
-
+                // output vertex + normal
+                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << normal.toString() << ", " << endl; 
+            }
+        }
+        outFile.close();
     }
-    }
-
-    outFile.close();
 }

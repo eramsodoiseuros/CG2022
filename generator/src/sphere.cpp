@@ -67,7 +67,6 @@ vector<short> Sphere::calculateIndexes(){
                                 indexes.push_back(j+slices+1);
                         }
                         else {
-
                                 indexes.push_back(j);                           
                                 indexes.push_back(j+slices+1);
                                 indexes.push_back(j+slices);
@@ -76,8 +75,6 @@ vector<short> Sphere::calculateIndexes(){
                                 indexes.push_back(j+1);
                                 indexes.push_back(j+slices+1);
                         }
-                        
-                        
                 }
         }
 
@@ -97,41 +94,55 @@ std::vector<short> Sphere::getSpherePointsIndexes(){
 void Sphere::toFile(string file){
 
     ofstream outFile;
-
     string outputFile = "../3D/" + file;
 
-    outFile.open(outputFile, ios::out | ios::trunc);
-
-    vector<Point_3D> pts = spherePoints;
     vector<short> idxs = sphereIndexes;
     int nIndexes = idxs.size();
 
-    outFile << pts.size() << "," << idxs.size() << endl;
 
-    for (int i = 0; i < nIndexes; i += 3) {
+    outFile.open(outputFile, ios::out | ios::trunc);
+    if (outFile.is_open()){
 
-        // index 1 2 3
-        int index1 = idxs.at(i);
-        int index2 = idxs.at(i+1);
-        int index3 = idxs.at(i + 2);
+        outFile << spherePoints.size() << "," << idxs.size() << endl;
+        int nLinhas = (stacks+1) * slices;
+        Point_3D p1, p2, p3, normal;
 
-        // point 1 2 3
-        Point_3D p1 = spherePoints.at(index1);
-        Point_3D p2 = spherePoints.at(index2);
-        Point_3D p3 = spherePoints.at(index3);
 
-        // calculate normal from triangle
-        Point_3D normal = getNormal(p1,p2,p3);
+        for(short i = 0; i < nLinhas; i+= slices){
 
-        // output vertex
-        outFile << p1.toString();
-        outFile << p2.toString();
-        outFile << p3.toString();
+                for(short j = i; j < i+slices; j++){
+                        if(i==0){          
 
-        // output normal
-        outFile << normal.toString();
-
+                                                      //Para a stack inicial, que só tem 1 triangulo por ciclo
+                                p1 = spherePoints.at(j);
+                                p2 = spherePoints.at(j + slices + 1);
+                                p3 = spherePoints.at(j + slices);
+                                normal = getNormal(p1, p2, p3);
+                                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << normal.toString() << ", " << endl;
+                        }
+                        else if(i == nLinhas-1){                 //Para a stack final, que só tem 1 triangulo por ciclo
+                                
+                                p1 = spherePoints.at(j);
+                                p2 = spherePoints.at(j + 1);
+                                p3 = spherePoints.at(j + slices + 1);
+                                normal = getNormal(p1, p2, p3);
+                                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << normal.toString() << ", " << endl;
+                        }
+                        else {
+                                p1 = spherePoints.at(j);
+                                p2 = spherePoints.at(j + slices + 1);
+                                p3 = spherePoints.at(j + slices);
+                                normal = getNormal(p1, p2, p3);
+                                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << normal.toString() << ", " << endl;
+                                
+                                p1 = spherePoints.at(j);
+                                p2 = spherePoints.at(j + 1);
+                                p3 = spherePoints.at(j + slices + 1);
+                                normal = getNormal(p1, p2, p3);
+                                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << normal.toString() << ", " << endl;
+                        }
+                }
+        }
+        outFile.close();
     }
-
-    outFile.close();
 }

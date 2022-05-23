@@ -78,9 +78,11 @@ void Point_3D::normalize() {
 
     float length = sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
 
-    this->setX(this->getX() / length);
-    this->setY(this->getY() / length);
-    this->setZ(this->getZ() / length);
+    if (length != 0){
+        this->setX(this->getX() / length);
+        this->setY(this->getY() / length);
+        this->setZ(this->getZ() / length);
+    }
 }
 
 Point_3D getNormal(Point_3D p1, Point_3D p2, Point_3D p3){
@@ -98,14 +100,20 @@ Point_3D getNormal(Point_3D p1, Point_3D p2, Point_3D p3){
     return normal;
 }
 
+Point_3D polarToPoint3D(float radius,float height, float alpha){
+    float x = radius*sin(alpha);
+    float y = height;
+    float z = radius*cos(alpha);
 
+    return Point_3D(x,y,z);
+}
 
 
 string Point_3D::toString() {
 
     stringstream ss;
     ss.precision(4);
-    ss << fixed << x << "," << y << "," << z << "\n";
+    ss << fixed << x << "," << y << "," << z;
     string s = ss.str();
     return s;
 }

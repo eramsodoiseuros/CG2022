@@ -17,9 +17,20 @@ Primitive::Primitive(){
 	vBuffer[2];
     nPoints = 0;
     nIndexes = 0;
-    r = g = b = 0.0f;
     transformations = vector<Transformation*>();
 	appendedPrimitives = vector<Primitive>();
+
+	isEmissiva = true;
+    emissiva = Point_3D(1,1,1);
+
+    isAmbiente = true;
+    ambiente = Point_3D(1,1,1);
+
+    isDifusa = true;
+    difusa = Point_3D(1,1,1);
+
+    isEspecular = true;
+    especular = Point_3D(1,1,1);
 }
 
 /**
@@ -32,9 +43,20 @@ Primitive::Primitive(string filename){
     readPrimitive(filename);
     textureFilename = "";
 	vBuffer[2];
-    r = g = b = 0.0f;
     transformations = vector<Transformation*>();
 	appendedPrimitives = vector<Primitive>();
+
+	isEmissiva = false;
+    emissiva = Point_3D(1,1,1);
+
+    isAmbiente = false;
+    ambiente = Point_3D(1,1,1);
+
+    isDifusa = true;
+    difusa = Point_3D(1,1,1);
+
+    isEspecular = true;
+    especular = Point_3D(1,1,1);
 }
 
 /**
@@ -148,6 +170,39 @@ void Primitive::readPrimitive(string primitive3D){
 }
 
 
+bool Primitive::isLuzEmissiva(){
+	return isEmissiva;
+}
+
+bool Primitive::isLuzAmbiente(){
+	return isAmbiente;
+}
+
+bool Primitive::isLuzDifusa(){
+	return isDifusa;
+}
+
+bool Primitive::isLuzEspecular(){
+	return isEspecular;
+}
+
+Point_3D Primitive::getEmissiva(){
+	return emissiva;
+}
+
+Point_3D Primitive::getAmbiente(){
+	return ambiente;
+}
+
+Point_3D Primitive::getDifusa(){
+	return difusa;
+}
+
+Point_3D Primitive::getEspecular(){
+	return especular;
+}
+
+
 /**
  * @brief get ficheiro 3d de origem
  * 
@@ -175,18 +230,6 @@ unsigned int Primitive::getNIndexes(){
     return nIndexes;
 }
 
-/**
- * @brief devolve array com os valores do rgb
- * 
- * @return vector<float> 
- */
-vector<float> Primitive::getColor(){
-    vector<float> colors = vector<float>();
-    colors.push_back(r);
-    colors.push_back(g);
-    colors.push_back(b);
-    return colors;
-}
 
 /**
  * @brief devolve uma lista das transformações a serem aplicadas à corrente primitiva
@@ -208,16 +251,6 @@ vector<Primitive> Primitive::getAppendedPrimitives(){
 	return vector<Primitive>(appendedPrimitives);
 }
 
-/**
- * @brief set dos valores rgb da cor
- * 
- * @param rgbColor 
- */
-void Primitive::setColor(vector<float> rgbColor){
-    r = rgbColor.at(0);
-    g = rgbColor.at(1);
-    b = rgbColor.at(2);
-}
 
 /**
  * @brief set nome do ficheiro 3d de origem
@@ -254,6 +287,40 @@ void Primitive::setTransformations(vector<Transformation*> transf){
 void Primitive::setAppendedPrimitives(vector<Primitive> primitives) {
 	appendedPrimitives = vector<Primitive>(primitives);
 }
+
+void Primitive::setIsEmissiva(bool b){
+	isEmissiva = b;
+}
+
+void Primitive::setIsAmbiente(bool b){
+	isAmbiente = b;
+}
+
+void Primitive::setIsDifusa(bool b){
+	isDifusa = b;
+}
+
+void Primitive::setIsEspecular(bool b){
+	isEspecular = b;
+}
+
+
+void Primitive::setEmissiva(Point_3D p){
+	emissiva = p;
+}
+
+void Primitive::setAmbiente(Point_3D p){
+	ambiente = p;
+}
+
+void Primitive::setDifusa(Point_3D p){
+	difusa = p;
+}
+
+void Primitive::setEspecular(Point_3D p){
+	especular = p;
+}
+
 
 /**
  * @brief adiciona uma transformação à primitiva
@@ -293,7 +360,6 @@ Primitive Primitive::clone(){
     p.nIndexes = nIndexes;
     p.vBuffer[0] = vBuffer[0];
     p.vBuffer[1] = vBuffer[1];
-    p.r = r; p.g = g; p.b = b;
 }
 
 
@@ -306,7 +372,6 @@ void Primitive::Draw(){
     int totalPoints = nIndexes * 3;
 
 	glPushMatrix();
-	glColor3f(r, g, b);
 
 	for (Transformation* t : transformations){
 		t->Apply();
@@ -331,6 +396,42 @@ void Primitive::Draw(){
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 
+    if (isLuzEmissiva()) {
+        
+        Point_3D e = getEmissiva();
+        float l2[] = { e.getX(), e.getY(), e.getZ(), 1.0 };
+        glMaterialfv(GL_FRONT, GL_EMISSION, l2);
+        glMaterialf(GL_FRONT,GL_SHININESS,128);
+
+    }
+
+    if (isLuzAmbiente()) {
+
+        Point_3D a = getAmbiente();
+        float l3[] = { a.getX(), a.getY(), a.getZ(), 1.0 };
+        glMaterialfv(GL_FRONT, GL_AMBIENT, l3);
+        glMaterialf(GL_FRONT,GL_SHININESS,128);
+
+    }
+
+    if (isLuzDifusa()) {
+
+        Point_3D d = getDifusa();
+        float l0[] = { d.getX(), d.getY(), d.getZ(), 1.0 };
+        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, l0);
+        glMaterialf(GL_FRONT,GL_SHININESS,128);
+
+    }
+
+    if (isLuzEspecular()) {
+
+        Point_3D s = getEspecular();
+        float l1[] = { s.getX(), s.getY(), s.getZ(), 1.0 };
+        glMaterialfv(GL_FRONT, GL_SPECULAR, l1);
+        glMaterialf(GL_FRONT,GL_SHININESS,128);
+
+    }
+
 	for (Primitive p : appendedPrimitives){
 		p.Draw();
 	}
@@ -345,7 +446,7 @@ void Primitive::Draw(){
  */
 void Primitive::printInfo(){
 
-	cout << "filename::" << filename << ",texture::" << textureFilename << ",nPoints::" << nPoints << ",nIndexes::" << nIndexes << ", color::" << r << g << b << endl;
+	cout << "filename::" << filename << ",texture::" << textureFilename << ",nPoints::" << nPoints << ",nIndexes::" << nIndexes << endl;
 	cout << "number of moons: " << appendedPrimitives.size() << endl;
 	cout << "\n" << endl;
 }

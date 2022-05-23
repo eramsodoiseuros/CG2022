@@ -11,7 +11,7 @@ class Lights{
 
     private:
         Point_3D position;
-        string type;
+        string type; // Point | Directional | Spot
 
     public:
 

@@ -399,11 +399,6 @@ TiXmlElement* parseGroup(TiXmlElement* group, bool planet, bool* planetWmoons, P
         else if (strcmp(name, "models") == 0) {
             parseFigura(elem, p);
         }
-        else if (strcmp(name, "color") == 0) {
-            vector<float> rgb = vector<float>();
-            parseCor(elem, &rgb);
-            (*p).setColor(rgb);
-        }
         else if (strcmp(name, "translate") == 0) {
             parseTranslate(elem, p);
         }

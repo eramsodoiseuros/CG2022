@@ -19,18 +19,7 @@ Primitive::Primitive(){
     nIndexes = 0;
     transformations = vector<Transformation*>();
 	appendedPrimitives = vector<Primitive>();
-
-	isEmissiva = true;
-    emissiva = Point_3D(1,1,1);
-
-    isAmbiente = true;
-    ambiente = Point_3D(1,1,1);
-
-    isDifusa = true;
-    difusa = Point_3D(1,1,1);
-
-    isEspecular = true;
-    especular = Point_3D(1,1,1);
+	colorComponents = Color();
 }
 
 /**
@@ -45,18 +34,7 @@ Primitive::Primitive(string filename){
 	vBuffer[2];
     transformations = vector<Transformation*>();
 	appendedPrimitives = vector<Primitive>();
-
-	isEmissiva = false;
-    emissiva = Point_3D(1,1,1);
-
-    isAmbiente = false;
-    ambiente = Point_3D(1,1,1);
-
-    isDifusa = false;
-    difusa = Point_3D(1,1,1);
-
-    isEspecular = true;
-    especular = Point_3D(1,1,1);
+	colorComponents = Color();
 }
 
 /**
@@ -160,39 +138,15 @@ void Primitive::readPrimitive(string primitive3D){
 	free(normals);
 }
 
+/**
+ * @brief get objeto com as componentes das cores (diff, spec, ambi, etc.)
+ * 
+ * @return Color 
+ */
+Color Primitive::getColorComponents(){
 
-bool Primitive::isLuzEmissiva(){
-	return isEmissiva;
+	return colorComponents;
 }
-
-bool Primitive::isLuzAmbiente(){
-	return isAmbiente;
-}
-
-bool Primitive::isLuzDifusa(){
-	return isDifusa;
-}
-
-bool Primitive::isLuzEspecular(){
-	return isEspecular;
-}
-
-Point_3D Primitive::getEmissiva(){
-	return emissiva;
-}
-
-Point_3D Primitive::getAmbiente(){
-	return ambiente;
-}
-
-Point_3D Primitive::getDifusa(){
-	return difusa;
-}
-
-Point_3D Primitive::getEspecular(){
-	return especular;
-}
-
 
 /**
  * @brief get ficheiro 3d de origem
@@ -279,37 +233,14 @@ void Primitive::setAppendedPrimitives(vector<Primitive> primitives) {
 	appendedPrimitives = vector<Primitive>(primitives);
 }
 
-void Primitive::setIsEmissiva(bool b){
-	isEmissiva = b;
-}
+/**
+ * @brief set das componentes da cor
+ * 
+ * @param c 
+ */
+void Primitive::setColorComponents(Color c){
 
-void Primitive::setIsAmbiente(bool b){
-	isAmbiente = b;
-}
-
-void Primitive::setIsDifusa(bool b){
-	isDifusa = b;
-}
-
-void Primitive::setIsEspecular(bool b){
-	isEspecular = b;
-}
-
-
-void Primitive::setEmissiva(Point_3D p){
-	emissiva = p;
-}
-
-void Primitive::setAmbiente(Point_3D p){
-	ambiente = p;
-}
-
-void Primitive::setDifusa(Point_3D p){
-	difusa = p;
-}
-
-void Primitive::setEspecular(Point_3D p){
-	especular = p;
+	colorComponents = c;
 }
 
 
@@ -387,42 +318,10 @@ void Primitive::Draw(){
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 
-    if (isLuzEmissiva()) {
-        
-        Point_3D e = getEmissiva();
-        float l0[] = { e.getX(), e.getY(), e.getZ(), 1.0 };
-        glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, l0);
-        glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,128);
+	// Aplicar as componentes das cores (difusa,  especular, etc)
+    colorComponents.Apply();
 
-    }
-
-    if (isLuzAmbiente()) {
-
-        Point_3D a = getAmbiente();
-        float l1[] = { a.getX(), a.getY(), a.getZ(), 1.0 };
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, l1);
-        glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,128);
-
-    }
-
-    if (isLuzDifusa()) {
-
-        Point_3D d = getDifusa();
-        float l2[] = { d.getX(), d.getY(), d.getZ(), 1.0 };
-        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, l2);
-        glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,128);
-
-    }
-
-    if (isLuzEspecular()) {
-
-        Point_3D s = getEspecular();
-        float l3[] = { s.getX(), s.getY(), s.getZ(), 1.0 };
-        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, l3);
-        glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,128);
-
-    } 
-
+	// para cada primitiva anexada, desenhá-la
 	for (Primitive p : appendedPrimitives){
 		p.Draw();
 	}

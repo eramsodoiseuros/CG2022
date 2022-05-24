@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "transformation.h"
+#include "color.h"
 
 using namespace std;
 
@@ -15,20 +16,9 @@ class Primitive{
         unsigned int nPoints;                       // primitive's number of points
         unsigned int nIndexes;                      // primitive's number of indexes used to write 3d file
         
-        bool isEmissiva;
-        Point_3D emissiva;
-
-        bool isAmbiente;
-        Point_3D ambiente;
-
-        bool isDifusa;
-        Point_3D difusa;
-
-        bool isEspecular;
-        Point_3D especular;
-
         string textureFilename;                     // texture filename
         vector<Transformation*> transformations;    // list of transformations
+        Color colorComponents;
 
         vector<Primitive> appendedPrimitives;
 
@@ -47,15 +37,7 @@ class Primitive{
         vector<Transformation*> getTransformations();
         vector<Primitive> getAppendedPrimitives();
         
-        bool isLuzEmissiva();
-        bool isLuzAmbiente();
-        bool isLuzDifusa();
-        bool isLuzEspecular();
-
-        Point_3D getEmissiva();
-        Point_3D getAmbiente();
-        Point_3D getDifusa();
-        Point_3D getEspecular();
+        Color getColorComponents();
 
         // sets
         void setTypeMaterial(string s);
@@ -64,15 +46,7 @@ class Primitive{
         void setTransformations(vector<Transformation*> transf);
         void setAppendedPrimitives(vector<Primitive> primitives);
         
-        void setIsEmissiva(bool b);
-        void setIsAmbiente(bool b);
-        void setIsDifusa(bool b);
-        void setIsEspecular(bool b);
-
-        void setEmissiva(Point_3D p);
-        void setAmbiente(Point_3D p);
-        void setDifusa(Point_3D p);
-        void setEspecular(Point_3D p);
+        void setColorComponents(Color c);
 
         // drawing function
         void addAppendedPrimitive(Primitive p);

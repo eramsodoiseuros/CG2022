@@ -20,7 +20,9 @@ add_executable(${PROJECT_NAME}
     src/specs/rotation.cpp headers/rotation.h
     src/specs/scale.cpp headers/scale.h
     src/specs/translation.cpp headers/translation.h
-    
+    src/specs/color.cpp headers/color.h
+    src/specs/lights.cpp headers/lights.h
+
     ../utils/point_3d.cpp ../utils/point_3d.h 
 
     headers/GL_lib.h

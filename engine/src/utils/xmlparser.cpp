@@ -79,7 +79,10 @@ void parseCamera2(TiXmlElement* camera, Camera* c) {
     c->setPersp(persp.getX(), persp.getY(), persp.getZ());
     float radius = sqrt(powf(pos.getX(), 2) + powf(pos.getY(), 2) + powf(pos.getZ(), 2));
     c->setR(radius);
-    // os ângulos vertical/horizontal deviam ser atualizados consoante a posição..
+    float vertical = asin(pos.getY() / radius);
+    float horizontal = acos(pos.getZ() / (radius * cos(vertical)));
+    c->setHorizontalAngle(horizontal);
+    c->setVerticalAngle(vertical);
 }
 
 
@@ -138,7 +141,6 @@ void parseColor(TiXmlElement *color, Primitive *p) {
 
         child = child->NextSiblingElement();
     }
-    printf("fiz uma cor\n");
 }
 /**
  * @brief Parses the tag model, finding the file and texture strings
@@ -404,15 +406,12 @@ void parseLight(TiXmlElement* group) {
 
         if (strcmp(light_type->Value(), "point") == 0) {
             parseLightPoint(lights);
-            printf("fiz um point\n");
         }
         else if (strcmp(light_type->Value(), "directional") == 0) {
             parseLightDirec(lights);
-            printf("fiz um direc\n");
         }
         else if (strcmp(light_type->Value(), "spotlight") == 0) {
             parseLightSpot(lights);
-            printf("fiz um spotlight\n");
         }
         lights = lights->NextSiblingElement();
     }

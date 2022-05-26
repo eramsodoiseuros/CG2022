@@ -65,10 +65,7 @@ void cameraSetup() {
 	fovy = perspective.getX();
 	zNear = perspective.getY();
 	zFar = perspective.getZ();
-	float vertical = asin(camera->getPos().getY() / camera->getR());
-	float horizontal = acos(camera->getPos().getZ() / (camera->getR() * cos(vertical)));
-	camera->setHorizontalAngle(horizontal);
-	camera->setVerticalAngle(vertical);
+	
 }
 
 

@@ -14,7 +14,7 @@ Primitive::Primitive(){
 
     filename = "";
     textureFilename = "";
-	vBuffer[2];
+	this->vBuffer;
     nPoints = 0;
     nIndexes = 0;
     transformations = vector<Transformation*>();
@@ -31,7 +31,7 @@ Primitive::Primitive(string filename){
 
     readPrimitive(filename);
     textureFilename = "";
-	vBuffer[2];
+	this->vBuffer;
     transformations = vector<Transformation*>();
 	appendedPrimitives = vector<Primitive>();
 	colorComponents = Color();

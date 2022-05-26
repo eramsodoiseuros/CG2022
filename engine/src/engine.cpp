@@ -65,6 +65,10 @@ void cameraSetup() {
 	fovy = perspective.getX();
 	zNear = perspective.getY();
 	zFar = perspective.getZ();
+	float vertical = asin(camera->getPos().getY() / camera->getR());
+	float horizontal = acos(camera->getPos().getZ() / (camera->getR() * cos(vertical)));
+	camera->setHorizontalAngle(horizontal);
+	camera->setVerticalAngle(vertical);
 }
 
 
@@ -147,6 +151,7 @@ int main(int argc, char** argv) {
 	Parser p;
 	scenePrimitives = p.lerXML(argv[1], camera);
 	cameraSetup();
+
 
 	//  OpenGL settings
 	glEnable(GL_DEPTH_TEST);

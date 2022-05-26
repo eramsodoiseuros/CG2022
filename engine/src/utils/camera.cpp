@@ -80,11 +80,13 @@ void Camera::nextCameraMode() {
     if (this->camera_mode == THIRD) {
 
         this->lookAt = {0, 0, 0};
-        this->position = {x, y, z};
+        setPos(x, y, z);
 
     } else {
         Point_3D lookVector = {x, y, z};
         lookVector.normalize();
+
+        // não deveria faltar algo aqui?
     }
 }
 
@@ -135,11 +137,12 @@ void Camera::updateCameraPos() {
 
     float x =
         this->r * cosf(this->vertical_angle) * sinf(this->horizontal_angle);
+
     float y = this->r * sinf(this->vertical_angle);
     float z =
         this->r * cosf(this->vertical_angle) * cosf(this->horizontal_angle);
 
-    this->position = {x, y, z};
+    setPos(x, y, z);
 }
 
 void Camera::fpsMoveForward() {

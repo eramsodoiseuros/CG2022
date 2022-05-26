@@ -40,10 +40,10 @@ Distancia /
 
     <!-- Definições da camara -->
     <camara>
-        <position X = 0 Y = 30 Z = 5 />
+        <position X = 35 Y = 30 Z = 5 />
         <lookAt X = 0 Y = 0 Z = 0 />
         <up X = 0 Y = 1 Z = 0 />
-        <projection fov = 800 near = 1 far = 1000 />
+        <projection fov = 45 near = 1 far = 1000 />
     </camara>
 
     <lights> 

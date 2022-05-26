@@ -76,6 +76,9 @@ void parseCamera2(TiXmlElement* camera, Camera* c) {
     c->setPos(pos.getX(), pos.getY(), pos.getZ());
     c->setLookAt(lookAt.getX(), lookAt.getY(), lookAt.getZ());
     c->setPersp(persp.getX(), persp.getY(), persp.getZ());
+    float radius = sqrt(powf(pos.getX(), 2) + powf(pos.getY(), 2) + powf(pos.getZ(), 2));
+    c->setR(radius);
+    // os ângulos vertical/horizontal deviam ser atualizados consoante a posição..
 }
 
 

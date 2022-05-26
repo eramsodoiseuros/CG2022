@@ -31,11 +31,11 @@ private:
 public:
 
     Camera() {
-        this->horizontal_angle = 0;
-        this->vertical_angle = 0;
+        this->horizontal_angle = 0.0f;
+        this->vertical_angle = 0.0f;
 
-        // porque?
-        this->r = 60;
+        // distância inicial da câmara ao (0,0,0)
+        this->r = 57.0f;
 
         float x =
             this->r * cosf(this->vertical_angle) * sinf(this->horizontal_angle);

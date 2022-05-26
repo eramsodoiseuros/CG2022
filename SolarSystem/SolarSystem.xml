@@ -46,6 +46,11 @@ Distancia /
         <projection fov = 800 near = 1 far = 1000 />
     </camara>
 
+    <lights> 
+        <light type="point" posX="0" posY="10" posZ="0" />
+        <light type="directional" dirX="1" dirY="1" dirZ="1"/>
+        <light type="spotlight" posX="0" posY="10" posZ="0" dirX="1" dirY="1" dirZ="1" cutoff="45" />
+    </lights>
 
     <group>
         <!-- Sol (Origem) -->
@@ -62,7 +67,15 @@ Distancia /
                 <color R = 1 G = 0.549 B = 0/> <!-- Dark Orange -->
                 <models>
                     <!-- Models, Name-->
-                    <model file = "sphere.3d" texture = "sun" />
+                   <model file="sphere.3d" texture="sol.jpg"/>
+                   <color>
+                        <diffuse R="200" G="200" B="200" />
+                        <ambient R="50" G="50" B="50" />
+                        <specular R="0" G="0" B="0" />
+                        <emissive R="0" G="0" B="0" />
+                        <shininess value="0" />
+                    </color>
+
                 </models>
 
             </group>
@@ -116,7 +129,14 @@ Distancia /
                 <!-- Silver Gray <color R = 192 G = 192 B = 192/> --> 
                 <color R = 0.6667 G = 0.6627 B = 0.6784 /> 
                 <models> 
-                    <model file = "sphere.3d" texture = "Mercury"/>
+                    <model file="sphere.3d" texture="planeta.jpg" typeLight="s" r="1" g="1" b="1"/>
+                    <color>
+                        <diffuse R="200" G="200" B="200" />
+                        <ambient R="50" G="50" B="50" />
+                        <specular R="0" G="0" B="0" />
+                        <emissive R="0" G="0" B="0" />
+                        <shininess value="0" />
+                    </color>
                 </models>
             
             </group>
@@ -171,6 +191,13 @@ Distancia /
                 <models> 
                     <!-- Models, Name-->
                     <model file = "sphere.3d" texture = "Venus"/>
+                    <color>
+                        <diffuse R="200" G="200" B="200" />
+                        <ambient R="50" G="50" B="50" />
+                        <specular R="0" G="0" B="0" />
+                        <emissive R="0" G="0" B="0" />
+                        <shininess value="0" />
+                    </color>
                 </models>
 
             </group>

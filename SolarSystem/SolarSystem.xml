@@ -68,11 +68,11 @@ Distancia /
                     <!-- Models, Name-->
                    <model file="sphere.3d" texture="sol.jpg"/>
                    <color>
-                        <diffuse R="1" G="1" B="0" />
-                        <ambient R="1" G="1" B="1" />
-                        <specular R="0" G="0" B="0" />
-                        <emissive R="1" G="1" B="1" />
-                        <shininess value="0" />
+                        <diffuse R="1" G="0.5" B="0" />
+                        <ambient R="0.8" G="0.2" B="0.1" />
+                        <specular R="" G="1" B="1" />
+                        <emissive R="0.3" G="0.3" B="0.3" />
+                        <shininess value="60" />
                     </color>
                 </models>
             </group>
@@ -128,11 +128,11 @@ Distancia /
                 <models> 
                     <model file="sphere.3d" texture="planeta.jpg"/>
                     <color>
-                        <diffuse R="0" G="0" B="0" />
-                        <ambient R="1" G="1" B="1" />
+                        <diffuse R="1" G="0.5" B="0" />
+                        <ambient R="0.8" G="0.8" B="0.8" />
                         <specular R="1" G="1" B="1" />
-                        <emissive R="0" G="0" B="0" />
-                        <shininess value="128" />
+                        <emissive R="1" G="1" B="1" />
+                        <shininess value="60" />
                     </color>
                 </models>
             
@@ -188,13 +188,7 @@ Distancia /
                 <models> 
                     <!-- Models, Name-->
                     <model file = "sphere.3d" texture = "Venus"/>
-                    <color>
-                        <diffuse R="0" G="0" B="0" />
-                        <ambient R="1" G="1" B="1" />
-                        <specular R="1" G="1" B="1" />
-                        <emissive R="0" G="0" B="0" />
-                        <shininess value="128" />
-                    </color>
+                    
                 </models>
 
             </group>
@@ -253,11 +247,11 @@ Distancia /
                     <model file = "sphere.3d" texture = "Earth" />
                 </models>
                 <color>
-                    <diffuse R="0" G="0" B="0" />
-                    <ambient R="1" G="1" B="1" />
+                    <diffuse R="1" G="0.5" B="0" />
+                    <ambient R="0.8" G="0.8" B="0.8" />
                     <specular R="1" G="1" B="1" />
-                    <emissive R="0" G="0" B="0" />
-                    <shininess value="128" />
+                    <emissive R="1" G="1" B="1" />
+                    <shininess value="60" />
                 </color>
                 <!-- Lua -->
                 <group>
@@ -359,11 +353,11 @@ Distancia /
                     <model file = "sphere.3d" texture = "Mars" />
                 </models>
                 <color>
-                    <diffuse R="0" G="0" B="0" />
-                    <ambient R="1" G="1" B="1" />
+                    <diffuse R="1" G="0.5" B="0" />
+                    <ambient R="0.8" G="0.8" B="0.8" />
                     <specular R="1" G="1" B="1" />
-                    <emissive R="0" G="0" B="0" />
-                    <shininess value="128" />
+                    <emissive R="1" G="1" B="1" />
+                    <shininess value="60" />
                 </color>
             </group>
         </group>
@@ -424,11 +418,11 @@ Distancia /
                     <model file = "sphere.3d" texture = "Jupiter" />
                 </models>
                 <color>
-                    <diffuse R="0" G="0" B="0" />
-                    <ambient R="1" G="1" B="1" />
+                    <diffuse R="1" G="0.5" B="0" />
+                    <ambient R="0.8" G="0.8" B="0.8" />
                     <specular R="1" G="1" B="1" />
-                    <emissive R="0" G="0" B="0" />
-                    <shininess value="128" />
+                    <emissive R="1" G="1" B="1" />
+                    <shininess value="60" />
                 </color>
 
                 <!-- Ganyme Distancia de Jupiter
@@ -675,11 +669,11 @@ Distancia /
                     <model file = "sphere.3d" texture = "Saturn"/>
                 </models>
                 <color>
-                    <diffuse R="0" G="0" B="0" />
-                    <ambient R="1" G="1" B="1" />
+                    <diffuse R="1" G="0.5" B="0" />
+                    <ambient R="0.8" G="0.8" B="0.8" />
                     <specular R="1" G="1" B="1" />
-                    <emissive R="0" G="0" B="0" />
-                    <shininess value="128" />
+                    <emissive R="1" G="1" B="1" />
+                    <shininess value="60" />
                 </color>
             
                 <!-- Titan  
@@ -828,11 +822,11 @@ Distancia /
                     <model file = "sphere.3d" texture = "Uranus"/>
                 </models>
                 <color>
-                    <diffuse R="0" G="0" B="0" />
-                    <ambient R="1" G="1" B="1" />
+                    <diffuse R="1" G="0.5" B="0" />
+                    <ambient R="0.8" G="0.8" B="0.8" />
                     <specular R="1" G="1" B="1" />
-                    <emissive R="0" G="0" B="0" />
-                    <shininess value="128" />
+                    <emissive R="1" G="1" B="1" />
+                    <shininess value="60" />
                 </color>
                 <!-- Triton  
                     orbit = -23 T =  5.21
@@ -930,11 +924,11 @@ Distancia /
                     <model file = "sphere.3d" texture = "Neptune" />
                 </models>
                 <color>
-                    <diffuse R="0" G="0" B="0" />
-                    <ambient R="1" G="1" B="1" />
+                    <diffuse R="1" G="0.5" B="0" />
+                    <ambient R="0.8" G="0.8" B="0.8" />
                     <specular R="1" G="1" B="1" />
-                    <emissive R="0" G="0" B="0" />
-                    <shininess value="128" />
+                    <emissive R="1" G="1" B="1" />
+                    <shininess value="60" />
                 </color>
                 <!-- Titania
                     orbit = 0.340 T = 8.706
@@ -1027,11 +1021,11 @@ Distancia /
                     <model file = "teapot.3d" texture = "COMETA"/>
                 </models>
                 <color>
-                    <diffuse R="1" G="1" B="0" />
-                    <ambient R="1" G="1" B="1" />
+                    <diffuse R="1" G="0.5" B="0" />
+                    <ambient R="0.8" G="0.8" B="0.8" />
                     <specular R="1" G="1" B="1" />
-                    <emissive R="0" G="0" B="0" />
-                    <shininess value="128" />
+                    <emissive R="1" G="1" B="1" />
+                    <shininess value="60" />
                 </color>
             </group>
         </group>

@@ -302,7 +302,8 @@ void Primitive::Draw(){
     glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	
-	// Para adicionar cores a cada triângulo, tem de se adicionar um VBO e redefinir o readFile
+	// Aplicar as componentes das cores (difusa,  especular, etc)
+	colorComponents.Apply();
 
 	// Dar bind ao identificador associado da primitiva
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[0]);
@@ -313,13 +314,14 @@ void Primitive::Draw(){
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[1]);
 	glNormalPointer(GL_FLOAT, 0, 0);
 
+
+
 	// Draw da primitiva, a começar no índice 0, nPoints
 	glDrawArrays(GL_TRIANGLES, 0, totalPoints);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 
-	// Aplicar as componentes das cores (difusa,  especular, etc)
-    colorComponents.Apply();
+	
 
 	// para cada primitiva anexada, desenhá-la
 	for (Primitive p : appendedPrimitives){

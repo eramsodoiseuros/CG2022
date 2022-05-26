@@ -167,19 +167,17 @@ void Color::setShininess(float value){
 void Color::Apply(){
 
     float l0[] = { emissR, emissG, emissB, 1.0 };
-    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, l0);
-    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,128);
-
+    glMaterialfv(GL_FRONT, GL_EMISSION, l0);
 
     float l1[] = { ambiR, ambiG, ambiB, 1.0 };
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, l1);
-    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,128);
-
+    glMaterialfv(GL_FRONT, GL_AMBIENT, l1);
+    
     float l2[] = { diffR, diffG, diffB, 1.0 };
-    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, l2);
-    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,128);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, l2);
 
     float l3[] = { specR, specG, specB, 1.0 };
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, l3);
-    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,128);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, l3);
+
+
+    glMaterialf(GL_FRONT,GL_SHININESS, shininess);
 }

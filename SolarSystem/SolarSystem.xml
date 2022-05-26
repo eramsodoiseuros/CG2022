@@ -69,11 +69,11 @@ Distancia /
                     <!-- Models, Name-->
                    <model file="sphere.3d" texture="sol.jpg"/>
                    <color>
-                        <diffuse R="200" G="200" B="200" />
-                        <ambient R="50" G="50" B="50" />
-                        <specular R="0" G="0" B="0" />
+                        <diffuse R="1.0" G="0.12" B="0.0" />
+                        <ambient R="0.8" G="0.8" B="0.2" />
+                        <specular R="0.8" G="0.2" B="0.2" />
                         <emissive R="0" G="0" B="0" />
-                        <shininess value="0" />
+                        <shininess value="128" />
                     </color>
 
                 </models>
@@ -129,7 +129,7 @@ Distancia /
                 <!-- Silver Gray <color R = 192 G = 192 B = 192/> --> 
                 <color R = 0.6667 G = 0.6627 B = 0.6784 /> 
                 <models> 
-                    <model file="sphere.3d" texture="planeta.jpg" typeLight="s" r="1" g="1" b="1"/>
+                    <model file="sphere.3d" texture="planeta.jpg"/>
                     <color>
                         <diffuse R="200" G="200" B="200" />
                         <ambient R="50" G="50" B="50" />

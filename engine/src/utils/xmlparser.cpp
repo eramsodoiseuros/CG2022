@@ -138,7 +138,7 @@ void parseColor(TiXmlElement *color, Primitive *p) {
                 c.setShininess(atof(atrib->Value()));
             }
         }
-
+        p->setColorComponents(c);
         child = child->NextSiblingElement();
     }
 }

@@ -36,7 +36,6 @@ class Primitive{
         unsigned int getNIndexes();
         vector<Transformation*> getTransformations();
         vector<Primitive> getAppendedPrimitives();
-        
         Color getColorComponents();
 
         // sets
@@ -45,7 +44,6 @@ class Primitive{
         void setTextureFilename(string s);
         void setTransformations(vector<Transformation*> transf);
         void setAppendedPrimitives(vector<Primitive> primitives);
-        
         void setColorComponents(Color c);
 
         // drawing function

@@ -41,8 +41,16 @@ void Lights::addSpotLight(SpotLight sl){
 
 
 void Lights::Apply(){
+    int lC = 3;
+    glEnable(lC);
 
+    float pos[4] = {0,10,0,1};
+    float dir[3] = {1,1,1};
+    float cutOffAngle = 45;
 
+    glLightfv(lC, GL_POSITION, pos);
+    glLightfv(lC, GL_SPOT_DIRECTION, dir);
+    glLightf(lC, GL_SPOT_CUTOFF, cutOffAngle);
 }
 
 

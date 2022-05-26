@@ -5,9 +5,8 @@
  * 
  */
 Color::Color(){
-
-    diffR = 200.0f; diffG = 200.0f; diffB = 200.0f;
-    ambiR = 50.0f; ambiG = 50.0f; ambiB = 50.0f;
+    diffR = 0.0f; diffG = 0.0f; diffB = 0.0f;
+    ambiR = 0.0f; ambiG = 0.0f; ambiB = 0.0f;
     specR = 0.0f; specG = 0.0f; specB = 0.0f;
     emissR = 0.0f; emissG = 0.0f; emissB = 0.0f;
     shininess = 0.0f;

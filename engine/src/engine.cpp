@@ -159,7 +159,9 @@ int main(int argc, char** argv) {
 	// luzes
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	//glEnable(GL_NORMALIZE);
+	
+	glEnable(GL_NORMALIZE);
+    glEnable(GL_BLEND);
 	//glEnable(GL_TEXTURE_2D);
 	glShadeModel(GL_SMOOTH);
 

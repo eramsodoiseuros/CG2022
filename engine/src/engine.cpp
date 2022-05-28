@@ -14,7 +14,7 @@ using namespace std;
 Camera* camera = Camera::getInstance();
 
 // luzes
-Lights l = Lights();
+Lights lights = Lights();
 
 // primitives
 vector<Primitive> scenePrimitives = vector<Primitive>();
@@ -164,6 +164,8 @@ int main(int argc, char** argv) {
     glEnable(GL_BLEND);
 	//glEnable(GL_TEXTURE_2D);
 	glShadeModel(GL_SMOOTH);
+
+	lights.Apply();
 
 	// enter GLUT's main cycle
 	glutMainLoop();

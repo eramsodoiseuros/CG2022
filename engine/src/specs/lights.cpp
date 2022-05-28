@@ -41,16 +41,35 @@ void Lights::addSpotLight(SpotLight sl){
 
 
 void Lights::Apply(){
-    int lC = 3;
-    glEnable(lC);
+    
+    /*
+    <light type="point" posX="0" posY="10" posZ="0" />
+        <light type="directional" dirX="1" dirY="1" dirZ="1"/>
+        <light type="spotlight" posX="0" posY="10" posZ="0" dirX="1" dirY="1" dirZ="1" cutoff="45" />
+    */
 
-    float pos[4] = {0,10,0,1};
-    float dir[3] = {1,1,1};
-    float cutOffAngle = 45;
+    float pos[4] = {0.0f, 10.0f, 1.0f, 1};
+    float dir[4] = {1.0f, 1.0f, 1.0f, 0.0f};
 
-    glLightfv(lC, GL_POSITION, pos);
-    glLightfv(lC, GL_SPOT_DIRECTION, dir);
-    glLightf(lC, GL_SPOT_CUTOFF, cutOffAngle);
+    /*
+
+    // point
+    glLightfv(GL_LIGHT0, GL_POSITION, pos);
+    // directional
+    glLightfv(GL_LIGHT0, GL_POSITION, dir);
+
+    // spotlight
+    // glLightfv(GL_LIGHT0, GL_POSITION, pos);
+    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, dir);
+    GLfloat cutoff = 45.0;
+    glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, &cutoff);
+    // cutoff : [0, 90] ou 180
+
+    */
+    glLightfv(GL_LIGHT0, GL_POSITION, dir);
+    // attenuation
+    float quat_att = 1.0f;
+    glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, quat_att);
 }
 
 

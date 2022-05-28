@@ -111,6 +111,7 @@ public:
 
     static void keyFunc(unsigned char key, int x, int y) {
 
+
         switch (key) {
             case '.': {
                 glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

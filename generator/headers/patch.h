@@ -13,11 +13,14 @@ class Patch{
 
         string patchFile;
         string patchOutputFile;
+
         unsigned int tesselation;
         unsigned int nPatches;              // number of lines with patch's indexes
         unsigned int nVertices;             // number of lines with patch's points
+        
         vector<vector<int>> patchIndices;
         vector<Point_3D> patchVertices;
+        vector<Point_3D> normals;
 
         void parsePatchFile();
     
@@ -29,12 +32,14 @@ class Patch{
         unsigned int getNVertices();
         string getPatchFilename();
         string getOutputFilename();
-        vector<vector<int>> getPatchIndices;
-        vector<Point_3D> getPatchVertices;
+        vector<vector<int>> getPatchIndices();
+        vector<Point_3D> getPatchVertices();
+        vector<Point_3D> getNormals();
         
         vector<Point_3D> getPatchLevel(int index);
         Point_3D calculatePatchVertex(int index, float u, float v);
         void calculateCurve(vector<Point_3D> *result, int patchLevel, float u, float v, float interval);
+        Point_3D calculateNormal(float u, float v);
         void patchResultPoints(vector<Point_3D> *result);
         void toFile();
 };

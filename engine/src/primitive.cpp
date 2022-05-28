@@ -70,7 +70,7 @@ void Primitive::readPrimitive(string primitive3D){
 	int pointsIndex = 0;
 	int normalsIndex = 0;
 
-	float x1,x2,x3,y1,y2,y3,z1,z2,z3,n1,n2,n3;
+	float x,y,z, nx,ny,nz;
 
 	while(getline(dFile,l)){
 
@@ -90,25 +90,33 @@ void Primitive::readPrimitive(string primitive3D){
 			fstLine = false;
 
 			pointsArraySize = nIndexes * 3;
-			normalsArraySize = nIndexes;
 
 			points = (float*) malloc(pointsArraySize * sizeof(float));
-			normals = (float*) malloc(normalsArraySize * sizeof(float));
+			normals = (float*) malloc(pointsArraySize * sizeof(float));
 
 		}
 		else {
 			
 			// p1, p2, p3
-			x1 = stof(parser.at(0)); y1 = stof(parser.at(1)); z1 = stof(parser.at(2)); 
-			x2 = stof(parser.at(3)); y2 = stof(parser.at(4)); z2 = stof(parser.at(5));
-			x3 = stof(parser.at(6)); y3 = stof(parser.at(7)); z3 = stof(parser.at(8));
-			// normal
-			n1 = stof(parser.at(9)); n2 = stof(parser.at(10)); n3 = stof(parser.at(11));
+			x = stof(parser.at(0)); y = stof(parser.at(1)); z = stof(parser.at(2));
+			points[pointsIndex++] = x; points[pointsIndex++] = y; points[pointsIndex++] = z; 
+			
+			x = stof(parser.at(3)); y = stof(parser.at(4)); z = stof(parser.at(5));
+			points[pointsIndex++] = x; points[pointsIndex++] = y; points[pointsIndex++] = z; 
 
-			points[pointsIndex++] = x1; points[pointsIndex++] = y1; points[pointsIndex++] = z1; normals[normalsIndex++] = n1;
-			points[pointsIndex++] = x2; points[pointsIndex++] = y2; points[pointsIndex++] = z2; normals[normalsIndex++] = n2;
-			points[pointsIndex++] = x3; points[pointsIndex++] = y3; points[pointsIndex++] = z3; normals[normalsIndex++] = n3;
+			x = stof(parser.at(6)); y = stof(parser.at(7)); z = stof(parser.at(8));
+			points[pointsIndex++] = x; points[pointsIndex++] = y; points[pointsIndex++] = z; 
 
+			// normal1, normal2, normal3
+
+			nx = stof(parser.at(9)); ny = stof(parser.at(10)); nz = stof(parser.at(11));
+			normals[normalsIndex++] = nx; normals[normalsIndex++] = ny; normals[normalsIndex++] = nz;
+
+			nx = stof(parser.at(12)); ny = stof(parser.at(13)); nz = stof(parser.at(14));
+			normals[normalsIndex++] = nx; normals[normalsIndex++] = ny; normals[normalsIndex++] = nz;
+
+			nx = stof(parser.at(15)); ny = stof(parser.at(16)); nz = stof(parser.at(17));
+			normals[normalsIndex++] = nx; normals[normalsIndex++] = ny; normals[normalsIndex++] = nz;
 		}
 		parser.clear();
 	}
@@ -121,15 +129,17 @@ void Primitive::readPrimitive(string primitive3D){
 	
 	
 	// VBOs
-	glGenBuffers(2, vBuffer);
+	glGenBuffers(1, &vBuffer[0]);
 
 	// points
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[0]);
 	glBufferData(GL_ARRAY_BUFFER, pointsArraySize * sizeof(float), points, GL_STATIC_DRAW);
 
+
+	glGenBuffers(1, &vBuffer[1]);
 	// normals
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[1]);
-	glBufferData(GL_ARRAY_BUFFER, normalsArraySize * sizeof(float), normals, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, pointsArraySize * sizeof(float), normals, GL_STATIC_DRAW);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
@@ -304,7 +314,7 @@ void Primitive::Draw(){
 	
 	// Aplicar as componentes das cores (difusa,  especular, etc)
 	colorComponents.Apply();
-
+	
 	// Dar bind ao identificador associado da primitiva
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[0]);
 	// Definir o modo de leitura do VBO (3 vértices por triangulo, utilizando floats)
@@ -314,14 +324,11 @@ void Primitive::Draw(){
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[1]);
 	glNormalPointer(GL_FLOAT, 0, 0);
 
-
-
 	// Draw da primitiva, a começar no índice 0, nPoints
 	glDrawArrays(GL_TRIANGLES, 0, totalPoints);
+
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
-
-	
 
 	// para cada primitiva anexada, desenhá-la
 	for (Primitive p : appendedPrimitives){

@@ -12,71 +12,72 @@
 using namespace std;
 
 class Point_3D {
-private:
-    float x;
-    float y;
-    float z;
 
-public:
+    private:
+        float x;
+        float y;
+        float z;
 
-    Point_3D();
-    Point_3D(float p1, float p2, float p3);
+    public:
 
-
-    /**
-    *	Retorna a coordenada em X do ponto
-    *	@return `float` a coordenada em X
-    */
-    float getX();
-
-    /**
-    *	Retorna a coordenada em Y do ponto
-    *	@return `float` a coordenada em Y
-    */
-    float getY();
-
-    /**
-    *	Retorna a coordenada em Z do ponto
-    *	@return `float` a coordenada em Z
-    */
-    float getZ();
+        Point_3D();
+        Point_3D(float p1, float p2, float p3);
 
 
-    /**
-    *   Coloca o ponto nas coordenadas indicadas
-    *   @param x coordenada em X 
-    */
-    void setX(float x);
-
-    /**
-    *   Coloca o ponto nas coordenadas indicadas
-    *   @param y coordenada em Y 
-    */
-    void setY(float y);
-
-    /**
-    *   Coloca o ponto nas coordenadas indicadas
-    *   @param z coordenada em Z 
-    */
-    void setZ(float z);
-
-    /**
-    *	Coloca o ponto nas coordenadas indicadas
-    *	@param x coordenada em X
-    *	@param y coordenada em Y
-    *	@param z coordenada em Z
-    */
-    void setPointTo(float x, float y, float z);
-
-    /**
-    *	Formata uma string com o conteudo do Ponto
-    *	@return `char*`	correspondente ao conteudo do Ponto
-    */
-    string toString();
-
-    Point_3D Point_3D::crossProduct(Point_3D p);
+        /**
+        *	Retorna a coordenada em X do ponto
+        *	@return `float` a coordenada em X
+        */
+        float getX();
     
-    void Point_3D::normalize();
+        /**
+        *	Retorna a coordenada em Y do ponto
+        *	@return `float` a coordenada em Y
+        */
+        float getY();
+    
+        /**
+        *	Retorna a coordenada em Z do ponto
+        *	@return `float` a coordenada em Z
+        */
+        float getZ();
+    
+    
+        /**
+        *   Coloca o ponto nas coordenadas indicadas
+        *   @param x coordenada em X 
+        */
+        void setX(float x);
+    
+        /**
+        *   Coloca o ponto nas coordenadas indicadas
+        *   @param y coordenada em Y 
+        */
+        void setY(float y);
+    
+        /**
+        *   Coloca o ponto nas coordenadas indicadas
+        *   @param z coordenada em Z 
+        */
+        void setZ(float z);
+    
+        /**
+        *	Coloca o ponto nas coordenadas indicadas
+        *	@param x coordenada em X
+        *	@param y coordenada em Y
+        *	@param z coordenada em Z
+        */
+        void setPointTo(float x, float y, float z);
+    
+        /**
+        *	Formata uma string com o conteudo do Ponto
+        *	@return `char*`	correspondente ao conteudo do Ponto
+        */
+        string toString();
+    
+        Point_3D Point_3D::crossProduct(Point_3D p);
+        
+        void Point_3D::normalize();
 
 
 };

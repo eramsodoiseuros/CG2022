@@ -14,11 +14,14 @@ Patch::Patch(string filename, unsigned int tess, string outputFile){
     
     patchFile = string(filename);
     patchOutputFile = string(outputFile);
+
     tesselation = tess;
     nPatches = 0;
     nVertices = 0;
+    
     patchIndices = vector<vector<int>>();
     patchVertices = vector<Point_3D>();
+    normals = vector<Point_3D>();
 
     parsePatchFile();
 }
@@ -57,6 +60,15 @@ string Patch::getPatchFilename(){
  */
 string Patch::getOutputFilename(){
     return string(patchOutputFile);
+}
+
+/**
+ * @brief devolve as normais dos pontos do patch
+ * 
+ * @return vector<Point_3D> 
+ */
+vector<Point_3D> Patch::getNormals(){
+    return vector<Point_3D>(normals);
 }
 
 /**
@@ -322,8 +334,26 @@ Point_3D Patch::calculatePatchVertex(int index, float u, float v){
     float y = U[0] * finalM[0].getY() + U[1] * finalM[1].getY() + U[2] * finalM[2].getY() + U[3] * finalM[3].getY();
     float z = U[0] * finalM[0].getZ() + U[1] * finalM[1].getZ() + U[2] * finalM[2].getZ() + U[3] * finalM[3].getZ();
 
+
+
     return Point_3D(x,y,z);
 }
+
+
+Point_3D Patch::calculateNormal(float u, float v){
+
+    float U[] = {u * u * u, u * u, u, 1};
+    float V[] = {v * v * v, v * v, v, 1};
+
+    Point_3D normal = Point_3D();
+    normal.setX( U[1] * V[2] - U[2] * V[1] );
+    normal.setY( U[2] * V[0] - U[0] * V[2] );
+    normal.setZ( U[0] * V[1] - U[1] * V[0] );
+    return normal;
+}
+
+
+
 
 /**
  * @brief Calcula os pontos de uma curva associada a um patch, num dado intervalo
@@ -340,6 +370,13 @@ void Patch::calculateCurve(vector<Point_3D> *result, int patchLevel, float u, fl
     Point_3D p03 = calculatePatchVertex(patchLevel, u + interval, v);
     Point_3D p04 = calculatePatchVertex(patchLevel, u + interval, v + interval);
 
+    Point_3D n01 = calculateNormal(u, v);
+    Point_3D n02 = calculateNormal(u, v + interval);
+    Point_3D n03 = calculateNormal(u + interval, v);
+    Point_3D n04 = calculateNormal(u + interval, v + interval);
+
+
+
     /**
      *      2 ----- 4
      *      |       |
@@ -348,12 +385,23 @@ void Patch::calculateCurve(vector<Point_3D> *result, int patchLevel, float u, fl
      */
 
     result->push_back(p01);
-    result->push_back(p04);
-    result->push_back(p02);
+    normals.push_back(n01);
 
     result->push_back(p04);
+    normals.push_back(n04);
+
+    result->push_back(p02);
+    normals.push_back(n02);
+
+
+    result->push_back(p04);
+    normals.push_back(n04);
+
     result->push_back(p01);
+    normals.push_back(n01);
+
     result->push_back(p03);
+    normals.push_back(n03);
 }
 
 /**
@@ -402,6 +450,8 @@ void Patch::toFile(){
     outFile.open(outputFile, ios::out | ios::trunc);
 
     if (outFile.is_open()){
+
+        Point_3D p1, p2, p3, n1, n2, n3;
         
         int size = patchPoints.size();
         // Número de pontos, número de índices
@@ -411,15 +461,17 @@ void Patch::toFile(){
         for (int i = 0; i < size; i += 3) {
 
             // point 1 2 3
-            Point_3D p1 = patchPoints.at(i);
-            Point_3D p2 = patchPoints.at(i+1);
-            Point_3D p3 = patchPoints.at(i+2);
+            p1 = patchPoints.at(i);
+            p2 = patchPoints.at(i+1);
+            p3 = patchPoints.at(i+2);
 
-            // calculate normal from triangle
-            Point_3D normal = getNormal(p1,p2,p3);
+            // normals 1 2 3
+            n1 = normals.at(i);
+            n2 = normals.at(i+1);
+            n3 = normals.at(i+2);
 
-            // output vertex + normal
-            outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << normal.toString() << ", " << endl;
+            // output vertexs + normals
+            outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", " << n3.toString() << ", " << endl;
         }
         outFile.close();
     }

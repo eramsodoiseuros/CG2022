@@ -32,34 +32,6 @@ void Point_3D::setPointTo(float x, float y, float z) {
 }
 
 
-Point_3D sum(Point_3D p1, Point_3D p2){
-
-    Point_3D a = Point_3D();
-    a.setX(p1.getX() + p2.getX());
-    a.setY(p1.getY() + p2.getY());
-    a.setZ(p1.getZ() + p2.getZ());
-    return a;
-}
-
-Point_3D sub(Point_3D p1, Point_3D p2){
-
-    Point_3D a = Point_3D();
-    a.setX(p1.getX() - p2.getX());
-    a.setY(p1.getY() - p2.getY());
-    a.setZ(p1.getZ() - p2.getZ());
-    return a;
-}
-
-Point_3D mul(Point_3D p1, Point_3D p2){
-
-    Point_3D a = Point_3D();
-    a.setX(p1.getX() * p2.getX());
-    a.setY(p1.getY() * p2.getY());
-    a.setZ(p1.getZ() * p2.getZ());
-    return a;
-}
-
-
 Point_3D Point_3D::crossProduct(Point_3D p) {
 
     /*
@@ -116,4 +88,33 @@ string Point_3D::toString() {
     ss << fixed << x << "," << y << "," << z;
     string s = ss.str();
     return s;
+}
+
+
+
+Point_3D sum(Point_3D p1, Point_3D p2){
+
+    Point_3D a = Point_3D();
+    a.setX(p1.getX() + p2.getX());
+    a.setY(p1.getY() + p2.getY());
+    a.setZ(p1.getZ() + p2.getZ());
+    return a;
+}
+
+Point_3D sub(Point_3D p1, Point_3D p2){
+
+    Point_3D a = Point_3D();
+    a.setX(p1.getX() - p2.getX());
+    a.setY(p1.getY() - p2.getY());
+    a.setZ(p1.getZ() - p2.getZ());
+    return a;
+}
+
+Point_3D mul(Point_3D p1, Point_3D p2){
+
+    Point_3D a = Point_3D();
+    a.setX(p1.getX() * p2.getX());
+    a.setY(p1.getY() * p2.getY());
+    a.setZ(p1.getZ() * p2.getZ());
+    return a;
 }

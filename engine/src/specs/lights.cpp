@@ -52,6 +52,22 @@ void Lights::Apply(){
     float dir[4] = {1.0f, 1.0f, 1.0f, 0.0f};
 
     /*
+    vector<PointLight> pos1 = pointLights;
+    for (PointLight i : pos1) {
+        vector<float> n = i.getPos();
+        for (float k : n) {
+            cout << k << ' ';
+        }
+    }
+    printf("\n");
+    vector<SpotLight> pos2 = spotLights;
+    for (SpotLight i : pos2) {
+        vector<float> n = i.getPos();
+        for (float k : n) {
+            cout << k << ' ';
+        }
+    }
+    
 
     // point
     glLightfv(GL_LIGHT0, GL_POSITION, pos);

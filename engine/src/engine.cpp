@@ -146,7 +146,7 @@ int main(int argc, char** argv) {
 	cout << argv[1] << endl;
 	//getSolarSystem(argv[1]);
 	Parser p;
-	scenePrimitives = p.lerXML(argv[1], camera);
+	scenePrimitives = p.lerXML(argv[1], camera, &lights);
 	cameraSetup();
 
 

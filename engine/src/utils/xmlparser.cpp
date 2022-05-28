@@ -3,6 +3,7 @@
 #include "../../headers/translation.h"
 #include "../../headers/scale.h"
 #include "../../headers/color.h"
+#include "../../headers/lights.h"
 #include <sstream>
 #include <iostream>
 
@@ -333,10 +334,11 @@ void parseScale(TiXmlElement* operation, Primitive *p) {
  * @param lights
  * @return Point_3D
  */
-Point_3D parseLightPoint(TiXmlElement* lights) {
+void parseLightPoint(TiXmlElement* elem, Lights *l) {
     Point_3D point = Point_3D();
-    parseValues(lights, "posX", "posY", "posZ", &point);
-    return point;
+    parseValues(elem, "posX", "posY", "posZ", &point);
+    PointLight pl = PointLight(point.getX(), point.getY(), point.getZ());
+    (*l).addPointLight(pl);
 }
 
 
@@ -346,10 +348,11 @@ Point_3D parseLightPoint(TiXmlElement* lights) {
  * @param lights
  * @return Point_3D
  */
-Point_3D parseLightDirec(TiXmlElement* lights) {
+void parseLightDirec(TiXmlElement* lights, Lights *l) {
     Point_3D point = Point_3D();
     parseValues(lights, "dirX", "dirY", "dirZ", &point);
-    return point;
+    DirectionalLight dl = DirectionalLight(point.getX(), point.getY(), point.getZ());
+    (*l).addDirectionalLight(dl);
 }
 
 
@@ -358,7 +361,7 @@ Point_3D parseLightDirec(TiXmlElement* lights) {
  *
  * @param lights
  */
-void parseLightSpot(TiXmlElement* lights) {
+void parseLightSpot(TiXmlElement* lights, Lights *l) {
     TiXmlAttribute* attribute = lights->FirstAttribute();
 
     float posX = 0, posY = 0, posZ = 0,
@@ -390,6 +393,10 @@ void parseLightSpot(TiXmlElement* lights) {
         }
         attribute = attribute->Next();
     }
+
+    SpotLight sl = SpotLight(posX, posY, posZ, dirX, dirY, dirZ, cutoff);
+    (*l).addSpotLight(sl);
+   
 }
 
 
@@ -398,20 +405,19 @@ void parseLightSpot(TiXmlElement* lights) {
  *
  * @param group
  */
-void parseLight(TiXmlElement* group) {
+void parseLight(TiXmlElement* group,Lights *l) {
     TiXmlElement* lights = group->FirstChildElement();
-
     while (lights) {
         TiXmlAttribute* light_type = lights->FirstAttribute();
 
         if (strcmp(light_type->Value(), "point") == 0) {
-            parseLightPoint(lights);
+            parseLightPoint(lights,l);
         }
         else if (strcmp(light_type->Value(), "directional") == 0) {
-            parseLightDirec(lights);
+            parseLightDirec(lights,l);
         }
         else if (strcmp(light_type->Value(), "spotlight") == 0) {
-            parseLightSpot(lights);
+            parseLightSpot(lights,l);
         }
         lights = lights->NextSiblingElement();
     }
@@ -518,7 +524,7 @@ void parsePlanet(TiXmlElement* group, Primitive* p) {
  * @param filename
  * @param c
  */
-vector<Primitive> Parser::lerXML(char* filename, Camera* c) {
+vector<Primitive> Parser::lerXML(char* filename, Camera* c, Lights *lights) {
 
     TiXmlDocument config;
     if (!config.LoadFile(filename)) {
@@ -530,13 +536,21 @@ vector<Primitive> Parser::lerXML(char* filename, Camera* c) {
     TiXmlElement* camera = scene->FirstChildElement();
     parseCamera2(camera, c);
 
-    TiXmlElement* lights = camera->NextSiblingElement();
-    parseLight(lights);
+    TiXmlElement* group;
 
+    if (strcmp(camera->NextSiblingElement()->Value(), "lights") == 0) {
+
+        TiXmlElement* lightsElem = camera->NextSiblingElement();
+        parseLight(lightsElem,lights);
+        group = lightsElem->NextSiblingElement();
+    }
+    else {
+        group = camera->NextSiblingElement();
+    }
 
     vector<Primitive> primitives = vector<Primitive>();
 
-    TiXmlElement* group = lights->NextSiblingElement();
+    
     TiXmlElement* planetGroup = group->FirstChildElement();
 
     while (planetGroup) {

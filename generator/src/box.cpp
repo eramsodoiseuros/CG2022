@@ -94,10 +94,12 @@ void Box::toFile(string file) {
                 Point_3D p3 = points.at(index3);
 
                 // calculate normal from triangle
-                Point_3D normal = getNormal(p1,p2,p3);
+                Point_3D n1 = normal(p1);
+                Point_3D n2 = normal(p2);
+                Point_3D n3 = normal(p3);
 
                 // output vertex + normal
-                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << normal.toString() << ", " << endl; 
+                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << ", " << endl; 
             }
         }
         outFile.close();

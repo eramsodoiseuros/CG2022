@@ -57,6 +57,19 @@ void Point_3D::normalize() {
     }
 }
 
+Point_3D normal(Point_3D p1){
+    Point_3D p;
+    float length = sqrt(pow(p1.getX(), 2) + pow(p1.getY(), 2) + pow(p1.getZ(), 2));
+
+    if (length != 0){
+        p.setX(p1.getX() / length);
+        p.setY(p1.getY() / length);
+        p.setZ(p1.getZ() / length);
+    }
+
+    return p;
+}
+
 Point_3D getNormal(Point_3D p1, Point_3D p2, Point_3D p3){
 
     /*

@@ -79,7 +79,6 @@ class Point_3D {
         
         void Point_3D::normalize();
 
-
 };
 
 Point_3D polarToPoint3D(float radius,float height, float alpha);
@@ -88,6 +87,6 @@ Point_3D mul(Point_3D p1, Point_3D p2);
 Point_3D sub(Point_3D p1, Point_3D p2);
 
 Point_3D getNormal(Point_3D p1, Point_3D p2, Point_3D p3);
-
+Point_3D normal(Point_3D p);
 
 #endif //GENERATOR_POINT_3D_H

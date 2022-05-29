@@ -36,7 +36,7 @@ void Cone::toFile(std::string s) {
 
     std::ofstream file;
     int n_indices = 0, n_pontos = 0, n_normais = 0;
-    Point_3D p1, p2, p3, p4, p5, p6, n0, n1, n2;
+    Point_3D p1, p2, p3, p4, p5, p6, n1, n2, n3;
 
     n_pontos = slices*3 + 6*stacks;
     n_indices = slices*3 + 6*stacks;
@@ -62,9 +62,11 @@ void Cone::toFile(std::string s) {
             p2 = polarToPoint3D(raio,yy,alpha+sliceSize);
             p3 = polarToPoint3D(raio,yy,alpha);
 
-            n0 = getNormal(p1,p2,p3);
+            n1 = normal(p1);
+            n2 = normal(p2);
+            n3 = normal(p3);
 
-            file << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n0.toString() << ", " << endl;
+            file << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << endl;
         }
 
         for(int i = 0; i < stacks; i++){
@@ -79,18 +81,21 @@ void Cone::toFile(std::string s) {
                 p2 = polarToPoint3D(r,yy+stackSize*i,alpha);
                 p3 = polarToPoint3D(r,yy+stackSize*i,alpha+sliceSize);
 
-                n1 = getNormal(p1,p2,p3);
+                n1 = normal(p1);
+                n2 = normal(p2);
+                n3 = normal(p3);
 
-                file << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n0.toString() << ", " << endl;
-
+                file << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << endl;
 
                 p4 = polarToPoint3D(rUp,yy+stackSize*(i+1),alpha);
                 p5 = polarToPoint3D(r,yy+stackSize*i,alpha+sliceSize);
                 p6 = polarToPoint3D(rUp,yy+stackSize*(i+1),alpha+sliceSize);
+                
+                n1 = normal(p4);
+                n2 = normal(p5);
+                n3 = normal(p6);
 
-                n2 = getNormal(p4,p5,p6);
-
-                file << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n0.toString() << ", " << endl;
+                file << p4.toString() << ", " << p5.toString() << ", " << p6.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << endl;
             }
         }
         file.close();

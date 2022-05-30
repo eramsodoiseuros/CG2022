@@ -56,7 +56,10 @@ void changeSize(int w, int h) {
 	gluPerspective(fovy, ratio, zNear, zFar);
 
 	// return to the model view matrix mode
+	
 	glMatrixMode(GL_MODELVIEW);
+	
+		
 
 }
 
@@ -81,6 +84,7 @@ void updateFPS(){
 	}
 
 	sprintf(title, "CG@DI-UM - Fase 3 - Grupo 11 <-> FPS: %d - Time: %d ", fps, times / 1000);
+	
 	glutSetWindowTitle(title);
 }
 
@@ -93,6 +97,7 @@ void renderScene(void) {
 
 	// set the camera
 	glLoadIdentity();
+	
 	gluLookAt(camera->getPos().getX(), camera->getPos().getY(),camera->getPos().getZ(),
 		camera->getLookAt().getX(), camera->getLookAt().getY(), camera->getLookAt().getZ(),
 		0.0f, 1.0f, 0.0f);
@@ -105,7 +110,6 @@ void renderScene(void) {
 		p.Draw();
 	}
 	
-
 	// FPS CALCULATIONS
 	updateFPS();
 
@@ -123,20 +127,20 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
+
 	glutInit(&argc, argv);
-	glEnableClientState(GL_VERTEX_ARRAY);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowSize(1600, 900);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow("Engine - Projeto CG");
-
+	glutReshapeFunc(changeSize);
 	glutDisplayFunc(renderScene);
 	glutKeyboardFunc(Camera::keyFunc);
 	glutSpecialFunc(Camera::specialKeyFunc);
-	glutReshapeFunc(changeSize);
 	glutIdleFunc(idle);
 	glutMouseFunc(Camera::processMouseButtons);
 	glutMotionFunc(Camera::processMouseMotion);
+	
 
 	#ifndef __APPLE__
 	glewInit();
@@ -149,23 +153,20 @@ int main(int argc, char** argv) {
 	scenePrimitives = p.lerXML(argv[1], camera, &lights);
 	cameraSetup();
 
-
 	//  OpenGL settings
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_LINE);
-	
 	// luzes
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	
+		lights.Apply();
 	glEnable(GL_NORMALIZE);
     glEnable(GL_BLEND);
 	//glEnable(GL_TEXTURE_2D);
 	glShadeModel(GL_SMOOTH);
-
-	lights.Apply();
+	
 
 	// enter GLUT's main cycle
 	glutMainLoop();

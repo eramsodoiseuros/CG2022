@@ -47,9 +47,7 @@ Distancia /
     </camara>
 
     <lights> 
-        <light type="point" posX="0" posY="10" posZ="0" />
-        <light type="directional" dirX="1" dirY="1" dirZ="1"/>
-        <light type="spotlight" posX="0" posY="10" posZ="0" dirX="1" dirY="1" dirZ="1" cutoff="45" />
+        <light type="point" posX="0" posY="100" posZ="0" />
     </lights>
 
     <group>

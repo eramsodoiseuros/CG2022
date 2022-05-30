@@ -21,6 +21,7 @@ public:
     PointLight(float x, float y, float z);
     vector<float> getPos();
     void setPos(float x, float y, float z);
+    void Apply();
 };
 
 
@@ -37,6 +38,7 @@ public:
     DirectionalLight(float x, float y, float z);
     vector<float> getDirectional();
     void setDirectional(float x, float y, float z);
+    void Apply();
 };
 
 
@@ -61,6 +63,7 @@ public:
     void setDirectional(vector<float> value);
     float getCutoff();
     void setCutoff(float value);
+    void Apply();
 };
 
 

@@ -57,13 +57,13 @@ void Sphere::calculateSphere(Point_3D center, float radius, int stacks, int slic
                         for(int j = 0; j <= slices; j++){
 
                                 angle2 = j * sliceStep;     // angulo atual das slices
-                                x = xz * cosf(angle2);      // Valor do x
-                                z = xz * sinf(angle2);      // Valor do z
+                                z = xz * cosf(angle2);      // Valor do x
+                                x = xz * sinf(angle2);      // Valor do z
                                 points.push_back(Point_3D(x,y,z));
                                 
-                                nx = x * lengthInv;
-                                ny = y * lengthInv;
-                                nz = z * lengthInv;
+                                nz = cosf(angle1) * sinf(angle2);
+                                ny = sinf(angle1);
+                                nx = cosf(angle1) * cosf(angle2);
                                 normals.push_back(Point_3D(nx,ny,nz));
                         }
         }

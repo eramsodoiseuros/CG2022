@@ -40,52 +40,22 @@ void Lights::addSpotLight(SpotLight sl){
 }
 
 
+
 void Lights::Apply(){
     
-    /*
-    <light type="point" posX="0" posY="10" posZ="0" />
-        <light type="directional" dirX="1" dirY="1" dirZ="1"/>
-        <light type="spotlight" posX="0" posY="10" posZ="0" dirX="1" dirY="1" dirZ="1" cutoff="45" />
-    */
-
-    float pos[4] = {0.0f, 10.0f, 1.0f, 1};
-    float dir[4] = {1.0f, 1.0f, 1.0f, 0.0f};
-
-    /*
-    vector<PointLight> pos1 = pointLights;
-    for (PointLight i : pos1) {
-        vector<float> n = i.getPos();
-        for (float k : n) {
-            cout << k << ' ';
-        }
-    }
-    printf("\n");
-    vector<SpotLight> pos2 = spotLights;
-    for (SpotLight i : pos2) {
-        vector<float> n = i.getPos();
-        for (float k : n) {
-            cout << k << ' ';
-        }
-    }
-    
-
-    // point
-    glLightfv(GL_LIGHT0, GL_POSITION, pos);
-    // directional
-    glLightfv(GL_LIGHT0, GL_POSITION, dir);
-
-    // spotlight
-    // glLightfv(GL_LIGHT0, GL_POSITION, pos);
-    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, dir);
-    GLfloat cutoff = 45.0;
-    glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, &cutoff);
-    // cutoff : [0, 90] ou 180
-
-    */
-    glLightfv(GL_LIGHT0, GL_POSITION, dir);
     // attenuation
     float quat_att = 1.0f;
     glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, quat_att);
+
+    for (PointLight pl : pointLights) 
+        pl.Apply();
+
+    for (DirectionalLight dl : directionalLights)
+        dl.Apply();
+    
+    for (SpotLight sl : spotLights)
+        sl.Apply();
+
 }
 
 
@@ -109,6 +79,10 @@ void PointLight::setPos(float x, float y, float z){
     posX = x; posY = y; posZ = z;
 }
 
+void PointLight::Apply() {
+    float pos[] = { posX, posY, posZ };
+    glLightfv(GL_LIGHT0, GL_POSITION, pos);
+}
 
 /*--------------------------------------------> DIRECTIONAL_LIGHT */
 
@@ -129,6 +103,10 @@ void DirectionalLight::setDirectional(float x, float y, float z){
     dirX = x; dirY = y; dirZ = z;
 }
 
+void DirectionalLight::Apply() {
+    float dir[] = { dirX, dirY, dirZ };
+    glLightfv(GL_LIGHT0, GL_POSITION, dir);
+}
 
 /*--------------------------------------------> SPOT_LIGHT */
 
@@ -175,4 +153,14 @@ float SpotLight::getCutoff(){
 
 void SpotLight::setCutoff(float value){
     cutoff = value;
+}
+
+void SpotLight::Apply() {
+
+    float pos[] = { posX, posY, posZ };
+    float dir[] = { dirX, dirY, dirZ };
+    glLightfv(GL_LIGHT0, GL_POSITION, pos);
+    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, dir);
+    glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, &cutoff);
+    // cutoff : [0, 90] ou 180
 }

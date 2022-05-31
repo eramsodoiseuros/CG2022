@@ -102,9 +102,28 @@ void renderScene(void) {
 		camera->getLookAt().getX(), camera->getLookAt().getY(), camera->getLookAt().getZ(),
 		0.0f, 1.0f, 0.0f);
 
+	lights.Apply();
+
 	// put the geometric transformations here
 
 	// put drawing instructions here
+	glDisable(GL_LIGHTING);
+	glBegin(GL_LINES);
+	// X axis in red
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(-100.0f, 0.0f, 0.0f);
+	glVertex3f( 100.0f, 0.0f, 0.0f);
+	// Y Axis in Green
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(0.0f, -100.0f, 0.0f);
+	glVertex3f(0.0f, 100.0f, 0.0f);
+	// Z Axis in Blue
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 0.0f, -100.0f);
+	glVertex3f(0.0f, 0.0f,  100.0f);
+	glEnd();
+	glEnable(GL_LIGHTING);
+
 	for (Primitive p : scenePrimitives){
 
 		p.Draw();
@@ -160,12 +179,19 @@ int main(int argc, char** argv) {
 	glFrontFace(GL_LINE);
 	// luzes
 	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-		lights.Apply();
-	glEnable(GL_NORMALIZE);
+	glEnable(GL_RESCALE_NORMAL);
     glEnable(GL_BLEND);
-	//glEnable(GL_TEXTURE_2D);
 	glShadeModel(GL_SMOOTH);
+	//glEnable(GL_TEXTURE_2D);
+	
+	glEnable(GL_LIGHT0);
+	GLfloat dark[4] = {0.2,0.2,0.2,1.0};
+    GLfloat white[4] = {1.0,1.0,1.0,1.0};
+
+    glLightfv(GL_LIGHT0, GL_AMBIENT, dark);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, white);
+
 	
 
 	// enter GLUT's main cycle

@@ -64,7 +64,7 @@ void Lights::Apply(){
 
 PointLight::PointLight(float x, float y, float z){
 
-    posX = x; posY = y; posZ = z;    
+    posX = x; posY = y; posZ = z;
 }
 
 vector<float> PointLight::getPos(){
@@ -80,7 +80,7 @@ void PointLight::setPos(float x, float y, float z){
 }
 
 void PointLight::Apply() {
-    float pos[] = { posX, posY, posZ };
+    float pos[] = { posX, posY, posZ, 1.0f};
     glLightfv(GL_LIGHT0, GL_POSITION, pos);
 }
 
@@ -104,7 +104,7 @@ void DirectionalLight::setDirectional(float x, float y, float z){
 }
 
 void DirectionalLight::Apply() {
-    float dir[] = { dirX, dirY, dirZ };
+    float dir[] = { dirX, dirY, dirZ, 0.0f };
     glLightfv(GL_LIGHT0, GL_POSITION, dir);
 }
 
@@ -157,10 +157,10 @@ void SpotLight::setCutoff(float value){
 
 void SpotLight::Apply() {
 
-    float pos[] = { posX, posY, posZ };
-    float dir[] = { dirX, dirY, dirZ };
+    float pos[] = { posX, posY, posZ, 1.0f };
+    float dir[] = { dirX, dirY, dirZ};
     glLightfv(GL_LIGHT0, GL_POSITION, pos);
     glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, dir);
-    glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, &cutoff);
+    glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, cutoff);
     // cutoff : [0, 90] ou 180
 }

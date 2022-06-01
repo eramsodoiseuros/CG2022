@@ -176,7 +176,7 @@ int main(int argc, char** argv) {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	glFrontFace(GL_LINE);
+	glFrontFace(GL_CCW);
 	// luzes
 	glEnable(GL_LIGHTING);
 	glEnable(GL_RESCALE_NORMAL);

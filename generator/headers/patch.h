@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "../../utils/point_3d.h"
+#include "../../utils/point_2d.h"
 
 using namespace std;
 
@@ -21,6 +22,7 @@ class Patch{
         vector<vector<int>> patchIndices;
         vector<Point_3D> patchVertices;
         vector<Point_3D> normals;
+        vector<Point_2D> texs;
 
         void parsePatchFile();
     

@@ -1,11 +1,15 @@
 #pragma
-#ifndef GENERATOR_POINT_3D_H
-#define GENERATOR_POINT_3D_H
+#ifndef GENERATOR_POINT_2D_H
+#define GENERATOR_POINT_2D_H
 
 #include <cstdlib>
 #include <cstdio>
 #include <math.h>
+#include <string>
+#include <sstream>
+#include <iostream>
 
+using namespace std;
 
 class Point_2D {
 private:
@@ -14,12 +18,9 @@ private:
 
 public:
 
-    Point_2D() = default;
+    Point_2D();
 
-    Point_2D(float p1, float p2) {
-        this->x = p1;
-        this->y = p2;
-    }
+    Point_2D(float p1, float p2);
 
     /**
     *	Retorna a coordenada em X do ponto
@@ -55,9 +56,9 @@ public:
 
     /**
     *	Formata uma string com o conteudo do Ponto
-    *	@return `char*`	correspondente ao conteudo do Ponto
+    *	@return `string`correspondente ao conteudo do Ponto
     */
-    char* toString();
+    string toString();
 };
 
 

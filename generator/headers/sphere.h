@@ -7,6 +7,7 @@
 #include <fstream>
 #include <vector>
 #include "../../utils/point_3d.h"
+#include "../../utils/point_2d.h"
 
 class Sphere {
     private:
@@ -18,6 +19,7 @@ class Sphere {
         std::vector<Point_3D> points;         // Pontos da esfera
         std::vector<Point_3D> normals;        // normais
         std::vector<short> indexes;           // índices para construção
+        std::vector<Point_2D> texs;
 
     public:
         Sphere(float r, int slices, int stacks);
@@ -78,6 +80,9 @@ class Sphere {
          * @return Indexes
          */
         std::vector<short> getIndexes();
+
+
+        std::vector<Point_2D> getTexs();
 };
 
 

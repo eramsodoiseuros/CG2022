@@ -1,6 +1,6 @@
 #ifndef PRIMITIVE_HEADER_FILE
 #define PRIMITIVE_HEADER_FILE
-
+#include <IL/il.h>
 #include <string>
 #include <vector>
 #include "transformation.h"
@@ -8,13 +8,16 @@
 
 using namespace std;
 
+
+
 class Primitive{
 
     private:
         string filename;                            // 3d file name
-        unsigned int vBuffer[2];                    // VBOs (points, ??)
+        unsigned int vBuffer[3];                    // VBOs (points, ??)
         unsigned int nPoints;                       // primitive's number of points
         unsigned int nIndexes;                      // primitive's number of indexes used to write 3d file
+        unsigned int textureID;
         
         string textureFilename;                     // texture filename
         vector<Transformation*> transformations;    // list of transformations
@@ -23,6 +26,7 @@ class Primitive{
         vector<Primitive> appendedPrimitives;
 
     public:
+        string DBPATH = "../3D/";
 
         void readPrimitive(string file);
         // constructors
@@ -47,6 +51,7 @@ class Primitive{
         void setColorComponents(Color c);
 
         // drawing function
+        void loadTexture();
         void addAppendedPrimitive(Primitive p);
         void addTransformation(Transformation *a);
         Primitive clone();

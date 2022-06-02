@@ -1,5 +1,16 @@
 #include "point_2d.h"
 
+Point_2D::Point_2D(){
+    x = 0.0f;
+    y = 0.0f;
+}
+
+Point_2D::Point_2D(float p1, float p2) {
+    this->x = p1;
+    this->y = p2;
+}
+
+
 float Point_2D::getX() { return this->x; }
 
 float Point_2D::getY() { return this->y; }
@@ -13,8 +24,10 @@ void Point_2D::setPointTo(float x, float y) {
     this->y = y;
 }
 
-char* Point_2D::toString() {
-    char *s = (char*) malloc(30);
-    sprintf(s, "%f,%f,%f\n", this->x, this->y);
+string Point_2D::toString() {
+    stringstream ss;
+    ss.precision(4);
+    ss << fixed << x << "," << y;
+    string s = ss.str();
     return s;
 }

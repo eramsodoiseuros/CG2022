@@ -184,33 +184,44 @@ int main(int argc, char** argv) {
 	cout << argv[1] << endl;
 	//getSolarSystem(argv[1]);
 	Parser p;
-	scenePrimitives = p.lerXML(argv[1], camera, &lights);
-	cameraSetup();
+	try {
+		scenePrimitives = p.lerXML(argv[1], camera, &lights);
+		cout << "depois" << endl;
+		cameraSetup();
 
-	//  OpenGL settings
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
-	// luzes
-	glEnable(GL_LIGHTING);
-	glEnable(GL_RESCALE_NORMAL);
-	glEnable(GL_BLEND);
-	glShadeModel(GL_SMOOTH);
-	//glEnable(GL_TEXTURE_2D);
+		//  OpenGL settings
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		glFrontFace(GL_CCW);
+		glEnable(GL_NORMALIZE);
 
-	glEnable(GL_LIGHT0);
-	GLfloat dark[4] = { 0.2,0.2,0.2,1.0 };
-	GLfloat white[4] = { 1.0,1.0,1.0,1.0 };
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		// luzes
+		glEnable(GL_LIGHTING);
+		glEnable(GL_RESCALE_NORMAL);
+		glEnable(GL_BLEND);
+		glEnable(GL_TEXTURE_2D);
+		glShadeModel(GL_SMOOTH);
 
-	glLightfv(GL_LIGHT0, GL_AMBIENT, dark);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, white);
+		glEnable(GL_LIGHT0);
+		GLfloat dark[4] = { 0.2,0.2,0.2,1.0 };
+		GLfloat white[4] = { 1.0,1.0,1.0,1.0 };
+
+		glLightfv(GL_LIGHT0, GL_AMBIENT, dark);
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
+		glLightfv(GL_LIGHT0, GL_SPECULAR, white);
 
 
 
-	// enter GLUT's main cycle
-	glutMainLoop();
+		// enter GLUT's main cycle
+		glutMainLoop();
+	}
+	catch (const std::exception& ex) {
+		cerr << ex.what() << endl;
+	}
 
 	return 1;
 }

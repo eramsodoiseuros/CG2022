@@ -22,6 +22,7 @@ Patch::Patch(string filename, unsigned int tess, string outputFile){
     patchIndices = vector<vector<int>>();
     patchVertices = vector<Point_3D>();
     normals = vector<Point_3D>();
+    texs = vector<Point_2D>();
 
     parsePatchFile();
 }
@@ -386,22 +387,29 @@ void Patch::calculateCurve(vector<Point_3D> *result, int patchLevel, float u, fl
 
     result->push_back(p01);
     normals.push_back(n01);
+    texs.push_back(Point_2D(1.0f - u, 1.0f - v));
 
     result->push_back(p04);
     normals.push_back(n04);
+    texs.push_back(Point_2D(1.0f - u - interval, 1.0f - v - interval));
 
     result->push_back(p02);
     normals.push_back(n02);
+    texs.push_back(Point_2D(1.0f - u, 1.0f - v - interval));
 
 
     result->push_back(p04);
     normals.push_back(n04);
+    texs.push_back(Point_2D(1.0f - u - interval, 1.0f - v - interval));
 
     result->push_back(p01);
     normals.push_back(n01);
+    texs.push_back(Point_2D(1.0f - u, 1.0f - v));
 
     result->push_back(p03);
     normals.push_back(n03);
+    texs.push_back(Point_2D(1.0f - u - interval, 1.0f - v));
+
 }
 
 /**
@@ -452,6 +460,7 @@ void Patch::toFile(){
     if (outFile.is_open()){
 
         Point_3D p1, p2, p3, n1, n2, n3;
+        Point_2D t1, t2, t3;
         
         int size = patchPoints.size();
         // Número de pontos, número de índices
@@ -462,16 +471,21 @@ void Patch::toFile(){
 
             // point 1 2 3
             p1 = patchPoints.at(i);
-            p2 = patchPoints.at(i+1);
-            p3 = patchPoints.at(i+2);
+            p2 = patchPoints.at(i + 1);
+            p3 = patchPoints.at(i + 2);
 
             // normals 1 2 3
             n1 = normals.at(i);
-            n2 = normals.at(i+1);
-            n3 = normals.at(i+2);
+            n2 = normals.at(i + 1);
+            n3 = normals.at(i + 2);
+
+            t1 = texs.at(i);
+            t2 = texs.at(i + 1);
+            t3 = texs.at(i + 2);
 
             // output vertexs + normals
-            outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", " << n3.toString() << ", " << endl;
+            outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", " << n3.toString() << ", "
+            << t1.toString() << ", " << t2.toString() << ", " << t3.toString() << endl;
         }
         outFile.close();
     }

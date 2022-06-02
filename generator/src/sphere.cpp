@@ -57,7 +57,7 @@ void Sphere::calculateSphere(Point_3D center, float radius, int stacks, int slic
                         for(int j = 0; j <= slices; j++){
 
                                 angle2 = j * sliceStep;     // angulo atual das slices
-                                z = -xz * cosf(angle2);      // Valor do x
+                                z = xz * cosf(angle2);      // Valor do x
                                 x = xz * sinf(angle2);      // Valor do z
                                 Point_3D vertex = Point_3D(x,y,z);
                                 points.push_back(vertex);
@@ -71,28 +71,25 @@ void Sphere::calculateSphere(Point_3D center, float radius, int stacks, int slic
 void Sphere::calculateIndexes(){
 
         int nLinhas = (stacks+1) * slices;
+        int k1, k2;
+        for(short i = 0; i < stacks; ++i){
 
-        for(short i = 0; i < nLinhas; i+= slices){
+            k1 = i * (slices + 1);
+            k2 = k1 + slices + 1;
 
-                for(short j = i; j < i+slices; j++){
-                        if(i==0){                                //Para a stack inicial, que só tem 1 triangulo por ciclo
-                                indexes.push_back(j);
-                                indexes.push_back(j+slices+1);
-                                indexes.push_back(j+slices);    
+                for(short j = 0; j < slices; ++j, ++k1, ++k2){
+                        if(i!=0){                                //Para a stack inicial, que só tem 1 triangulo por ciclo
+                                
+                                indexes.push_back(k1);    //1
+                                indexes.push_back(k2);    //3
+                                indexes.push_back(k1+1);  //2  
+                                //printf("%d, %d, %d \n", k1, k2, k1 + 1);
                         }
-                        else if(i == nLinhas-1){                 //Para a stack final, que só tem 1 triangulo por ciclo
-                                indexes.push_back(j);
-                                indexes.push_back(j+1);
-                                indexes.push_back(j+slices+1);
-                        }
-                        else {
-                                indexes.push_back(j);                           
-                                indexes.push_back(j+slices+1);
-                                indexes.push_back(j+slices);
-
-                                indexes.push_back(j);
-                                indexes.push_back(j+1);
-                                indexes.push_back(j+slices+1);
+                        if(i != (stacks-1)){                 //Para a stack final, que só tem 1 triangulo por ciclo
+                                indexes.push_back(k1+1);  //2
+                                indexes.push_back(k2);    //3
+                                indexes.push_back(k2+1);  //4
+                                //printf("%d, %d, %d \n", k1 + 1, k2, k2 + 1);
                         }
                 }
         }

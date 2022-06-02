@@ -8,49 +8,49 @@
 
 /**
  * @brief Construct a new Primitive:: Primitive object
- * 
+ *
  */
-Primitive::Primitive(){
+Primitive::Primitive() {
 
-    filename = "";
-    textureFilename = "";
+	filename = "";
+	textureFilename = "";
 	this->vBuffer;
-    nPoints = 0;
-    nIndexes = 0;
-    transformations = vector<Transformation*>();
+	nPoints = 0;
+	nIndexes = 0;
+	transformations = vector<Transformation*>();
 	appendedPrimitives = vector<Primitive>();
 	colorComponents = Color();
 }
 
 /**
  * @brief Construct a new Primitive:: Primitive object
- * 
+ *
  * @param filename ficheiro 3d
  */
-Primitive::Primitive(string filename){
+Primitive::Primitive(string filename) {
 
-    readPrimitive(filename);
-    textureFilename = "";
+	readPrimitive(filename);
+	textureFilename = "";
 	this->vBuffer;
-    transformations = vector<Transformation*>();
+	transformations = vector<Transformation*>();
 	appendedPrimitives = vector<Primitive>();
 	colorComponents = Color();
 }
 
 /**
  * @brief Leitura de um ficheiro 3d
- * 
- * @param primitive3D 
+ *
+ * @param primitive3D
  */
-void Primitive::readPrimitive(string primitive3D){
+void Primitive::readPrimitive(string primitive3D) {
 
 	// 3d file path
 	string inputFile = "../3D/" + primitive3D;
 	ifstream dFile(inputFile);
-	if(!dFile.is_open()){
+	if (!dFile.is_open()) {
 
 		cerr << "Could not open the specified file:" << inputFile << endl;
-		return ;
+		return;
 	}
 
 	// auxiliar variables for parsing
@@ -70,42 +70,42 @@ void Primitive::readPrimitive(string primitive3D){
 	int pointsIndex = 0;
 	int normalsIndex = 0;
 
-	float x,y,z, nx,ny,nz;
+	float x, y, z, nx, ny, nz;
 
-	while(getline(dFile,l)){
+	while (getline(dFile, l)) {
 
 
 		// separar todos os dados pela vírgula que os delimita
 		stringstream ss(l);
-		while(ss.good()){
+		while (ss.good()) {
 			string subs;
-			getline(ss,subs,',');
+			getline(ss, subs, ',');
 			parser.push_back(subs);
 		}
 
 		// a primeira linha apenas lê o número de pontos e de índices utilizados
-		if(fstLine){
+		if (fstLine) {
 			nPoints = stoi(parser.at(0));
 			nIndexes = stoi(parser.at(1));
 			fstLine = false;
 
 			pointsArraySize = nIndexes * 3;
 
-			points = (float*) malloc(pointsArraySize * sizeof(float));
-			normals = (float*) malloc(pointsArraySize * sizeof(float));
+			points = (float*)malloc(pointsArraySize * sizeof(float));
+			normals = (float*)malloc(pointsArraySize * sizeof(float));
 
 		}
 		else {
-			
+
 			// p1, p2, p3
 			x = stof(parser.at(0)); y = stof(parser.at(1)); z = stof(parser.at(2));
-			points[pointsIndex++] = x; points[pointsIndex++] = y; points[pointsIndex++] = z; 
-			
+			points[pointsIndex++] = x; points[pointsIndex++] = y; points[pointsIndex++] = z;
+
 			x = stof(parser.at(3)); y = stof(parser.at(4)); z = stof(parser.at(5));
-			points[pointsIndex++] = x; points[pointsIndex++] = y; points[pointsIndex++] = z; 
+			points[pointsIndex++] = x; points[pointsIndex++] = y; points[pointsIndex++] = z;
 
 			x = stof(parser.at(6)); y = stof(parser.at(7)); z = stof(parser.at(8));
-			points[pointsIndex++] = x; points[pointsIndex++] = y; points[pointsIndex++] = z; 
+			points[pointsIndex++] = x; points[pointsIndex++] = y; points[pointsIndex++] = z;
 
 			// normal1, normal2, normal3
 
@@ -120,14 +120,14 @@ void Primitive::readPrimitive(string primitive3D){
 		}
 		parser.clear();
 	}
-	
+
 	dFile.close();
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	
-	
+
+
 	// VBOs
 	glGenBuffers(1, &vBuffer[0]);
 
@@ -150,58 +150,58 @@ void Primitive::readPrimitive(string primitive3D){
 
 /**
  * @brief get objeto com as componentes das cores (diff, spec, ambi, etc.)
- * 
- * @return Color 
+ *
+ * @return Color
  */
-Color Primitive::getColorComponents(){
+Color Primitive::getColorComponents() {
 
 	return colorComponents;
 }
 
 /**
  * @brief get ficheiro 3d de origem
- * 
- * @return string 
+ *
+ * @return string
  */
-string Primitive::getFilename(){
-    return string(filename);
+string Primitive::getFilename() {
+	return string(filename);
 }
 
 /**
  * @brief get ficheiro da textura
- * 
- * @return string 
+ *
+ * @return string
  */
-string Primitive::getTextureFilename(){
+string Primitive::getTextureFilename() {
 	return string(textureFilename);
 }
 
 /**
  * @brief get número de índices
- * 
- * @return unsigned int 
+ *
+ * @return unsigned int
  */
-unsigned int Primitive::getNIndexes(){
-    return nIndexes;
+unsigned int Primitive::getNIndexes() {
+	return nIndexes;
 }
 
 
 /**
  * @brief devolve uma lista das transformações a serem aplicadas à corrente primitiva
- * 
- * @return vector<Transformation*> 
+ *
+ * @return vector<Transformation*>
  */
-vector<Transformation*> Primitive::getTransformations(){
+vector<Transformation*> Primitive::getTransformations() {
 
-    return vector<Transformation*>(transformations);
+	return vector<Transformation*>(transformations);
 }
 
 /**
  * @brief devolve uma lista de primitivas anexadas a uma principal
- * 
- * @return vector<Primitive> 
+ *
+ * @return vector<Primitive>
  */
-vector<Primitive> Primitive::getAppendedPrimitives(){
+vector<Primitive> Primitive::getAppendedPrimitives() {
 
 	return vector<Primitive>(appendedPrimitives);
 }
@@ -209,35 +209,35 @@ vector<Primitive> Primitive::getAppendedPrimitives(){
 
 /**
  * @brief set nome do ficheiro 3d de origem
- * 
- * @param s 
+ *
+ * @param s
  */
-void Primitive::setFilename(string s){
-    filename = string(s);
+void Primitive::setFilename(string s) {
+	filename = string(s);
 }
 
 /**
  * @brief set nome do ficheiro da textura
- * 
- * @param s 
+ *
+ * @param s
  */
-void Primitive::setTextureFilename(string s){
-    textureFilename = string(s);
+void Primitive::setTextureFilename(string s) {
+	textureFilename = string(s);
 }
 
 /**
  * @brief set da lista de transformações a serem aplicadas
- * 
- * @param transf 
+ *
+ * @param transf
  */
-void Primitive::setTransformations(vector<Transformation*> transf){
-    transformations = vector<Transformation*>(transf);
+void Primitive::setTransformations(vector<Transformation*> transf) {
+	transformations = vector<Transformation*>(transf);
 }
 
 /**
  * @brief set da lista de primitivas anexadas
- * 
- * @param primitives 
+ *
+ * @param primitives
  */
 void Primitive::setAppendedPrimitives(vector<Primitive> primitives) {
 	appendedPrimitives = vector<Primitive>(primitives);
@@ -245,10 +245,10 @@ void Primitive::setAppendedPrimitives(vector<Primitive> primitives) {
 
 /**
  * @brief set das componentes da cor
- * 
- * @param c 
+ *
+ * @param c
  */
-void Primitive::setColorComponents(Color c){
+void Primitive::setColorComponents(Color c) {
 
 	colorComponents = c;
 }
@@ -256,65 +256,65 @@ void Primitive::setColorComponents(Color c){
 
 /**
  * @brief adiciona uma transformação à primitiva
- * 
- * @param a 
+ *
+ * @param a
  */
-void Primitive::addTransformation(Transformation *a){
-	
+void Primitive::addTransformation(Transformation* a) {
+
 	transformations.push_back(a);
 }
 
 /**
  * @brief adiciona uma primitiva às anexadas
- * 
- * @param p 
+ *
+ * @param p
  */
-void Primitive::addAppendedPrimitive(Primitive p){
+void Primitive::addAppendedPrimitive(Primitive p) {
 
 	appendedPrimitives.push_back(p);
 }
 
 /**
  * @brief object clone
- * 
- * @return Primitive 
+ *
+ * @return Primitive
  */
-Primitive Primitive::clone(){
+Primitive Primitive::clone() {
 
-    Primitive p = Primitive();
-    p.setFilename(filename);
-    p.setTextureFilename(textureFilename);
+	Primitive p = Primitive();
+	p.setFilename(filename);
+	p.setTextureFilename(textureFilename);
 
-    p.setTransformations(transformations);
+	p.setTransformations(transformations);
 	p.setAppendedPrimitives(appendedPrimitives);
-	
-    p.nPoints = nPoints;
-    p.nIndexes = nIndexes;
-    p.vBuffer[0] = vBuffer[0];
-    p.vBuffer[1] = vBuffer[1];
+
+	p.nPoints = nPoints;
+	p.nIndexes = nIndexes;
+	p.vBuffer[0] = vBuffer[0];
+	p.vBuffer[1] = vBuffer[1];
 }
 
 
 /**
  * @brief Desenho da primitiva
- * 
+ *
  */
-void Primitive::Draw(){
+void Primitive::Draw() {
 
-    int totalPoints = nIndexes * 3;
+	int totalPoints = nIndexes * 3;
 
 	glPushMatrix();
 
-	for (Transformation* t : transformations){
+	for (Transformation* t : transformations) {
 		t->Apply();
 	}
 
-    glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
-	
+
 	// Aplicar as componentes das cores (difusa,  especular, etc)
 	colorComponents.Apply();
-	
+
 	// Dar bind ao identificador associado da primitiva
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[0]);
 	// Definir o modo de leitura do VBO (3 vértices por triangulo, utilizando floats)
@@ -331,7 +331,7 @@ void Primitive::Draw(){
 	glDisableClientState(GL_NORMAL_ARRAY);
 
 	// para cada primitiva anexada, desenhá-la
-	for (Primitive p : appendedPrimitives){
+	for (Primitive p : appendedPrimitives) {
 		p.Draw();
 	}
 
@@ -341,9 +341,9 @@ void Primitive::Draw(){
 
 /**
  * @brief imprime a informação básica relativa a uma primitiva
- * 
+ *
  */
-void Primitive::printInfo(){
+void Primitive::printInfo() {
 
 	cout << "filename::" << filename << ",texture::" << textureFilename << ",nPoints::" << nPoints << ",nIndexes::" << nIndexes << endl;
 	cout << "number of moons: " << appendedPrimitives.size() << endl;

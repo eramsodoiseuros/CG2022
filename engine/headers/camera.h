@@ -1,4 +1,4 @@
-#ifndef ENGINE_CAMERA_H
+ï»¿#ifndef ENGINE_CAMERA_H
 #define ENGINE_CAMERA_H
 
 #include "GL_lib.h"
@@ -14,27 +14,23 @@ class Camera {
 
 private:
     static Camera* c;
-	Point_3D position;
-	Point_3D lookAt;
+    Point_3D position;
+    Point_3D lookAt;
     Point_3D persp;
-	int startX;
-    int startY;
-    int tracking;
-    float rotating_step;
-    float horizontal_angle;
-    float vertical_angle;
-    float r;
-	float camera_speed;
-	int camera_mode;
+    int startX, startY, tracking;
+    float rotating_step, horizontal_angle, vertical_angle;
+    float r, camera_speed;
+    int camera_mode;
+    int showXYZ;
 
-    
+
 public:
 
     Camera() {
         this->horizontal_angle = 0.0f;
         this->vertical_angle = 0.0f;
 
-        // distância inicial da câmara ao (0,0,0)
+        // distï¿½ncia inicial da cï¿½mara ao (0,0,0)
         this->r = 57.0f;
 
         float x =
@@ -58,52 +54,54 @@ public:
 
         this->camera_speed = 2;
         this->camera_mode = THIRD;
+
+
+        this->showXYZ = 0;
     }
 
-	static Camera *getInstance() {
-		if (!c) {
-			c = new Camera();
-		}
-		return c;
-	}
-
+    static Camera* getInstance() {
+        if (!c) {
+            c = new Camera();
+        }
+        return c;
+    }
 
     static void specialKeyFunc(int key, int x, int y) {
 
         switch (key) {
 
-            case GLUT_KEY_RIGHT: {
-                // LookRight
-                if (c->camera_mode == FIRST) {
-                    c->updateHorizontalAngle(-c->rotating_step);
-                    c->updateLookAt();
-                }
-                break;
+        case GLUT_KEY_RIGHT: {
+            // LookRight
+            if (c->camera_mode == FIRST) {
+                c->updateHorizontalAngle(-c->rotating_step);
+                c->updateLookAt();
             }
-            case GLUT_KEY_LEFT: {
-                // LookLeft
-                if (c->camera_mode == FIRST) {
-                    c->updateHorizontalAngle(c->rotating_step);
-                    c->updateLookAt();
-                }
-                break;
+            break;
+        }
+        case GLUT_KEY_LEFT: {
+            // LookLeft
+            if (c->camera_mode == FIRST) {
+                c->updateHorizontalAngle(c->rotating_step);
+                c->updateLookAt();
             }
-            case GLUT_KEY_UP: {
-                // LookUp
-                if (c->camera_mode == FIRST) {
-                    c->updateVerticalAngle(c->rotating_step);
-                    c->updateLookAt();
-                }
-                break;
+            break;
+        }
+        case GLUT_KEY_UP: {
+            // LookUp
+            if (c->camera_mode == FIRST) {
+                c->updateVerticalAngle(c->rotating_step);
+                c->updateLookAt();
             }
-            case GLUT_KEY_DOWN: {
-                // LookDown
-                if (c->camera_mode == FIRST) {
-                    c->updateVerticalAngle(-c->rotating_step);
-                    c->updateLookAt();
-                }
-                break;
+            break;
+        }
+        case GLUT_KEY_DOWN: {
+            // LookDown
+            if (c->camera_mode == FIRST) {
+                c->updateVerticalAngle(-c->rotating_step);
+                c->updateLookAt();
             }
+            break;
+        }
         }
     }
 
@@ -113,80 +111,93 @@ public:
 
 
         switch (key) {
-            case '.': {
-                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-                break;
-            }
-            case ',': {
-                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-                break;
-            }
-            
-            case 'w': {
-                // MoveForward
-                if (c->camera_mode == FIRST) {
-                    c->fpsMoveForward();
-                } else {
-                    c->updateR(-c->camera_speed);
-                    c->updateCameraPos();
-                }
-                break;
-            }
-            case 's': {
-                // MoveBackwards
-                if (c->camera_mode == FIRST) {
-                    c->fpsMoveBack();
-                } else {
-                    c->updateR(c->camera_speed);
-                    c->updateCameraPos();
-                }
-                break;
-            }
+        case '.': {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+            break;
+        }
+        case ',': {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            break;
+        }
 
-            // sobe a câmara (direcao p/origem)
-            case 'q': {
-                if (c->camera_mode == FIRST) {
-                    c->fpsMoveUp();
-                } else {
-                    c->updateVerticalAngle(c->rotating_step);
-                    c->updateCameraPos();
-                }
-                break;
+        case 'w': {
+            // MoveForward
+            if (c->camera_mode == FIRST) {
+                c->fpsMoveForward();
             }
-            
-             // desce a câmara (direcao p/origem)
-            case 'z': {
-                if (c->camera_mode == FIRST) {
-                    c->fpsMoveDown();
-                } else {
-                    c->updateVerticalAngle(-c->rotating_step);
-                    c->updateCameraPos();
-                }
-                break;
+            else {
+                c->updateR(-c->camera_speed);
+                c->updateCameraPos();
             }
+            break;
+        }
+        case 's': {
+            // MoveBackwards
+            if (c->camera_mode == FIRST) {
+                c->fpsMoveBack();
+            }
+            else {
+                c->updateR(c->camera_speed);
+                c->updateCameraPos();
+            }
+            break;
+        }
+
+                // sobe a cï¿½mara (direcao p/origem)
+        case 'q': {
+            if (c->camera_mode == FIRST) {
+                c->fpsMoveUp();
+            }
+            else {
+                c->updateVerticalAngle(c->rotating_step);
+                c->updateCameraPos();
+            }
+            break;
+        }
+
+                // desce a cï¿½mara (direcao p/origem)
+        case 'z': {
+            if (c->camera_mode == FIRST) {
+                c->fpsMoveDown();
+            }
+            else {
+                c->updateVerticalAngle(-c->rotating_step);
+                c->updateCameraPos();
+            }
+            break;
+        }
 
 
-            case 'a': {
-                if (c->camera_mode == FIRST) {
-                    c->fpsMoveLeft();
-                } else {
-                    c->updateHorizontalAngle(-c->rotating_step);
-                    c->updateCameraPos();
-                }
-                break;
+        case 'a': {
+            if (c->camera_mode == FIRST) {
+                c->fpsMoveLeft();
             }
-            case 'd': {
-                if (c->camera_mode == FIRST) {
-                    c->fpsMoveRight();
-                } else {
-                    c->updateHorizontalAngle(c->rotating_step);
-                    c->updateCameraPos();
-                }
-                break;
+            else {
+                c->updateHorizontalAngle(-c->rotating_step);
+                c->updateCameraPos();
             }
-            case 'm': {
-                c->nextCameraMode();
+            break;
+        }
+        case 'd': {
+            if (c->camera_mode == FIRST) {
+                c->fpsMoveRight();
             }
+            else {
+                c->updateHorizontalAngle(c->rotating_step);
+                c->updateCameraPos();
+            }
+            break;
+        }
+        case 'm': {
+            c->nextCameraMode();
+            break;
+        }
+
+        case 'x': {
+
+            c->showXYZ = !c->showXYZ;
+            break;
+        }
         }
     }
 
@@ -202,7 +213,8 @@ public:
                 c->setTracking(2);
             else
                 c->setTracking(0);
-        } else if (state == GLUT_UP) {
+        }
+        else if (state == GLUT_UP) {
 
             c->setTracking(0);
         }
@@ -233,7 +245,8 @@ public:
                 c->updateVerticalAngle(deltaYinRad * 0.3);
                 c->updateLookAt();
 
-            } else {
+            }
+            else {
 
                 c->updateHorizontalAngle(-deltaXinRad);
                 // vertical estava '-'
@@ -241,7 +254,8 @@ public:
                 c->updateCameraPos();
             }
 
-        } else if (c->getTracking() == 2) {
+        }
+        else if (c->getTracking() == 2) {
 
             if (c->camera_mode == FIRST) {
 
@@ -251,24 +265,24 @@ public:
                 float z =
                     c->r * cosf(c->vertical_angle) * cosf(c->horizontal_angle);
 
-                Point_3D lookVector = {x, y, z};
+                Point_3D lookVector = { x, y, z };
                 lookVector.normalize();
 
                 float normalizeDeltaY = (float)deltaY / 11.0f;
 
                 c->lookAt.setX(c->lookAt.getX() +
-                               lookVector.getX() * normalizeDeltaY);
+                    lookVector.getX() * normalizeDeltaY);
                 c->lookAt.setY(c->lookAt.getY() +
-                               lookVector.getY() * normalizeDeltaY);
+                    lookVector.getY() * normalizeDeltaY);
                 c->lookAt.setZ(c->lookAt.getZ() +
-                               lookVector.getZ() * normalizeDeltaY);
+                    lookVector.getZ() * normalizeDeltaY);
 
                 c->position.setX(c->position.getX() +
-                                 lookVector.getX() * normalizeDeltaY);
+                    lookVector.getX() * normalizeDeltaY);
                 c->position.setY(c->position.getY() +
-                                 lookVector.getY() * normalizeDeltaY);
+                    lookVector.getY() * normalizeDeltaY);
                 c->position.setZ(c->position.getZ() +
-                                 lookVector.getZ() * normalizeDeltaY);
+                    lookVector.getZ() * normalizeDeltaY);
 
                 float normalizeDeltaX = (float)deltaX / 11.0f;
 
@@ -277,24 +291,25 @@ public:
                 y = c->r * sinf(0);
                 z = c->r * cosf(0) * cosf(c->horizontal_angle + M_PI / 2);
 
-                lookVector = {x, y, z};
+                lookVector = { x, y, z };
                 lookVector.normalize();
 
                 c->lookAt.setX(c->lookAt.getX() +
-                               lookVector.getX() * normalizeDeltaX);
+                    lookVector.getX() * normalizeDeltaX);
                 c->lookAt.setY(c->lookAt.getY() +
-                               lookVector.getY() * normalizeDeltaX);
+                    lookVector.getY() * normalizeDeltaX);
                 c->lookAt.setZ(c->lookAt.getZ() +
-                               lookVector.getZ() * normalizeDeltaX);
+                    lookVector.getZ() * normalizeDeltaX);
 
                 c->position.setX(c->position.getX() +
-                                 lookVector.getX() * normalizeDeltaX);
+                    lookVector.getX() * normalizeDeltaX);
                 c->position.setY(c->position.getY() +
-                                 lookVector.getY() * normalizeDeltaX);
+                    lookVector.getY() * normalizeDeltaX);
                 c->position.setZ(c->position.getZ() +
-                                 lookVector.getZ() * normalizeDeltaX);
+                    lookVector.getZ() * normalizeDeltaX);
 
-            } else {
+            }
+            else {
 
                 // estava '+'
                 c->updateR(-(float)deltaY * 0.1f);
@@ -366,6 +381,8 @@ public:
     void fpsMoveLeft();
 
     void updateR(float delta);
+
+    int getShowXYZ();
 };
 
 

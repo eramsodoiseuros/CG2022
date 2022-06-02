@@ -22,16 +22,38 @@ vector<Primitive> scenePrimitives = vector<Primitive>();
 
 // settings variables
 float posX = 0, posY = 0, posZ = 0,
-	rAngle = 0, rotateX = 0, rotateY = 0, rotateZ = 0,
-	scaleX = 0, scaleY = 0, scaleZ = 0,
-	r = 0, g = 0, b = 0;
+rAngle = 0, rotateX = 0, rotateY = 0, rotateZ = 0,
+scaleX = 0, scaleY = 0, scaleZ = 0,
+r = 0, g = 0, b = 0;
 
 // fps variables
 int frame = 0, fps = 0, times, timeBase;
 char title[50] = "";
 
 // gluPerspective settings - variables
-float fovy, zNear, zFar;
+float fovy, zNear, zFar, ntriangles = 0.0f;
+
+
+
+void drawXYZ() {
+	glDisable(GL_LIGHTING);
+	glBegin(GL_LINES);
+	// X axis in red
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(-100.0f, 0.0f, 0.0f);
+	glVertex3f(100.0f, 0.0f, 0.0f);
+	// Y Axis in Green
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(0.0f, -100.0f, 0.0f);
+	glVertex3f(0.0f, 100.0f, 0.0f);
+	// Z Axis in Blue
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 0.0f, -100.0f);
+	glVertex3f(0.0f, 0.0f, 100.0f);
+	glEnd();
+	glEnable(GL_LIGHTING);
+}
+
 
 void changeSize(int w, int h) {
 
@@ -56,10 +78,10 @@ void changeSize(int w, int h) {
 	gluPerspective(fovy, ratio, zNear, zFar);
 
 	// return to the model view matrix mode
-	
+
 	glMatrixMode(GL_MODELVIEW);
-	
-		
+
+
 
 }
 
@@ -68,11 +90,11 @@ void cameraSetup() {
 	fovy = perspective.getX();
 	zNear = perspective.getY();
 	zFar = perspective.getZ();
-	
+
 }
 
 
-void updateFPS(){
+void updateFPS() {
 	frame++;
 	times = glutGet(GLUT_ELAPSED_TIME);
 
@@ -83,8 +105,8 @@ void updateFPS(){
 		frame = 0;
 	}
 
-	sprintf(title, "CG@DI-UM - Fase 3 - Grupo 11 <-> FPS: %d - Time: %d ", fps, times / 1000);
-	
+	sprintf(title, "CG@DI-UM - Grupo11 <-> Triangles: %.0f - FPS: %d - Time: %d ", ntriangles, fps, times / 1000);
+
 	glutSetWindowTitle(title);
 }
 
@@ -92,43 +114,36 @@ static void idle() { glutPostRedisplay(); }
 
 void renderScene(void) {
 
+	ntriangles = 0.0f;
+
 	// clear buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// set the camera
 	glLoadIdentity();
-	
-	gluLookAt(camera->getPos().getX(), camera->getPos().getY(),camera->getPos().getZ(),
+
+	gluLookAt(camera->getPos().getX(), camera->getPos().getY(), camera->getPos().getZ(),
 		camera->getLookAt().getX(), camera->getLookAt().getY(), camera->getLookAt().getZ(),
 		0.0f, 1.0f, 0.0f);
 
-	lights.Apply();
+
 
 	// put the geometric transformations here
 
 	// put drawing instructions here
-	glDisable(GL_LIGHTING);
-	glBegin(GL_LINES);
-	// X axis in red
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(-100.0f, 0.0f, 0.0f);
-	glVertex3f( 100.0f, 0.0f, 0.0f);
-	// Y Axis in Green
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, -100.0f, 0.0f);
-	glVertex3f(0.0f, 100.0f, 0.0f);
-	// Z Axis in Blue
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(0.0f, 0.0f, -100.0f);
-	glVertex3f(0.0f, 0.0f,  100.0f);
-	glEnd();
-	glEnable(GL_LIGHTING);
+	int x = camera->getShowXYZ();
 
-	for (Primitive p : scenePrimitives){
+	if (camera->getShowXYZ())
+		drawXYZ();
 
+	for (Primitive p : scenePrimitives) {
+
+		ntriangles += p.getNIndexes() / 3;
 		p.Draw();
 	}
-	
+
+	lights.Apply();
+
 	// FPS CALCULATIONS
 	updateFPS();
 
@@ -159,11 +174,11 @@ int main(int argc, char** argv) {
 	glutIdleFunc(idle);
 	glutMouseFunc(Camera::processMouseButtons);
 	glutMotionFunc(Camera::processMouseMotion);
-	
 
-	#ifndef __APPLE__
+
+#ifndef __APPLE__
 	glewInit();
-	#endif
+#endif
 
 	// aqui
 	cout << argv[1] << endl;
@@ -180,19 +195,19 @@ int main(int argc, char** argv) {
 	// luzes
 	glEnable(GL_LIGHTING);
 	glEnable(GL_RESCALE_NORMAL);
-    glEnable(GL_BLEND);
+	glEnable(GL_BLEND);
 	glShadeModel(GL_SMOOTH);
 	//glEnable(GL_TEXTURE_2D);
-	
+
 	glEnable(GL_LIGHT0);
-	GLfloat dark[4] = {0.2,0.2,0.2,1.0};
-    GLfloat white[4] = {1.0,1.0,1.0,1.0};
+	GLfloat dark[4] = { 0.2,0.2,0.2,1.0 };
+	GLfloat white[4] = { 1.0,1.0,1.0,1.0 };
 
-    glLightfv(GL_LIGHT0, GL_AMBIENT, dark);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, white);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, dark);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, white);
 
-	
+
 
 	// enter GLUT's main cycle
 	glutMainLoop();

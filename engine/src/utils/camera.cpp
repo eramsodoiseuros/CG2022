@@ -1,4 +1,4 @@
-#include "../../headers/camera.h"
+ï»¿#include "../../headers/camera.h"
 
 Camera* Camera::c = NULL;
 
@@ -68,25 +68,26 @@ void Camera::nextCameraMode() {
 
     this->r =
         sqrt(powf(this->position.getX(), 2) + powf(this->position.getY(), 2) +
-             powf(this->position.getZ(), 2));
+            powf(this->position.getZ(), 2));
 
     float x =
         this->r * cosf(this->vertical_angle) * sinf(this->horizontal_angle);
-    
+
     float y = this->r * sinf(this->vertical_angle);
     float z =
         this->r * cosf(this->vertical_angle) * cosf(this->horizontal_angle);
 
     if (this->camera_mode == THIRD) {
 
-        this->lookAt = {0, 0, 0};
+        this->lookAt = { 0, 0, 0 };
         setPos(x, y, z);
 
-    } else {
-        Point_3D lookVector = {x, y, z};
+    }
+    else {
+        Point_3D lookVector = { x, y, z };
         lookVector.normalize();
 
-        // não deveria faltar algo aqui?
+        // nï¿½o deveria faltar algo aqui?
     }
 }
 
@@ -114,18 +115,18 @@ void Camera::updateVerticalAngle(float delta) {
 
 void Camera::updateLookAt() {
 
-    // pela teoria, o raio não entra nestas contas.... ?
+    // pela teoria, o raio nï¿½o entra nestas contas.... ?
     float x = //this->r * 
         cosf(this->vertical_angle) * sinf(this->horizontal_angle);
-    
+
     float y = //this->r * 
         sinf(this->vertical_angle);
-    
+
     float z = //this->r *
         cosf(this->vertical_angle) * cosf(this->horizontal_angle);
 
-    Point_3D lookVector = {x, y, z};
-    // pela teoria, este vetor já não vai estar normalizado
+    Point_3D lookVector = { x, y, z };
+    // pela teoria, este vetor jï¿½ nï¿½o vai estar normalizado
     lookVector.normalize();
 
     this->lookAt.setX(this->position.getX() + lookVector.getX());
@@ -153,7 +154,7 @@ void Camera::fpsMoveForward() {
     float z =
         this->r * cosf(this->vertical_angle) * cosf(this->horizontal_angle);
 
-    Point_3D forwardVector = {x, y, z};
+    Point_3D forwardVector = { x, y, z };
     forwardVector.normalize();
 
     this->lookAt.setX(this->lookAt.getX() + forwardVector.getX());
@@ -173,7 +174,7 @@ void Camera::fpsMoveBack() {
     float z =
         this->r * cosf(this->vertical_angle) * cosf(this->horizontal_angle);
 
-    Point_3D backwardsVector = {x, y, z};
+    Point_3D backwardsVector = { x, y, z };
     backwardsVector.normalize();
 
     this->lookAt.setX(this->lookAt.getX() - backwardsVector.getX());
@@ -188,12 +189,12 @@ void Camera::fpsMoveBack() {
 void Camera::fpsMoveUp() {
 
     float x = this->r * cosf(this->vertical_angle + M_PI / 2) *
-              sinf(this->horizontal_angle);
+        sinf(this->horizontal_angle);
     float y = this->r * sinf(this->vertical_angle + M_PI / 2);
     float z = this->r * cosf(this->vertical_angle + M_PI / 2) *
-              cosf(this->horizontal_angle);
+        cosf(this->horizontal_angle);
 
-    Point_3D realUp = {x, y, z};
+    Point_3D realUp = { x, y, z };
 
     realUp.normalize();
 
@@ -209,12 +210,12 @@ void Camera::fpsMoveUp() {
 void Camera::fpsMoveDown() {
 
     float x = this->r * cosf(this->vertical_angle - M_PI / 2) *
-              sinf(this->horizontal_angle);
+        sinf(this->horizontal_angle);
     float y = this->r * sinf(this->vertical_angle - M_PI / 2);
     float z = this->r * cosf(this->vertical_angle - M_PI / 2) *
-              cosf(this->horizontal_angle);
+        cosf(this->horizontal_angle);
 
-    Point_3D realDown = {x, y, z};
+    Point_3D realDown = { x, y, z };
 
     realDown.normalize();
 
@@ -233,7 +234,7 @@ void Camera::fpsMoveRight() {
     float y = this->r * sinf(0);
     float z = this->r * cosf(0) * cosf(this->horizontal_angle - M_PI / 2);
 
-    Point_3D realRight = {x, y, z};
+    Point_3D realRight = { x, y, z };
 
     realRight.normalize();
 
@@ -252,7 +253,7 @@ void Camera::fpsMoveLeft() {
     float y = this->r * sinf(0);
     float z = this->r * cosf(0) * cosf(this->horizontal_angle + M_PI / 2);
 
-    Point_3D realLeft = {x, y, z};
+    Point_3D realLeft = { x, y, z };
 
     realLeft.normalize();
 
@@ -263,4 +264,9 @@ void Camera::fpsMoveLeft() {
     this->position.setX(this->position.getX() + realLeft.getX());
     this->position.setY(this->position.getY() + realLeft.getY());
     this->position.setZ(this->position.getZ() + realLeft.getZ());
+}
+
+
+int Camera::getShowXYZ() {
+    return showXYZ;
 }

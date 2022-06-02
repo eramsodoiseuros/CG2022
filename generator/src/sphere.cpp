@@ -6,12 +6,12 @@
 using namespace std;
 
 
-Sphere::Sphere(float r, int s1, int s2) {
+Sphere::Sphere(float r, int slices, int stacks) {
 
             this->center = Point_3D(0.0f,0.0f,0.0f);
             this->raio = r;
-            this->stacks = s1;
-            this->slices = s2;
+            this->stacks = stacks;
+            this->slices = slices;
             this->points = vector<Point_3D>();
             this->normals = vector<Point_3D>();
             this->indexes = vector<short>();

@@ -20,7 +20,7 @@ class Sphere {
         std::vector<short> indexes;           // índices para construção
 
     public:
-        Sphere(float r, int s1, int s2);
+        Sphere(float r, int slices, int stacks);
 
         /**
         *	Retorna o raio da Esfera

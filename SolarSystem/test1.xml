@@ -18,13 +18,13 @@
             
             <group>
                 <rotate axisY = 1 timeR = 19.97/> 
-                <scale scaleX = 14 scaleY = 14 scaleZ = 14/>
+                <scale scaleX = 5 scaleY = 5 scaleZ = 5/>
             
                 <!-- <color R = 253 G = 184 B = 19 />  Sun / Yellow Orange -->
                 <color R = 1 G = 0.549 B = 0/> <!-- Dark Orange -->
                 <models>
                     <!-- Models, Name-->
-                   <model file="sphere.3d" texture="sun.jpg"/>
+                   <model file="cone.3d" texture="sun.jpg"/>
                    <color>
                         <diffuse R="1" G="0.549" B="0" />
                         <ambient R="1" G="1" B="1" />
@@ -84,7 +84,7 @@
                 <!-- Silver Gray <color R = 192 G = 192 B = 192/> --> 
                 <color R = 0.6667 G = 0.6627 B = 0.6784 /> 
                 <models> 
-                    <model file="sphere.3d" texture="planeta.jpg"/>
+                    <model file="box.3d" texture="planeta.jpg"/>
                     <color>
                         <diffuse R="0.6667" G="0.6627" B="0.6784" />
                         <ambient R="1" G="1" B="1" />

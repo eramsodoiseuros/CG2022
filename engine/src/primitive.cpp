@@ -162,6 +162,9 @@ void Primitive::readPrimitive(string primitive3D) {
 
 			s = stof(parser.at(20)); t = stof(parser.at(21));
 			texs[texsIndex++] = s; texs[texsIndex++] = t;
+
+			s = stof(parser.at(22)); t = stof(parser.at(23));
+			texs[texsIndex++] = s; texs[texsIndex++] = t;
 		}
 		parser.clear();
 	}
@@ -170,9 +173,7 @@ void Primitive::readPrimitive(string primitive3D) {
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-
+	
 	// VBOs
 	glGenBuffers(1, &vBuffer[0]);
 
@@ -186,15 +187,16 @@ void Primitive::readPrimitive(string primitive3D) {
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[1]);
 	glBufferData(GL_ARRAY_BUFFER, pointsArraySize * sizeof(float), normals, GL_STATIC_DRAW);
 
-	if (textureFilename.compare(""))
+	if (textureFilename.compare("")) {
 		loadTexture();
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[2]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * nIndexes, texs, GL_STATIC_DRAW);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
+		glBindTexture(GL_TEXTURE_2D, textureID);
+		glBindBuffer(GL_ARRAY_BUFFER, vBuffer[2]);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * nIndexes, texs, GL_STATIC_DRAW);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
+
 
 	free(points);
 	free(normals);
@@ -365,6 +367,8 @@ void Primitive::Draw() {
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
+	
+
 
 	// Aplicar as componentes das cores (difusa,  especular, etc)
 	colorComponents.Apply();
@@ -379,17 +383,19 @@ void Primitive::Draw() {
 	glNormalPointer(GL_FLOAT, 0, 0);
 
 	if (textureFilename.compare("")) {
-		glTexCoordPointer(2, GL_FLOAT, 0, 0);
-		glBindBuffer(GL_ARRAY_BUFFER, textureID);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		glBindTexture(GL_TEXTURE_2D, textureID);
+		glBindBuffer(GL_ARRAY_BUFFER, textureID);
+		glTexCoordPointer(2, GL_FLOAT, 0, 0);
 	}
-
 	// Draw da primitiva, a começar no índice 0, nPoints
 	glDrawArrays(GL_TRIANGLES, 0, totalPoints);
-	glBindTexture(GL_TEXTURE_2D, 0);
+
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
 
 	// para cada primitiva anexada, desenhá-la
 	for (Primitive p : appendedPrimitives) {

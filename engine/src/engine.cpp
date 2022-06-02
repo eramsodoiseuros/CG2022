@@ -197,12 +197,12 @@ int main(int argc, char** argv) {
 
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_NORMAL_ARRAY);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
 		// luzes
 		glEnable(GL_LIGHTING);
 		glEnable(GL_RESCALE_NORMAL);
-		glEnable(GL_BLEND);
 		glEnable(GL_TEXTURE_2D);
+		//glEnable(GL_BLEND);
 		glShadeModel(GL_SMOOTH);
 
 		glEnable(GL_LIGHT0);

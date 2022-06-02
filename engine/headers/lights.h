@@ -80,21 +80,11 @@ class Lights{
         vector<DirectionalLight> directionalLights;
         vector<SpotLight> spotLights;
         
-        bool spotLight;
-        bool directionalLight;
-        bool pointLight;
 
     public:
 
         Lights();
 
-        void setSpotLight(bool b);
-        void setDirectionalLight(bool b);
-        void setPointLight(bool b);
-
-        bool hasSpotLight();
-        bool hasDirectionalLight();
-        bool hasPointLight();
         vector<PointLight> getPointLights();
         vector<DirectionalLight> getDirectionalLights();
         vector<SpotLight> getSpotLights();

@@ -38,8 +38,9 @@ void Cone::toFile(std::string s) {
     int n_indices = 0, n_pontos = 0, n_normais = 0;
     Point_3D p1, p2, p3, p4, p5, p6, n1, n2, n3;
 
-    n_pontos = slices*3 + 4*stacks;
-    n_indices = slices*3 + slices*(6*stacks);
+    n_pontos = slices*3 + 6*stacks;
+    n_indices = slices*3 + 6*stacks;
+    n_normais = (slices*3 + 6*stacks)/3;
        
     std::string outputFile = "../3D/" + s;
     file.open(outputFile);
@@ -52,17 +53,18 @@ void Cone::toFile(std::string s) {
         float alpha = 0.0f;
         float r = 0.0f;
         float rUp = 0.0f;
+        float yy = 0.0f;
 
         for(int i=0;i<slices;i++){
             alpha = i*sliceSize;
 
-            p1 = polarToPoint3D(0,0,0);
-            p2 = polarToPoint3D(raio,0,alpha+sliceSize);
-            p3 = polarToPoint3D(raio,0,alpha);
+            p1 = polarToPoint3D(0,yy,0);
+            p2 = polarToPoint3D(raio,yy,alpha+sliceSize);
+            p3 = polarToPoint3D(raio,yy,alpha);
 
-            n1 = Point_3D(0,-1,0);
-            n2 = Point_3D(0,-1,0);
-            n3 = Point_3D(0,-1,0);
+            n1 = normal(p1);
+            n2 = normal(p2);
+            n3 = normal(p3);
 
             file << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << endl;
         }
@@ -75,9 +77,9 @@ void Cone::toFile(std::string s) {
 
                 alpha=j*sliceSize;
 
-                p1 = polarToPoint3D(rUp,stackSize*(i+1),alpha);
-                p2 = polarToPoint3D(r,stackSize*i,alpha);
-                p3 = polarToPoint3D(r,stackSize*i,alpha+sliceSize);
+                p1 = polarToPoint3D(rUp,yy+stackSize*(i+1),alpha);
+                p2 = polarToPoint3D(r,yy+stackSize*i,alpha);
+                p3 = polarToPoint3D(r,yy+stackSize*i,alpha+sliceSize);
 
                 n1 = normal(p1);
                 n2 = normal(p2);
@@ -85,9 +87,9 @@ void Cone::toFile(std::string s) {
 
                 file << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << endl;
 
-                p4 = polarToPoint3D(rUp,stackSize*(i+1),alpha);
-                p5 = polarToPoint3D(r,stackSize*i,alpha+sliceSize);
-                p6 = polarToPoint3D(rUp,stackSize*(i+1),alpha+sliceSize);
+                p4 = polarToPoint3D(rUp,yy+stackSize*(i+1),alpha);
+                p5 = polarToPoint3D(r,yy+stackSize*i,alpha+sliceSize);
+                p6 = polarToPoint3D(rUp,yy+stackSize*(i+1),alpha+sliceSize);
                 
                 n1 = normal(p4);
                 n2 = normal(p5);

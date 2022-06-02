@@ -286,7 +286,7 @@ void pointVectorByMatrix(Point_3D* pointVector, float* matrix, Point_3D* answer)
  * @param v
  * @return Point_3D
  */
-Point_3D Patch::calculatePatchVertex(int index, float u, float v) {
+Point_3D Patch::calculatePatchVertex(int index, float u, float v, Point_3D* uTangent, Point_3D* vTangent) {
 
     // pontos de controlo do patch neste nível
     vector<Point_3D> controlPoints = getPatchLevel(index);
@@ -312,7 +312,9 @@ Point_3D Patch::calculatePatchVertex(int index, float u, float v) {
         V = [V^3    V^2   V   1]
     */
     float V[4] = { v * v * v, v * v, v, 1 };
+    float V_[4] = {3 * v * v, 2 * v, 1 , 0};
     float U[4] = { u * u * u, u * u, u, 1 };
+    float U_[4] = {3 * u * u, 2 * u, 1 , 0};
 
     /*
         P(u,v) = U * MBezier * Mpts * MBezier^T * V
@@ -321,34 +323,37 @@ Point_3D Patch::calculatePatchVertex(int index, float u, float v) {
         finalM = pM * MBezier
         P(u,v) = U * finalM
     */
+
     float mv[4];
-    vectorByMatrix(V, (float*)BezierMatrix, mv);
+    vectorByMatrix(U, (float*)BezierMatrix, mv);
     Point_3D pM[4];
     vectorByPointMatrix(mv, (Point_3D*)points, pM);
-
     Point_3D finalM[4];
     pointVectorByMatrix(pM, (float*)BezierMatrix, finalM);
+    
+    // bezier POINT
+    float x = V[0] * finalM[0].getX() + V[1] * finalM[1].getX() + V[2] * finalM[2].getX() + V[3] * finalM[3].getX();
+    float y = V[0] * finalM[0].getY() + V[1] * finalM[1].getY() + V[2] * finalM[2].getY() + V[3] * finalM[3].getY();
+    float z = V[0] * finalM[0].getZ() + V[1] * finalM[1].getZ() + V[2] * finalM[2].getZ() + V[3] * finalM[3].getZ();
 
-    float x = U[0] * finalM[0].getX() + U[1] * finalM[1].getX() + U[2] * finalM[2].getX() + U[3] * finalM[3].getX();
-    float y = U[0] * finalM[0].getY() + U[1] * finalM[1].getY() + U[2] * finalM[2].getY() + U[3] * finalM[3].getY();
-    float z = U[0] * finalM[0].getZ() + U[1] * finalM[1].getZ() + U[2] * finalM[2].getZ() + U[3] * finalM[3].getZ();
+    // bezier V TANGENT
+    float vTx = V_[0] * finalM[0].getX() + V_[1] * finalM[1].getX() + V_[2] * finalM[2].getX() + V_[3] * finalM[3].getX();
+    float vTy = V_[0] * finalM[0].getY() + V_[1] * finalM[1].getY() + V_[2] * finalM[2].getY() + V_[3] * finalM[3].getY();
+    float vTz = V_[0] * finalM[0].getZ() + V_[1] * finalM[1].getZ() + V_[2] * finalM[2].getZ() + V_[3] * finalM[3].getZ();
+    *vTangent = Point_3D(vTx, vTy, vTz);
 
 
+    vectorByMatrix(U_, (float*)BezierMatrix, mv);
+    vectorByPointMatrix(mv, (Point_3D*)points, pM);
+    pointVectorByMatrix(pM, (float*)BezierMatrix, finalM);
+
+    // bezier U TANGENT
+    float uTx = V[0] * finalM[0].getX() + V[1] * finalM[1].getX() + V[2] * finalM[2].getX() + V[3] * finalM[3].getX();
+    float uTy = V[0] * finalM[0].getY() + V[1] * finalM[1].getY() + V[2] * finalM[2].getY() + V[3] * finalM[3].getY();
+    float uTz = V[0] * finalM[0].getZ() + V[1] * finalM[1].getZ() + V[2] * finalM[2].getZ() + V[3] * finalM[3].getZ();
+    *uTangent = Point_3D(uTx, uTy, uTz);
 
     return Point_3D(x, y, z);
-}
-
-
-Point_3D Patch::calculateNormal(float u, float v) {
-
-    float U[] = { u * u * u, u * u, u, 1 };
-    float V[] = { v * v * v, v * v, v, 1 };
-
-    Point_3D normal = Point_3D();
-    normal.setX(U[1] * V[2] - U[2] * V[1]);
-    normal.setY(U[2] * V[0] - U[0] * V[2]);
-    normal.setZ(U[0] * V[1] - U[1] * V[0]);
-    return normal;
 }
 
 
@@ -364,15 +369,22 @@ Point_3D Patch::calculateNormal(float u, float v) {
  */
 void Patch::calculateCurve(vector<Point_3D>* result, int patchLevel, float u, float v, float interval) {
 
-    Point_3D p01 = calculatePatchVertex(patchLevel, u, v);
-    Point_3D p02 = calculatePatchVertex(patchLevel, u, v + interval);
-    Point_3D p03 = calculatePatchVertex(patchLevel, u + interval, v);
-    Point_3D p04 = calculatePatchVertex(patchLevel, u + interval, v + interval);
+    Point_3D uTangent, vTangent;
+    Point_3D p01 = calculatePatchVertex(patchLevel, u, v, &uTangent, &vTangent);
+    Point_3D n01 = uTangent.crossProduct(vTangent);
+    n01.normalize();
 
-    Point_3D n01 = calculateNormal(u, v);
-    Point_3D n02 = calculateNormal(u, v + interval);
-    Point_3D n03 = calculateNormal(u + interval, v);
-    Point_3D n04 = calculateNormal(u + interval, v + interval);
+    Point_3D p02 = calculatePatchVertex(patchLevel, u, v + interval, &uTangent, &vTangent);
+    Point_3D n02 = uTangent.crossProduct(vTangent);
+    n02.normalize();
+
+    Point_3D p03 = calculatePatchVertex(patchLevel, u + interval, v, &uTangent, &vTangent);
+    Point_3D n03 = uTangent.crossProduct(vTangent);
+    n03.normalize();
+
+    Point_3D p04 = calculatePatchVertex(patchLevel, u + interval, v + interval, &uTangent, &vTangent);
+    Point_3D n04 = uTangent.crossProduct(vTangent);
+    n04.normalize();
 
 
 

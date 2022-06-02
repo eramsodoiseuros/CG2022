@@ -39,9 +39,8 @@ public:
     vector<Point_3D> getNormals();
 
     vector<Point_3D> getPatchLevel(int index);
-    Point_3D calculatePatchVertex(int index, float u, float v);
+    Point_3D calculatePatchVertex(int index, float u, float v, Point_3D* uTangent, Point_3D* vTangent);
     void calculateCurve(vector<Point_3D>* result, int patchLevel, float u, float v, float interval);
-    Point_3D calculateNormal(float u, float v);
     void patchResultPoints(vector<Point_3D>* result);
     void toFile();
 };

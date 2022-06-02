@@ -98,8 +98,11 @@ void Box::toFile(string file) {
                 Point_3D n2 = normal(p2);
                 Point_3D n3 = normal(p3);
 
+                Point_3D t1 = Point_3D(0,0,0);
+                Point_3D t2 = Point_3D(0,0,0);
+
                 // output vertex + normal
-                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << ", " << endl; 
+                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << ", "<< t1.toString() << ", "<< t2.toString() << ", " << endl; 
             }
         }
         outFile.close();

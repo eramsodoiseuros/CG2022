@@ -64,7 +64,10 @@ void Cone::toFile(std::string s) {
             n2 = Point_3D(0,-1,0);
             n3 = Point_3D(0,-1,0);
 
-            file << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << endl;
+            Point_3D t0 = Point_3D(0,0,0);
+            Point_3D t00 = Point_3D(0,0,0);
+
+            file << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << ", " << t0.toString() << ", "<< t00.toString() << endl;
         }
 
         for(int i = 0; i < stacks; i++){
@@ -83,7 +86,10 @@ void Cone::toFile(std::string s) {
                 n2 = normal(p2);
                 n3 = normal(p3);
 
-                file << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << endl;
+                Point_3D t1 = Point_3D(0,0,0);
+                Point_3D t2 = Point_3D(0,0,0);
+
+                file << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << ", " << t1.toString() << ", "<< t2.toString() << ", "<< endl;
 
                 p4 = polarToPoint3D(rUp,stackSize*(i+1),alpha);
                 p5 = polarToPoint3D(r,stackSize*i,alpha+sliceSize);
@@ -93,7 +99,10 @@ void Cone::toFile(std::string s) {
                 n2 = normal(p5);
                 n3 = normal(p6);
 
-                file << p4.toString() << ", " << p5.toString() << ", " << p6.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << endl;
+                t1 = Point_3D(0,0,0);
+                t2 = Point_3D(0,0,0);
+
+                file << p4.toString() << ", " << p5.toString() << ", " << p6.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << ", "<< t1.toString() << ", "<< t2.toString() << ", "<< endl;
             }
         }
         file.close();

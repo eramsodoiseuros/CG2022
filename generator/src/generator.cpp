@@ -68,7 +68,7 @@ int main(int argc, char** argv){
         std::cout << "Por favor selecione um dos modelos disponiveis:\n";
         std::cout << "\t./generator plane <length> <divisions> <output_file>.3d\n";
         std::cout << "\t./generator box <units> <divisions> <output_file>.3d\n";
-        std::cout << "\t./generator sphere <radius> <stacks> <slices> <output_file>.3d\n";
+        std::cout << "\t./generator sphere <radius> <slices> <stacks> <output_file>.3d\n";
         std::cout << "\t./generator cone <bottom_radius> <height> <stacks> <slices> <output_file>.3d\n";
     }
 }

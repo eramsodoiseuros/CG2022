@@ -17,24 +17,20 @@ private:
 	Point_3D position;
 	Point_3D lookAt;
     Point_3D persp;
-	int startX;
-    int startY;
-    int tracking;
-    float rotating_step;
-    float horizontal_angle;
-    float vertical_angle;
-    float r;
-	float camera_speed;
+	int startX, startY, tracking;
+    float rotating_step, horizontal_angle, vertical_angle;
+    float r, camera_speed;
 	int camera_mode;
+    int showXYZ, pauseTransformations;
 
     
 public:
-
+    
     Camera() {
         this->horizontal_angle = 0.0f;
         this->vertical_angle = 0.0f;
 
-        // distância inicial da câmara ao (0,0,0)
+        // distï¿½ncia inicial da cï¿½mara ao (0,0,0)
         this->r = 57.0f;
 
         float x =
@@ -58,6 +54,9 @@ public:
 
         this->camera_speed = 2;
         this->camera_mode = THIRD;
+
+
+        this->showXYZ = 0;
     }
 
 	static Camera *getInstance() {
@@ -66,7 +65,6 @@ public:
 		}
 		return c;
 	}
-
 
     static void specialKeyFunc(int key, int x, int y) {
 
@@ -143,7 +141,7 @@ public:
                 break;
             }
 
-            // sobe a câmara (direcao p/origem)
+            // sobe a cï¿½mara (direcao p/origem)
             case 'q': {
                 if (c->camera_mode == FIRST) {
                     c->fpsMoveUp();
@@ -154,7 +152,7 @@ public:
                 break;
             }
             
-             // desce a câmara (direcao p/origem)
+             // desce a cï¿½mara (direcao p/origem)
             case 'z': {
                 if (c->camera_mode == FIRST) {
                     c->fpsMoveDown();
@@ -186,6 +184,13 @@ public:
             }
             case 'm': {
                 c->nextCameraMode();
+                break;
+            }
+
+            case 'x': {
+
+                c->showXYZ = !c->showXYZ;
+                break;
             }
         }
     }
@@ -366,6 +371,9 @@ public:
     void fpsMoveLeft();
 
     void updateR(float delta);
+
+    int getShowXYZ();
+
 };
 
 

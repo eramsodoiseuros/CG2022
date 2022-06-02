@@ -86,7 +86,7 @@ void Camera::nextCameraMode() {
         Point_3D lookVector = {x, y, z};
         lookVector.normalize();
 
-        // não deveria faltar algo aqui?
+        // nï¿½o deveria faltar algo aqui?
     }
 }
 
@@ -114,7 +114,7 @@ void Camera::updateVerticalAngle(float delta) {
 
 void Camera::updateLookAt() {
 
-    // pela teoria, o raio não entra nestas contas.... ?
+    // pela teoria, o raio nï¿½o entra nestas contas.... ?
     float x = //this->r * 
         cosf(this->vertical_angle) * sinf(this->horizontal_angle);
     
@@ -125,7 +125,7 @@ void Camera::updateLookAt() {
         cosf(this->vertical_angle) * cosf(this->horizontal_angle);
 
     Point_3D lookVector = {x, y, z};
-    // pela teoria, este vetor já não vai estar normalizado
+    // pela teoria, este vetor jï¿½ nï¿½o vai estar normalizado
     lookVector.normalize();
 
     this->lookAt.setX(this->position.getX() + lookVector.getX());
@@ -263,4 +263,9 @@ void Camera::fpsMoveLeft() {
     this->position.setX(this->position.getX() + realLeft.getX());
     this->position.setY(this->position.getY() + realLeft.getY());
     this->position.setZ(this->position.getZ() + realLeft.getZ());
+}
+
+
+int Camera::getShowXYZ(){
+    return showXYZ;
 }

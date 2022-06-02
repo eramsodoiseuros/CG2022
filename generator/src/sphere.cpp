@@ -6,12 +6,12 @@
 using namespace std;
 
 
-Sphere::Sphere(float r, int s1, int s2) {
+Sphere::Sphere(float r, int slices, int stacks) {
 
             this->center = Point_3D(0.0f,0.0f,0.0f);
             this->raio = r;
-            this->stacks = s1;
-            this->slices = s2;
+            this->slices = slices;
+            this->stacks = stacks;
             this->points = vector<Point_3D>();
             this->normals = vector<Point_3D>();
             this->indexes = vector<short>();
@@ -51,14 +51,14 @@ void Sphere::calculateSphere(Point_3D center, float radius, int stacks, int slic
 
                 angle1 = M_PI / 2 - i * stackStep;        // Apartir de 0, angulo atual
                 xz = radius * cosf(angle1);               // Plano desa stack
-                y = radius * sinf(angle1);                // Como para cada stack o y é sempre igual,
+                y = radius * sinf(angle1) * lengthInv;                // Como para cada stack o y é sempre igual,
                                                                 // Calcula-se fora do ciclo
 
                         for(int j = 0; j <= slices; j++){
 
                                 angle2 = j * sliceStep;     // angulo atual das slices
-                                z = -xz * cosf(angle2);      // Valor do x
-                                x = xz * sinf(angle2);      // Valor do z
+                                z = -xz * cosf(angle2) * lengthInv;      // Valor do x
+                                x = xz * sinf(angle2) * lengthInv;      // Valor do z
                                 Point_3D vertex = Point_3D(x,y,z);
                                 points.push_back(vertex);
                                 
@@ -113,8 +113,8 @@ void Sphere::toFile(string file){
     ofstream outFile;
     string outputFile = "../3D/" + file;
 
-    vector<short> idxs = indexes;
-    int nIndexes = idxs.size();
+    int nIndexes = indexes.size();
+    cout << "i have " << indexes.size();
 
         //int nPoints = (stacks + 1) * slices;                    //Nº pontos
 
@@ -126,20 +126,20 @@ void Sphere::toFile(string file){
         short i1,i2,i3;
 
         for (int i = 0; i < nIndexes; i += 3){
+            
+            i1 = indexes[i];
+            i2 = indexes[i + 1];
+            i3 = indexes[i + 2];
 
-                i1 = idxs[i];
-                i2 = idxs[i + 1];
-                i3 = idxs[i + 2];
-
-                p1 = points.at(i1);
-                p2 = points.at(i2);
-                p3 = points.at(i3);
+            p1 = points.at(i1);
+            p2 = points.at(i2);
+            p3 = points.at(i3);
                 
-                n1 = normals.at(i1);
-                n2 = normals.at(i2);
-                n3 = normals.at(i3);
+            n1 = normals.at(i1);
+            n2 = normals.at(i2);
+            n3 = normals.at(i3);
 
-                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", " << n3.toString() << ", " << endl;
+            outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", " << n3.toString() << ", " << endl;
         }
     }
 }

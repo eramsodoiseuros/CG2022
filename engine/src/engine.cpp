@@ -31,7 +31,29 @@ int frame = 0, fps = 0, times, timeBase;
 char title[50] = "";
 
 // gluPerspective settings - variables
-float fovy, zNear, zFar;
+float fovy, zNear, zFar, ntriangles = 0.0f;
+
+
+
+void drawXYZ() {
+	glDisable(GL_LIGHTING);
+	glBegin(GL_LINES);
+	// X axis in red
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(-100.0f, 0.0f, 0.0f);
+	glVertex3f(100.0f, 0.0f, 0.0f);
+	// Y Axis in Green
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(0.0f, -100.0f, 0.0f);
+	glVertex3f(0.0f, 100.0f, 0.0f);
+	// Z Axis in Blue
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 0.0f, -100.0f);
+	glVertex3f(0.0f, 0.0f, 100.0f);
+	glEnd();
+	glEnable(GL_LIGHTING);
+}
+
 
 void changeSize(int w, int h) {
 
@@ -83,7 +105,7 @@ void updateFPS(){
 		frame = 0;
 	}
 
-	sprintf(title, "CG@DI-UM - Fase 3 - Grupo 11 <-> FPS: %d - Time: %d ", fps, times / 1000);
+	sprintf(title, "CG@DI-UM - Grupo11 <-> Triangles: %.0f - FPS: %d - Time: %d ", ntriangles, fps, times / 1000);
 	
 	glutSetWindowTitle(title);
 }
@@ -91,6 +113,8 @@ void updateFPS(){
 static void idle() { glutPostRedisplay(); }
 
 void renderScene(void) {
+
+	ntriangles = 0.0f;
 
 	// clear buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -102,32 +126,23 @@ void renderScene(void) {
 		camera->getLookAt().getX(), camera->getLookAt().getY(), camera->getLookAt().getZ(),
 		0.0f, 1.0f, 0.0f);
 
-	lights.Apply();
+	
 
 	// put the geometric transformations here
 
 	// put drawing instructions here
-	glDisable(GL_LIGHTING);
-	glBegin(GL_LINES);
-	// X axis in red
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(-100.0f, 0.0f, 0.0f);
-	glVertex3f( 100.0f, 0.0f, 0.0f);
-	// Y Axis in Green
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, -100.0f, 0.0f);
-	glVertex3f(0.0f, 100.0f, 0.0f);
-	// Z Axis in Blue
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(0.0f, 0.0f, -100.0f);
-	glVertex3f(0.0f, 0.0f,  100.0f);
-	glEnd();
-	glEnable(GL_LIGHTING);
+	int x = camera->getShowXYZ();
+	
+	if (camera->getShowXYZ())
+		drawXYZ();
 
 	for (Primitive p : scenePrimitives){
 
+		ntriangles += p.getNIndexes() / 3;
 		p.Draw();
 	}
+
+	lights.Apply();
 	
 	// FPS CALCULATIONS
 	updateFPS();

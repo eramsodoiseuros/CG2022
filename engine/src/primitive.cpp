@@ -41,7 +41,7 @@ Primitive::Primitive(string filename) {
 
 
 
-void Primitive::loadTexture(){
+void Primitive::loadTexture() {
 
 
 	unsigned int t, tw, th;
@@ -84,6 +84,7 @@ void Primitive::loadTexture(){
  * @param primitive3D
  */
 void Primitive::readPrimitive(string primitive3D) {
+
 	// 3d file path
 	string inputFile = "../3D/" + primitive3D;
 	ifstream dFile(inputFile);
@@ -169,7 +170,7 @@ void Primitive::readPrimitive(string primitive3D) {
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
-	//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 
 	// VBOs
@@ -187,8 +188,10 @@ void Primitive::readPrimitive(string primitive3D) {
 
 	if (textureFilename.compare(""))
 		loadTexture();
+	glBindTexture(GL_TEXTURE_2D, textureID);
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[2]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * nIndexes, texs, GL_STATIC_DRAW);
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
@@ -374,8 +377,8 @@ void Primitive::Draw() {
 	// normals
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[1]);
 	glNormalPointer(GL_FLOAT, 0, 0);
-	
-	if (textureFilename.compare("")){
+
+	if (textureFilename.compare("")) {
 		glTexCoordPointer(2, GL_FLOAT, 0, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, textureID);
 		glBindTexture(GL_TEXTURE_2D, textureID);

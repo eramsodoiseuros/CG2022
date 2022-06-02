@@ -37,13 +37,13 @@ public:
 
     /**
     *   Coloca o ponto nas coordenadas indicadas
-    *   @param x coordenada em X 
+    *   @param x coordenada em X
     */
     void setX(float x);
 
     /**
     *   Coloca o ponto nas coordenadas indicadas
-    *   @param y coordenada em Y 
+    *   @param y coordenada em Y
     */
     void setY(float y);
 

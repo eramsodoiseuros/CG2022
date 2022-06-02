@@ -186,7 +186,6 @@ int main(int argc, char** argv) {
 	Parser p;
 	try {
 		scenePrimitives = p.lerXML(argv[1], camera, &lights);
-		cout << "depois" << endl;
 		cameraSetup();
 
 		//  OpenGL settings
@@ -218,10 +217,10 @@ int main(int argc, char** argv) {
 
 		// enter GLUT's main cycle
 		glutMainLoop();
+
 	}
 	catch (const std::exception& ex) {
 		cerr << ex.what() << endl;
 	}
-
 	return 1;
 }

@@ -9,10 +9,8 @@ Sol             = 7             |   0
     Terra       = 0.65          |   14
         Lua     = 0.20          |   0.04
     Marte       = 0.35          |   23
-
 Distancias demasiado grandes 
 Distancia / 
-
     Jupiter     = 12            |   78      45
         Ganyme  = 0.26          |   0.11
         Callisto= 0.24          |   0.19
@@ -33,7 +31,6 @@ Distancia /
         <color R G B />                     -> atribuir uma cor
         <orbit radX radZ />                 -> define o raio da orbita 
         <translate X Y Z />                 -> Distancia do sol
-
         group (Satelite Natural) - Apenas destacamos os 10 maiores do sistema solar.
 -->
 <scene>
@@ -379,8 +376,6 @@ Distancia /
             Jupiter T = 7      Ds= 45
             Orbita = 6.09 Time = 4331.94
             Tilt = 3º  V = 13.07  
-
-
             Ganyme   T = 0.26   Dp= 7.4     
             Callisto T = 0.24   Dp= 7.5  
             IO       T = 0.18   Dp= 7.2    
@@ -663,7 +658,6 @@ Distancia /
         <!-- Saturno  T = 6      Ds = 75
             Orbit = 5.51 T = 107.5
             Tilt = 27 V = 9.69
-
             Titan T = 0.26   Dp = 6.3
             Rhea  T = 0.08   Dp = 6.1-->
         <group>
@@ -830,7 +824,6 @@ Distancia /
         <!-- Urano T = 2.5  Ds= 85
             orbit = 6.48 T =  306
             Tilt = 98 V = 0.681
-
                 Triton T = 0.15 Dp= 2.7 -->
         <group>
             <!-- Orbita -->

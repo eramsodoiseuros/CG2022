@@ -64,76 +64,9 @@ void Lights::addSpotLight(SpotLight sl){
 }
 
 
+void Lights::Apply() {
 
-void Lights::Apply(){
-<<<<<<< Updated upstream
-=======
-
-    float pos[4] = {0.0f, 10.0f, 1.0f, 1};
-    float dir[4] = {1.0f, 1.0f, 1.0f, 0.0f};
-
-/*
-
-    vector<PointLight> pos1 = pointLights;
-    for (PointLight i : pos1) {
-        vector<float> n = i.getPos();
-        for (float k : n) {
-            cout << k << ' ';
-        }
-    }
-
-    printf("\n");
-    GLfloat cutoff;
-    vector<SpotLight> pos2 = spotLights;
-    for (SpotLight i : pos2) {
-        vector<float> n = i.getPos();
-        cutoff = i.getCutoff();
-        for (float k : n) {
-            cout << k << ' ';
-        }
-    }
-    
-
-*/
-    // point
-    glLightfv(GL_LIGHT0, GL_POSITION, pos);
-    
-    /*
-    // directional
-    glLightfv(GL_LIGHT0, GL_POSITION, dir);
-
-    // spotlight
-    // glLightfv(GL_LIGHT0, GL_POSITION, pos);
-    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, dir);
-
-    GLfloat cutoff = 45.0f;
-
-    glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, &cutoff);
-
-    glLightfv(GL_LIGHT0, GL_POSITION, dir);
-    
->>>>>>> Stashed changes
-    
-    // attenuation
-    float quat_att = 1.0f;
-    glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, quat_att);
-<<<<<<< Updated upstream
-
-    for (PointLight pl : pointLights) 
-        pl.Apply();
-
-    for (DirectionalLight dl : directionalLights)
-        dl.Apply();
-    
-    for (SpotLight sl : spotLights)
-        sl.Apply();
-
-=======
-    */
->>>>>>> Stashed changes
 }
-
-
 
 /*--------------------------------------------> POINT_LIGHT */
 

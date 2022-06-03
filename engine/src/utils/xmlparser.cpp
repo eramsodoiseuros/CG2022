@@ -143,6 +143,20 @@ void parseColor(TiXmlElement *color, Primitive *p) {
         child = child->NextSiblingElement();
     }
 }
+
+
+void parseRGB(TiXmlElement* elem, Primitive* p) {
+    vector<float> rgb = vector<float>();
+    Color c = (*p).getColorComponents();
+
+    parseCor(elem, &rgb);
+
+    c.setRGB(rgb);
+    p->setColorComponents(c);
+}
+
+
+
 /**
  * @brief Parses the tag model, finding the file and texture strings
  *
@@ -154,11 +168,18 @@ void parseFigura(TiXmlElement *models, Primitive *p) {
     TiXmlElement* model = models->FirstChildElement();
     string filename = string(model->Attribute("file"));
     string texture = string(model->Attribute("texture"));
-    TiXmlElement* colors = models->NextSiblingElement();
+    TiXmlElement* sibling = model->NextSiblingElement();
     
-    if (model->NextSiblingElement()) {
-        TiXmlElement* color = model->NextSiblingElement();
-        parseColor(color, p);
+    while (sibling) {
+        const char* name = sibling->Value();
+        if (strcmp(name, "color") == 0) {
+            parseColor(sibling, p);
+        }
+        else if (strcmp(name, "rgb") == 0) {
+            parseRGB(sibling, p);
+        }
+        
+        sibling = sibling->NextSiblingElement();
     }
 
     

@@ -13,7 +13,7 @@ class Color {
                 specR, specG, specB,
                 ambiR, ambiG, ambiB,
                 emissR, emissG, emissB,
-                shininess;
+                shininess, r, g, b;
     
     public:
 
@@ -22,7 +22,7 @@ class Color {
                 float specR, float specG, float specB,
                 float ambiR, float ambiG, float ambiB,
                 float emissR, float emissG, float emissB,
-                float shininess);
+                float shininess, float r, float g, float b);
         
         
         vector<float> getDiffuse();
@@ -30,12 +30,14 @@ class Color {
         vector<float> getAmbient();
         vector<float> getEmissive();
         float getShininess();
+        vector<float> getRGB();
 
         void setDiffuse(vector<float> value);
         void setSpecular(vector<float> value);
         void setAmbient(vector<float> value);
         void setEmissive(vector<float> value);
         void setShininess(float value);
+        void setRGB(vector<float> value);
 
         void Apply();
 };

@@ -136,11 +136,10 @@ void renderScene(void) {
 	if (camera->getShowXYZ())
 		drawXYZ();
 	
-	glEnable(GL_DEPTH_TEST);
 	for (Primitive p : scenePrimitives) {
 
-		p.Draw();
 		ntriangles += p.getNIndexes() / 3;
+		p.Draw();
 	}
 
 	// FPS CALCULATIONS
@@ -199,7 +198,6 @@ int main(int argc, char** argv) {
 
 		// luzes
 		glEnable(GL_LIGHTING);
-		glEnable(GL_LIGHT0);
 		glEnable(GL_RESCALE_NORMAL);
 		glEnable(GL_TEXTURE_2D);
 		//glEnable(GL_BLEND);
@@ -211,7 +209,7 @@ int main(int argc, char** argv) {
 		glLightfv(GL_LIGHT0, GL_AMBIENT, dark);
 		glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
 		glLightfv(GL_LIGHT0, GL_SPECULAR, white);
-
+		glEnable(GL_LIGHT0);
 
 
 		// enter GLUT's main cycle

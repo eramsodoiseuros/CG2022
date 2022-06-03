@@ -188,9 +188,6 @@ void parseFigura(TiXmlElement *models, Primitive *p) {
     (*p).setTextureFilename(texture);
     (*p).readPrimitive(filename);
 
-
-
-
     //printf("Found model\n");
     //printf("file = %s, textura = %s, luz = %s, cor = %s %s %s\n\n", filename, texture, lightType, r, g, b);
 

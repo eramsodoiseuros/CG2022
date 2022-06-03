@@ -43,7 +43,6 @@ Primitive::Primitive(string filename) {
 
 void Primitive::loadTexture() {
 
-
 	unsigned int t, tw, th;
 	unsigned char* textureData;
 	string realPath = DBPATH + textureFilename;
@@ -61,18 +60,16 @@ void Primitive::loadTexture() {
 	textureData = ilGetData();
 
 	glGenTextures(1, &textureID);
-
 	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tw, th, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, tw, th, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
 	glGenerateMipmap(GL_TEXTURE_2D);
-
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
@@ -172,22 +169,20 @@ void Primitive::readPrimitive(string primitive3D) {
 
 	dFile.close();
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
 	
 	// VBOs
-	glGenBuffers(1, &vBuffer[0]);
 
 	// points
+	glGenBuffers(1, &vBuffer[0]);
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[0]);
 	glBufferData(GL_ARRAY_BUFFER, pointsArraySize * sizeof(float), points, GL_STATIC_DRAW);
 
-
-	glGenBuffers(1, &vBuffer[1]);
 	// normals
+	glGenBuffers(1, &vBuffer[1]);
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[1]);
 	glBufferData(GL_ARRAY_BUFFER, pointsArraySize * sizeof(float), normals, GL_STATIC_DRAW);
 
+	//tex coords
 	if (textureFilename.compare("")) {
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		loadTexture();
@@ -197,9 +192,6 @@ void Primitive::readPrimitive(string primitive3D) {
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-
 
 	free(points);
 	free(normals);
@@ -361,24 +353,26 @@ Primitive Primitive::clone() {
 void Primitive::Draw() {
 
 	int totalPoints = nIndexes * 3;
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
 
 	glPushMatrix();
+
+	// Aplicar as componentes das cores (difusa,  especular, etc)
+	colorComponents.Apply();
 
 	for (Transformation* t : transformations) {
 		t->Apply();
 	}
 
-	// Dar bind ao identificador associado da primitiva
+	// vertexs buffer
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[0]);
 	// Definir o modo de leitura do VBO (3 vértices por triangulo, utilizando floats)
 	glVertexPointer(3, GL_FLOAT, 0, 0);
 
-	// normals
+	// normals buffer
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[1]);
 	glNormalPointer(GL_FLOAT, 0, 0);
 
+	// texture coords buffer
 	if (textureFilename.compare("")) {
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		glBindTexture(GL_TEXTURE_2D, textureID);
@@ -386,18 +380,11 @@ void Primitive::Draw() {
 		glTexCoordPointer(2, GL_FLOAT, 0, 0);
 	}
 
-	// Aplicar as componentes das cores (difusa,  especular, etc)
-	colorComponents.Apply();
-
 	// Draw da primitiva, a começar no índice 0, nPoints
 	glDrawArrays(GL_TRIANGLES, 0, totalPoints);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-
 
 	// para cada primitiva anexada, desenhá-la
 	for (Primitive p : appendedPrimitives) {

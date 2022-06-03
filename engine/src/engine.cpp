@@ -126,7 +126,7 @@ void renderScene(void) {
 		camera->getLookAt().getX(), camera->getLookAt().getY(), camera->getLookAt().getZ(),
 		0.0f, 1.0f, 0.0f);
 
-
+	lights.Apply();
 
 	// put the geometric transformations here
 
@@ -135,14 +135,13 @@ void renderScene(void) {
 
 	if (camera->getShowXYZ())
 		drawXYZ();
-
+	
+	glEnable(GL_DEPTH_TEST);
 	for (Primitive p : scenePrimitives) {
 
-		ntriangles += p.getNIndexes() / 3;
 		p.Draw();
+		ntriangles += p.getNIndexes() / 3;
 	}
-
-	lights.Apply();
 
 	// FPS CALCULATIONS
 	updateFPS();
@@ -200,12 +199,12 @@ int main(int argc, char** argv) {
 
 		// luzes
 		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
 		glEnable(GL_RESCALE_NORMAL);
 		glEnable(GL_TEXTURE_2D);
 		//glEnable(GL_BLEND);
 		glShadeModel(GL_SMOOTH);
 
-		glEnable(GL_LIGHT0);
 		GLfloat dark[4] = { 0.2,0.2,0.2,1.0 };
 		GLfloat white[4] = { 1.0,1.0,1.0,1.0 };
 

@@ -68,9 +68,8 @@ void Sphere::calculateSphere(Point_3D center, float radius, int stacks, int slic
             normals.push_back(n);
 
             s = (float)j / slices;
-            t = (float)i / stacks;
+            t = (1 - (float)i) / stacks;
             texs.push_back(Point_2D(s, t));
-
         }
     }
 }
@@ -87,16 +86,14 @@ void Sphere::calculateIndexes() {
         for (short j = 0; j < slices; ++j, ++k1, ++k2) {
             if (i != 0) {                                //Para a stack inicial, que só tem 1 triangulo por ciclo
 
-                indexes.push_back(k1);    //1
-                indexes.push_back(k2);    //3
-                indexes.push_back(k1 + 1);  //2  
-                //printf("%d, %d, %d \n", k1, k2, k1 + 1);
+                indexes.push_back(k1);          //1
+                indexes.push_back(k2);          //3
+                indexes.push_back(k1 + 1);      //2  
             }
-            if (i != (stacks - 1)) {                 //Para a stack final, que só tem 1 triangulo por ciclo
-                indexes.push_back(k1 + 1);  //2
-                indexes.push_back(k2);    //3
-                indexes.push_back(k2 + 1);  //4
-                //printf("%d, %d, %d \n", k1 + 1, k2, k2 + 1);
+            if (i != (stacks - 1)) {                    //Para a stack final, que só tem 1 triangulo por ciclo
+                indexes.push_back(k1 + 1);      //2
+                indexes.push_back(k2);          //3
+                indexes.push_back(k2 + 1);      //4
             }
         }
     }

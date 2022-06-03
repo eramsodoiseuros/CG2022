@@ -103,7 +103,6 @@ void Box::toFile(string file) {
                 Point_2D t1 = texs.at(index1);
                 Point_2D t2 = texs.at(index2);
                 Point_2D t3 = texs.at(index3);
-                cout << t1.toString() << endl;
 
                 // output vertex + normal
                 outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << ", "

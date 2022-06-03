@@ -11,6 +11,42 @@ Lights::Lights() {
     spotLights = vector<SpotLight>();
 }
 
+int Lights::getCounter(){
+    switch(this->counter){
+        case 0:{
+            return GL_LIGHT0;
+        }
+        case 1:{
+            return GL_LIGHT1;
+        }
+        case 2:{
+            return GL_LIGHT2;
+        }
+        case 3:{
+            return GL_LIGHT3;
+        }
+        case 4:{
+            return GL_LIGHT4;
+        }
+        case 5:{
+            return GL_LIGHT5;
+        }
+        case 6:{
+            return GL_LIGHT6;
+        }
+        case 7:{
+            return GL_LIGHT7;
+        }
+        default: {
+            return -1;
+        }
+    }
+}
+
+void Lights::setCounter(int n){
+    this->counter = n;
+}
+
 vector<PointLight> Lights::getPointLights() {
     return vector<PointLight>(pointLights);
 }
@@ -42,20 +78,54 @@ void Lights::addSpotLight(SpotLight sl) {
 
 
 void Lights::Apply() {
+    int l1  = 0;
+    GLfloat dark[4] = {0.2, 0.2, 0.2, 1};
+    GLfloat white[4] = {1,1,1,1};
 
     // attenuation
-    float quat_att = 1.0f;
-    glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, quat_att);
+    //float quat_att = 1.0f;
+    //lLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, quat_att);
+    bool never = true;
+    for (PointLight pl : pointLights){
+        l1 = this->getCounter();
+        if(l1!=-1){
+            never = false;
+            glEnable(l1);
+            pl.Apply(l1);
+            setCounter(counter+1);
+        }
+    }
 
-    for (PointLight pl : pointLights)
-        pl.Apply();
+    glEnable(GL_LIGHT1);
+    for (DirectionalLight dl : directionalLights){
+        l1 = this->getCounter();
+        if(l1!=-1){
+            never = false;
+            glEnable(l1);
+            dl.Apply(l1);
+            setCounter(counter+1);
+        }
+    }
 
-    for (DirectionalLight dl : directionalLights)
-        dl.Apply();
+    for (SpotLight sl : spotLights){
+        l1 = this->getCounter();
+        if(l1!=-1){
+            never = false;
+            glEnable(l1);
+            sl.Apply(l1);
+            setCounter(counter+1);
+        }
+    }
 
-    for (SpotLight sl : spotLights)
-        sl.Apply();
+    if(never){
+        l1 = this->getCounter();
+        glEnable(l1);
 
+        glLightfv(l1, GL_AMBIENT, dark);
+        glLightfv(l1, GL_DIFFUSE, white);
+        glLightfv(l1, GL_SPECULAR, white);
+        glLightfv(l1, GL_EMISSION, white);
+    }
 }
 
 
@@ -79,9 +149,9 @@ void PointLight::setPos(float x, float y, float z) {
     posX = x; posY = y; posZ = z;
 }
 
-void PointLight::Apply() {
+void PointLight::Apply(int c) {
     float pos[] = { posX, posY, posZ, 1.0f };
-    glLightfv(GL_LIGHT0, GL_POSITION, pos);
+    glLightfv(c, GL_POSITION, pos);
 }
 
 /*--------------------------------------------> DIRECTIONAL_LIGHT */
@@ -103,9 +173,9 @@ void DirectionalLight::setDirectional(float x, float y, float z) {
     dirX = x; dirY = y; dirZ = z;
 }
 
-void DirectionalLight::Apply() {
+void DirectionalLight::Apply(int c) {
     float dir[] = { dirX, dirY, dirZ, 0.0f };
-    glLightfv(GL_LIGHT0, GL_POSITION, dir);
+    glLightfv(c, GL_POSITION, dir);
 }
 
 /*--------------------------------------------> SPOT_LIGHT */
@@ -155,12 +225,12 @@ void SpotLight::setCutoff(float value) {
     cutoff = value;
 }
 
-void SpotLight::Apply() {
+void SpotLight::Apply(int c) {
 
     float pos[] = { posX, posY, posZ, 1.0f };
     float dir[] = { dirX, dirY, dirZ };
-    glLightfv(GL_LIGHT0, GL_POSITION, pos);
-    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, dir);
-    glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, cutoff);
+    glLightfv(c, GL_POSITION, pos);
+    glLightfv(c, GL_SPOT_DIRECTION, dir);
+    glLightf(c, GL_SPOT_CUTOFF, cutoff);
     // cutoff : [0, 90] ou 180
 }

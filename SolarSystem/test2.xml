@@ -9,6 +9,9 @@
         <up X = 0 Y = 1 Z = 0 />
         <projection fov = 45 near = 1 far = 1000 />
     </camara>
+    <lights>
+        <light type="point" posX="0" posY="0" posZ="0" />
+    </lights>
     <group>
         <!-- Sol (Origem) -->
         <group>
@@ -23,20 +26,17 @@
                 <color R = 1 G = 0.549 B = 0/> <!-- Dark Orange -->
                 <models>
                     <!-- Models, Name-->
-                   <model file="box.3d" texture="sun.jpg"/>
+                   <model file="box.3d" texture=""/>
                    <color>
-                        <diffuse R="1" G="0.549" B="0" />
-                        <ambient R="0" G="0" B="0" />
+                        <diffuse R="1" G="1" B="0" />
+                        <ambient R="1" G="1" B="1" />
                         <specular R="0" G="0" B="0" />
-                        <emissive R="0.85" G="0.85" B="0.85" />
-                        <shininess value="100" />
+                        <emissive R="0.99" G="0.99" B="0.99" />
+                        <shininess value="128" />
                     </color>
                 </models>
             </group>
         </group>
-
-
-
         <!-- Terra - T = 0.65 D = 21
             Orbita 7.155 Time = 365.25
             Tilt = 23.5º V = 29.78  
@@ -86,11 +86,11 @@
                 <color R = 0.0 G = 0.749 B = 1 />
 
                 <models> 
-                    <model file = "sphere.3d" texture = "Earth" />
+                    <model file = "sphere.3d" texture = "" />
                     <color>
-                        <diffuse R="0" G="0.749" B="1" />
-                        <ambient R="0.25" G="0.25" B=".25" />
-                        <specular R="1" G="1" B="0" />
+                        <diffuse R="1" G="1" B="1" />
+                        <ambient R="0" G="0" B="0" />
+                        <specular R="1" G="1" B="1" />
                         <emissive R="0" G="0" B="0" />
                         <shininess value="128" />
                     </color>
@@ -137,11 +137,11 @@
                         <color R = 0.502 G = 0.502 B = 0.502 /> 
 
                         <models> 
-                            <model file = "sphere.3d" texture = "Earth_Moon" />
+                            <model file = "sphere.3d" texture = "" />
                             <color>
-                                <diffuse R="0.5" G="0.5" B="0.5" />
-                                <ambient R="0.25" G="0.25" B=".25" />
-                                <specular R="1" G="1" B="0" />
+                                <diffuse R="1" G="1" B="0.75" />
+                                <ambient R="0" G="0" B="0" />
+                                <specular R="1" G="1" B="1" />
                                 <emissive R="0" G="0" B="0" />
                                 <shininess value="128" />
                             </color>

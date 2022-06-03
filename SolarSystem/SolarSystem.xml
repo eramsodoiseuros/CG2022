@@ -44,7 +44,8 @@ Distancia /
     </camara>
 
     <lights> 
-        <light type="directional" dirX="14" dirY="0" dirZ="5" />
+        <light type="point" dirX="0" dirY="0" dirZ="0" />
+	    <light type="directional" dirX="14" dirY="0" dirZ="5" />
     </lights>
 
     <group>
@@ -63,10 +64,10 @@ Distancia /
                     <!-- Models, Name-->
                    <model file="sphere.3d" texture="sun.jpg"/>
                    <color>
-                        <diffuse R="1" G="0.549" B="0" />
+                        <diffuse R="1" G="1" B="0" />
                         <ambient R="1" G="1" B="1" />
-                        <specular R="0.99" G="0.99" B="0.99" />
-                        <emissive R="0.5" G="0.27" B="0.0" />
+                        <specular R="0" G="0" B="0" />
+                        <emissive R="0.99" G="0.99" B="0.99" />
                         <shininess value="128" />
                     </color>
                 </models>

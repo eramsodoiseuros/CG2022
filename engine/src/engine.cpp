@@ -36,7 +36,6 @@ float fovy, zNear, zFar, ntriangles = 0.0f;
 
 
 void drawXYZ() {
-	glDisable(GL_LIGHTING);
 	glBegin(GL_LINES);
 	// X axis in red
 	glColor3f(1.0f, 0.0f, 0.0f);
@@ -51,7 +50,6 @@ void drawXYZ() {
 	glVertex3f(0.0f, 0.0f, -100.0f);
 	glVertex3f(0.0f, 0.0f, 100.0f);
 	glEnd();
-	glEnable(GL_LIGHTING);
 }
 
 
@@ -80,9 +78,6 @@ void changeSize(int w, int h) {
 	// return to the model view matrix mode
 
 	glMatrixMode(GL_MODELVIEW);
-
-
-
 }
 
 void cameraSetup() {
@@ -90,7 +85,6 @@ void cameraSetup() {
 	fovy = perspective.getX();
 	zNear = perspective.getY();
 	zFar = perspective.getZ();
-
 }
 
 
@@ -128,8 +122,6 @@ void renderScene(void) {
 
 	lights.Apply();
 
-	// put the geometric transformations here
-
 	// put drawing instructions here
 	int x = camera->getShowXYZ();
 
@@ -145,6 +137,7 @@ void renderScene(void) {
 	// FPS CALCULATIONS
 	updateFPS();
 
+	lights.setCounter(0);
 	// End of frame
 	glutSwapBuffers();
 }
@@ -159,7 +152,6 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
-
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowSize(1600, 900);
@@ -172,7 +164,6 @@ int main(int argc, char** argv) {
 	glutIdleFunc(idle);
 	glutMouseFunc(Camera::processMouseButtons);
 	glutMotionFunc(Camera::processMouseMotion);
-
 
 #ifndef __APPLE__
 	glewInit();
@@ -198,23 +189,14 @@ int main(int argc, char** argv) {
 
 		// luzes
 		glEnable(GL_LIGHTING);
+		glEnable(GL_COLOR_MATERIAL);
 		glEnable(GL_RESCALE_NORMAL);
 		glEnable(GL_TEXTURE_2D);
-		//glEnable(GL_BLEND);
+		glEnable(GL_BLEND);
 		glShadeModel(GL_SMOOTH);
-
-		GLfloat dark[4] = { 0.2,0.2,0.2,1.0 };
-		GLfloat white[4] = { 1.0,1.0,1.0,1.0 };
-
-		glLightfv(GL_LIGHT0, GL_AMBIENT, dark);
-		glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
-		glLightfv(GL_LIGHT0, GL_SPECULAR, white);
-		glEnable(GL_LIGHT0);
-
 
 		// enter GLUT's main cycle
 		glutMainLoop();
-
 	}
 	catch (const std::exception& ex) {
 		cerr << ex.what() << endl;

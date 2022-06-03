@@ -21,7 +21,7 @@ public:
     PointLight(float x, float y, float z);
     vector<float> getPos();
     void setPos(float x, float y, float z);
-    void Apply();
+    void Apply(int c);
 };
 
 
@@ -38,7 +38,7 @@ public:
     DirectionalLight(float x, float y, float z);
     vector<float> getDirectional();
     void setDirectional(float x, float y, float z);
-    void Apply();
+    void Apply(int c);
 };
 
 
@@ -63,7 +63,7 @@ public:
     void setDirectional(vector<float> value);
     float getCutoff();
     void setCutoff(float value);
-    void Apply();
+    void Apply(int c);
 };
 
 
@@ -75,26 +75,17 @@ public:
 class Lights{
 
     private:
-        
+        int counter;
         vector<PointLight> pointLights;
         vector<DirectionalLight> directionalLights;
         vector<SpotLight> spotLights;
-        
-        bool spotLight;
-        bool directionalLight;
-        bool pointLight;
-
+    
     public:
 
         Lights();
 
-        void setSpotLight(bool b);
-        void setDirectionalLight(bool b);
-        void setPointLight(bool b);
-
-        bool hasSpotLight();
-        bool hasDirectionalLight();
-        bool hasPointLight();
+        int getCounter();
+        void setCounter(int n);
         vector<PointLight> getPointLights();
         vector<DirectionalLight> getDirectionalLights();
         vector<SpotLight> getSpotLights();

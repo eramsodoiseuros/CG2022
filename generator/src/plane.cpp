@@ -17,6 +17,8 @@ Plane::Plane() {
     p3 = Point_3D();
     planePoints = vector<Point_3D>();
     planePointsIndexes = vector<int>();
+    normals = vector<Point_3D>();
+    texs = vector<Point_2D>();
     nPoints = 0;
     nIndexes = 0;
 }
@@ -144,6 +146,7 @@ vector<Point_3D> Plane::calculatePlanePoints(){
             
             p = Point_3D(X, Y, Z);
             lista.push_back(p);
+            normals.push_back(Point_3D(0.0f,0.0f,1.0f));
 
             X = X + divionFactor;
         }

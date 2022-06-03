@@ -30,6 +30,8 @@ class Plane {
         
         std::vector<Point_3D> planePoints;              // Plane's list of points
         std::vector<int> planePointsIndexes;            // Point's indexes
+        std::vector<Point_3D> normals;
+        std::vector<Point_2D> texs;
         int nPoints;
         int nIndexes;
 

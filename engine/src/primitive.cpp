@@ -68,6 +68,7 @@ void Primitive::loadTexture() {
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tw, th, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -188,11 +189,13 @@ void Primitive::readPrimitive(string primitive3D) {
 	glBufferData(GL_ARRAY_BUFFER, pointsArraySize * sizeof(float), normals, GL_STATIC_DRAW);
 
 	if (textureFilename.compare("")) {
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		loadTexture();
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		glBindBuffer(GL_ARRAY_BUFFER, vBuffer[2]);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * nIndexes, texs, GL_STATIC_DRAW);
 		glBindTexture(GL_TEXTURE_2D, 0);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
@@ -358,20 +361,14 @@ Primitive Primitive::clone() {
 void Primitive::Draw() {
 
 	int totalPoints = nIndexes * 3;
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
 
 	glPushMatrix();
 
 	for (Transformation* t : transformations) {
 		t->Apply();
 	}
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	
-
-
-	// Aplicar as componentes das cores (difusa,  especular, etc)
-	colorComponents.Apply();
 
 	// Dar bind ao identificador associado da primitiva
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[0]);
@@ -385,16 +382,21 @@ void Primitive::Draw() {
 	if (textureFilename.compare("")) {
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		glBindTexture(GL_TEXTURE_2D, textureID);
-		glBindBuffer(GL_ARRAY_BUFFER, textureID);
+		glBindBuffer(GL_ARRAY_BUFFER, vBuffer[2]);
 		glTexCoordPointer(2, GL_FLOAT, 0, 0);
 	}
+
+	// Aplicar as componentes das cores (difusa,  especular, etc)
+	colorComponents.Apply();
+
 	// Draw da primitiva, a começar no índice 0, nPoints
 	glDrawArrays(GL_TRIANGLES, 0, totalPoints);
 
+	glBindTexture(GL_TEXTURE_2D, 0);
 
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 
 	// para cada primitiva anexada, desenhá-la

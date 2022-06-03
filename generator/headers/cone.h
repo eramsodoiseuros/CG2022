@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include "../../utils/point_3d.h"
+#include "../../utils/point_2d.h"
 #include "../../utils/polar.h"
 
 class Cone {

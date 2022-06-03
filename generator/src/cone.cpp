@@ -67,13 +67,11 @@ void Cone::toFile(std::string s) {
             n3 = Point_3D(0,-1,0);
 
             Point_2D t1 = Point_2D(0.5,0.5);
-            Point_2D t2 = Point_2D(0.5 * cosf(alpha+sliceSize) + 0.5, 0.5 * sinf(alpha+sliceSize) + 0.5);
-            Point_2D t3 = Point_2D(0.5 * cosf(alpha) + 0.5, 0.5 * sinf(alpha) + 0.5);
-
-            cout << t1.toString() << ", " << t2.toString() << ", " << t3.toString() << endl;
+            Point_2D t2 = Point_2D(1-(0.5 * cosf(alpha+sliceSize) + 0.5), 0.5 * sinf(alpha+sliceSize) + 0.5);
+            Point_2D t3 = Point_2D(1 - (0.5 * cosf(alpha) + 0.5), 0.5 * sinf(alpha) + 0.5);
 
             file << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << ", "
-                << t1.toString() << ", "<< t2.toString() << ", " << t3.toString() << endl;
+                 << t1.toString() << ", "<< t2.toString() << ", " << t3.toString() << endl;
         }
 
         for(int i = 0; i < stacks; i++){
@@ -95,10 +93,9 @@ void Cone::toFile(std::string s) {
                 Point_2D t1 = Point_2D(texture_x_step * (float)j,texture_y_step * (float)(i+1));
                 Point_2D t2 = Point_2D(texture_x_step * (float)j, texture_y_step * (float)i);
                 Point_2D t3 = Point_2D(texture_x_step * (float)(j+1), texture_y_step * (float)i);
-                cout << t1.toString() << ", " << t2.toString() << ", " << t3.toString() << endl;
 
                 file << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << ", " 
-                    << t1.toString() << ", "<< t2.toString() << ", " << t3.toString() << endl;
+                     << t1.toString() << ", "<< t2.toString() << ", " << t3.toString() << endl;
 
                 p4 = polarToPoint3D(rUp,stackSize*(i+1),alpha);
                 p5 = polarToPoint3D(r,stackSize*i,alpha+sliceSize);
@@ -112,9 +109,8 @@ void Cone::toFile(std::string s) {
                 t2 = Point_2D(texture_x_step * (float)(j+1), texture_y_step * (float)i);
                 t3 = Point_2D(texture_x_step * (float)(j+1), texture_y_step * (float)(i+1));
 
-                cout << t1.toString() << ", " << t2.toString() << ", " << t3.toString() << endl;
                 file << p4.toString() << ", " << p5.toString() << ", " << p6.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << ", "
-                    << t1.toString() << ", "<< t2.toString() << ", " << t3.toString() << endl;
+                     << t1.toString() << ", "<< t2.toString() << ", " << t3.toString() << endl;
             }
         }
         file.close();

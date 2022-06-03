@@ -14,7 +14,7 @@ Primitive::Primitive() {
 
 	filename = "";
 	textureFilename = "";
-	this->vBuffer;
+	vBuffer[0] = -1; vBuffer[1] = -1; vBuffer[2] = -1;
 	nPoints = 0;
 	nIndexes = 0;
 	transformations = vector<Transformation*>();
@@ -32,7 +32,7 @@ Primitive::Primitive(string filename) {
 
 	readPrimitive(filename);
 	textureFilename = "";
-	this->vBuffer;
+	vBuffer[0] = -1; vBuffer[1] = -1; vBuffer[2] = -1;
 	transformations = vector<Transformation*>();
 	appendedPrimitives = vector<Primitive>();
 	colorComponents = Color();
@@ -190,6 +190,7 @@ void Primitive::readPrimitive(string primitive3D) {
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		loadTexture();
 		glBindTexture(GL_TEXTURE_2D, textureID);
+		glGenBuffers(1, &vBuffer[2]);
 		glBindBuffer(GL_ARRAY_BUFFER, vBuffer[2]);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * nIndexes, texs, GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);

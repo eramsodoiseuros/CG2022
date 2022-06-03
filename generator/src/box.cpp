@@ -79,6 +79,8 @@ void Box::toFile(string file) {
 
             vector<Point_3D> points = p.getPlanePoints();
             vector<int> indexes = p.getPlanePointsIndexes();
+            vector<Point_3D> normals = p.getNormals();
+            vector<Point_2D> texs = p.getTexs();
             int nIndexes = indexes.size();
 
             for (int i = 0; i < nIndexes; i += 3) {
@@ -94,15 +96,18 @@ void Box::toFile(string file) {
                 Point_3D p3 = points.at(index3);
 
                 // calculate normal from triangle
-                Point_3D n1 = normal(p1);
-                Point_3D n2 = normal(p2);
-                Point_3D n3 = normal(p3);
+                Point_3D n1 = normals.at(index1);
+                Point_3D n2 = normals.at(index2);
+                Point_3D n3 = normals.at(index3);
 
-                Point_3D t1 = Point_3D(0,0,0);
-                Point_3D t2 = Point_3D(0,0,0);
+                Point_2D t1 = texs.at(index1);
+                Point_2D t2 = texs.at(index2);
+                Point_2D t3 = texs.at(index3);
+                cout << t1.toString() << endl;
 
                 // output vertex + normal
-                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << ", "<< t1.toString() << ", "<< t2.toString() << ", " << endl; 
+                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", "<< n3.toString() << ", "
+                    << t1.toString() << ", "<< t2.toString() << ", " << t3.toString() << endl;
             }
         }
         outFile.close();

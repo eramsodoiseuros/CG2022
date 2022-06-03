@@ -222,6 +222,10 @@ class Plane {
          * 
          */
         void addZ();
+
+        std::vector<Point_3D> getNormals();
+
+        std::vector<Point_2D> getTexs();
         
         
 };

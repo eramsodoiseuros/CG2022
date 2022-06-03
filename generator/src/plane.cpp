@@ -137,6 +137,7 @@ vector<Point_3D> Plane::calculatePlanePoints(){
     Y = p1.getY();
     Z = p1.getZ();
     Point_3D p;
+    float s = 0.0f, t = 0.0f;
 
     for(int j = 0; j <= divisions; j++){
 
@@ -146,7 +147,14 @@ vector<Point_3D> Plane::calculatePlanePoints(){
             
             p = Point_3D(X, Y, Z);
             lista.push_back(p);
-            normals.push_back(Point_3D(0.0f,0.0f,1.0f));
+
+            Point_3D n = normal(p);
+            normals.push_back(n);
+
+            s = (float)i / divisions;
+            t = (float)j / divisions;
+            texs.push_back(Point_2D(s, t));
+            //normals.push_back(Point_3D(0.0f,1.0f,0.0f));
 
             X = X + divionFactor;
         }
@@ -242,6 +250,13 @@ std::vector<int> Plane::getPlanePointsIndexes(){
     return vector<int>(planePointsIndexes);
 }
 
+std::vector<Point_3D> Plane::getNormals() {
+    return vector<Point_3D>(normals);
+}
+
+std::vector<Point_2D> Plane::getTexs() {
+    return vector<Point_2D>(texs);
+}
 
 void Plane::toFile(string file){
 
@@ -262,26 +277,44 @@ void Plane::toFile(string file){
         for(int j = 0; j < limit; j += (divisions + 1)){
 
             int limit02 = j + divisions;
+            short i1, i2, i3;
 
             for(int i = j; i < limit02; i++){
 
-                Point_3D p1 = pts.at(i);
-                Point_3D p2 = pts.at(i + (divisions + 2));
-                Point_3D p3 = pts.at(i + (divisions + 1));
-                Point_3D normal = getNormal(p1,p2,p3);
+                i1 = i;
+                i2 = i + (divisions + 2);
+                i3 = i + (divisions + 1);
 
-                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << normal.toString() << ", " << endl; 
+
+                Point_3D p1 = pts.at(i1);
+                Point_3D p2 = pts.at(i2);
+                Point_3D p3 = pts.at(i3);
+                Point_3D n1 = normals.at(i1);
+                Point_3D n2 = normals.at(i2);
+                Point_3D n3 = normals.at(i3);
+                Point_2D t1 = texs.at(i1);
+                Point_2D t2 = texs.at(i2);
+                Point_2D t3 = texs.at(i3);
+
+                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", " << n3.toString() 
+                    << ", " << t1.toString() << ", " << t2.toString() << ", " << t3.toString() << endl;
 
                 //pointsIndex.push_back(i);                           // 1
                 //pointsIndex.push_back(i + (divisions + 2));         // 4
                 //pointsIndex.push_back(i + (divisions + 1));         // 3
 
-                p1 = pts.at(i);
-                p2 = pts.at(i + 1);
-                p3 = pts.at(i + (divisions + 2));
-                normal = getNormal(p1, p2, p3);
+                p1 = pts.at(i1);
+                p2 = pts.at(i1 + 1);
+                p3 = pts.at(i2);
+                n1 = normals.at(i1);
+                n2 = normals.at(i1 + 1);
+                n3 = normals.at(i2);
+                t1 = texs.at(i1);
+                t2 = texs.at(i1 + 1);
+                t3 = texs.at(i2);
 
-                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << normal.toString() << ", " << endl; 
+                outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", " << n3.toString() 
+                    << ", " << t1.toString() << ", " << t2.toString() << ", " << t3.toString() << endl;
                 //pointsIndex.push_back(i);                           // 1
                 //pointsIndex.push_back(i + 1);                       // 2
                 //pointsIndex.push_back(i + (divisions + 2));         // 4 
@@ -289,7 +322,6 @@ void Plane::toFile(string file){
         }
         outFile.close();
     }
-    // else....
 
 }
 
@@ -307,6 +339,7 @@ Plane Plane::planeXY(){
     Y = p1.getY();
     Z = p1.getZ();
     Point_3D p;
+    float s = 0.0f, t = 0.0f;
 
     for(int j = 0; j <= divisions; j++){
 
@@ -316,6 +349,13 @@ Plane Plane::planeXY(){
             
             p = Point_3D(X, Y, Z);
             lista.push_back(p);
+
+            Point_3D n = normal(p);
+            normals.push_back(n);
+
+            s = (float)i / divisions;
+            t = (float)j / divisions;
+            texs.push_back(Point_2D(s, t));
 
             X = X + divionFactor;
         }
@@ -345,6 +385,7 @@ Plane Plane::planeYZ(){
     Y = p1.getY();
     Z = p1.getZ();
     Point_3D p;
+    float s = 0.0f, t = 0.0f;
 
     for(int j = 0; j <= divisions; j++){
 
@@ -354,6 +395,14 @@ Plane Plane::planeYZ(){
             
             p = Point_3D(X, Y, Z);
             lista.push_back(p);
+
+
+            Point_3D n = normal(p);
+            normals.push_back(n);
+
+            s = (float)i / divisions;
+            t = (float)j / divisions;
+            texs.push_back(Point_2D(s, t));
 
             Z = Z - divionFactor;
         }
@@ -403,3 +452,5 @@ void Plane::addZ(){
         planePoints[i] = p;
     }
 }
+
+

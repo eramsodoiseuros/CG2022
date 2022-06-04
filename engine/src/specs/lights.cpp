@@ -96,7 +96,6 @@ void Lights::Apply() {
         }
     }
 
-    glEnable(GL_LIGHT1);
     for (DirectionalLight dl : directionalLights){
         l1 = this->getCounter();
         if(l1!=-1){

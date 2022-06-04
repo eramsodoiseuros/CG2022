@@ -86,8 +86,6 @@ void Camera::nextCameraMode() {
     else {
         Point_3D lookVector = { x, y, z };
         lookVector.normalize();
-
-        // n�o deveria faltar algo aqui?
     }
 }
 
@@ -115,18 +113,13 @@ void Camera::updateVerticalAngle(float delta) {
 
 void Camera::updateLookAt() {
 
-    // pela teoria, o raio n�o entra nestas contas.... ?
-    float x = //this->r * 
-        cosf(this->vertical_angle) * sinf(this->horizontal_angle);
+    float x = this->r * cosf(this->vertical_angle) * sinf(this->horizontal_angle);
 
-    float y = //this->r * 
-        sinf(this->vertical_angle);
+    float y = this->r * sinf(this->vertical_angle);
 
-    float z = //this->r *
-        cosf(this->vertical_angle) * cosf(this->horizontal_angle);
+    float z = this->r * cosf(this->vertical_angle) * cosf(this->horizontal_angle);
 
     Point_3D lookVector = { x, y, z };
-    // pela teoria, este vetor j� n�o vai estar normalizado
     lookVector.normalize();
 
     this->lookAt.setX(this->position.getX() + lookVector.getX());

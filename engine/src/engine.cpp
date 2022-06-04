@@ -52,7 +52,7 @@ void drawXYZ() {
 	glVertex3f(0.0f, -100.0f, 0.0f);
 	glVertex3f(0.0f, 100.0f, 0.0f);
 	// Z Axis in Blue
-	glColor3f(0.0f, 0.0f, 1.0f);
+	glColor3f(1.0f, 1.0f, 1.0f);
 	glVertex3f(0.0f, 0.0f, -100.0f);
 	glVertex3f(0.0f, 0.0f, 100.0f);
 	glEnd();
@@ -138,8 +138,6 @@ void renderScene(void) {
 		camera->getLookAt().getX(), camera->getLookAt().getY(), camera->getLookAt().getZ(),
 		0.0f, 1.0f, 0.0f);
 
-	lights.Apply();
-
 	// put drawing instructions here
 
 	if (camera->getShowXYZ())
@@ -150,7 +148,9 @@ void renderScene(void) {
 		ntriangles += p.getNIndexes() / 3;
 		p.Draw();
 	}
+
 	lights.Apply();
+
 	// FPS CALCULATIONS
 	updateFPS();
 

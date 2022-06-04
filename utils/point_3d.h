@@ -14,12 +14,17 @@ using namespace std;
 class Point_3D {
 
     private:
+
         float x;
         float y;
         float z;
 
     public:
 
+        /**
+         * @brief Construct a new Point_3D object
+         * 
+         */
         Point_3D();
         Point_3D(float p1, float p2, float p3);
 
@@ -70,23 +75,74 @@ class Point_3D {
         void setPointTo(float x, float y, float z);
     
         /**
-        *	Formata uma string com o conteudo do Ponto
-        *	@return `char*`	correspondente ao conteudo do Ponto
-        */
+         * @brief Formata uma string com o conteudo do Ponto
+         * 
+         * @return string com os valores associados
+         */
         string toString();
-    
+
+        /**
+         * @brief calcula o produto cruzado entre dois pontos (cross product)
+         * 
+         * @param p ponto a utilizar no produto
+         * @return Point_3D ponto resultante da operação
+         */
         Point_3D Point_3D::crossProduct(Point_3D p);
         
+        /**
+         * @brief normaliza um ponto
+         * 
+         */
         void Point_3D::normalize();
 
 };
 
+
 Point_3D polarToPoint3D(float radius,float height, float alpha);
+
+/**
+ * @brief calcula a soma de dois pontos
+ * 
+ * @param p1 ponto 1
+ * @param p2 ponto 2
+ * @return Point_3D ponto resultante da operação
+ */
 Point_3D sum(Point_3D p1, Point_3D p2);
+
+/**
+ * @brief calcula a multiplicação entre dois pontos
+ * 
+ * @param p1 ponto 1
+ * @param p2 ponto 2
+ * @return Point_3D ponto resultante da operação
+ */
 Point_3D mul(Point_3D p1, Point_3D p2);
+
+/**
+ * @brief calcula a subtração entre dois pontos
+ * 
+ * @param p1 ponto 1
+ * @param p2 ponto 2
+ * @return Point_3D ponto resultante da operação
+ */
 Point_3D sub(Point_3D p1, Point_3D p2);
 
+/**
+ * @brief calcula da normal de uma superfície, utilizando três pontos pertencentes
+ * 
+ * @param p1 ponto 1
+ * @param p2 ponto 2
+ * @param p3 ponto 3
+ * @return Point_3D ponto normal resultante da operação
+ */
 Point_3D getNormal(Point_3D p1, Point_3D p2, Point_3D p3);
-Point_3D normal(Point_3D p);
+
+/**
+ * @brief criação de um ponto normalizado, sem alterar o original
+ * 
+ * @param p ponto a operar
+ * @return Point_3D ponto resultante da normalização
+ */
+Point_3D getNormalize(Point_3D p);
 
 #endif //GENERATOR_POINT_3D_H

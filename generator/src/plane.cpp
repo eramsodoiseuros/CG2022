@@ -30,8 +30,21 @@ Plane::Plane(float l, int div, bool onXZ) {
 
     float y = 0.0f;
     float reference = length / 2.0f;
+
+    // if plane is not an XZ plane, it has Y value different from 0
     if (!onXZ) y = -reference;
 
+    /*
+       p3          p4
+        -------------
+        |           |
+        |           |
+        |     O     |
+        |           |
+        |           |
+        -------------
+       p1           p2
+    */
 
     p1 = Point_3D(-reference, y, reference);             // external points (plane's limits)
     p2 = Point_3D(reference, y, reference);
@@ -50,45 +63,33 @@ Plane::Plane(float l, int div, bool onXZ) {
 Point_3D Plane::getP1(){
     return p1;
 }
-
 Point_3D Plane::getP2(){
     return p2;
 }
-
 Point_3D Plane::getP3(){
     return p3;
 }
-
 Point_3D Plane::getP4(){
     return p4;
 }
-
 float Plane::getLength(){
     return length;
 }
-
 int Plane::getDivisions(){
     return divisions;
 }
-
 int Plane::getNumberOfPoints(){
     return nPoints;
 }
-
-
 int Plane::getNumberOfIndexes(){
     return nIndexes;
 }
-
-
 void Plane::setPlanePoints(std::vector<Point_3D> points){
-                planePoints = points;
-        }
-    
+    planePoints = points;
+}   
 void Plane::setPlaneVertices(std::vector<int> vertices){
     planePointsIndexes = vertices;
 }
-
 void Plane::setP1(Point_3D p){
     p1 = p;
 }
@@ -108,12 +109,13 @@ void Plane::setP4(Point_3D p){
     ---------------------
     |                   |
     |                   |
-8   |-------------------|
+8   |-------------------| 11
     |                   |
-4   |----5--------------|
+4   |----5-------6------| 7
     |                   |
     ---------------------
   (0)    (1)    (2)    (3)
+
     #-> (1) é o ponto utilizado como referência para o conseguinte cálculo dos pontos/vértices do plano ! 
 */
 
@@ -129,18 +131,22 @@ void Plane::setP4(Point_3D p){
  */
 vector<Point_3D> Plane::calculatePlanePoints(){
 
+    // length of each division
     float divionFactor = length / (float)divisions;
-    vector<Point_3D> lista;
+
+    vector<Point_3D> lista = vector<Point_3D>();
     lista.clear();
+
     float X,Y,Z;
-    X = p1.getX();
-    Y = p1.getY();
-    Z = p1.getZ();
+    X = p1.getX();  // reference point for calculations
+    Y = p1.getY();  
+    Z = p1.getZ();  
     Point_3D p;
     float s = 0.0f, t = 0.0f;
 
     for(int j = 0; j <= divisions; j++){
 
+        // lower left limit for x
         X = p1.getX();
 
         for(int i = 0; i <= divisions; i++){
@@ -148,18 +154,17 @@ vector<Point_3D> Plane::calculatePlanePoints(){
             p = Point_3D(X, Y, Z);
             lista.push_back(p);
 
-            Point_3D n = normal(p);
+            Point_3D n = getNormalize(p);
             normals.push_back(n);
 
             s = (float)i / divisions;
             t = (float)j / divisions;
-            texs.push_back(Point_2D(s, t));
-            //normals.push_back(Point_3D(0.0f,1.0f,0.0f));
+            texs.push_back(Point_2D(s, t)); // tex coords
 
-            X = X + divionFactor;
+            X = X + divionFactor;   // update x value for each line
         }
 
-        Z = Z - divionFactor;
+        Z = Z - divionFactor;       // update z value
     }
 
     return lista;
@@ -226,16 +231,6 @@ vector<int> Plane::planeVerticesInverted(){
 }
 
 
-/**
- * @brief Esta função é a principal que calcula todos os pontos necessários à construção de um plano, assim como
- * a ligação de todos os vértices de modo a construir os triângulos que formarão a futura figuração
- * 
- * @param length Comprimento do plano
- * @param divisions Número de divisões a aplicar em cada eixo do plano
- * 
- * @return std::pair<vector<Point_3D>, vector<int>> Par com um vetor com os pontos que formam o plano, assim como os índices dos pontos que formarão
- * os respetivos triângulos, de modo a constituir o plano graficamente
- */
 
 std::pair<vector<Point_3D>, vector<int>> Plane::PlaneInfo() {
     return std::make_pair(planePoints, planePointsIndexes);
@@ -244,7 +239,6 @@ std::pair<vector<Point_3D>, vector<int>> Plane::PlaneInfo() {
 std::vector<Point_3D> Plane::getPlanePoints(){
     return vector<Point_3D>(planePoints);
 }
-
 
 std::vector<int> Plane::getPlanePointsIndexes(){
     return vector<int>(planePointsIndexes);
@@ -261,16 +255,16 @@ std::vector<Point_2D> Plane::getTexs() {
 void Plane::toFile(string file){
 
     ofstream outFile;
-    
     string outputFile = "../3D/" + file;
 
     outFile.open(outputFile, ios::out | ios::trunc);
 
-    vector<Point_3D> pts = planePoints;
-    vector<int> idxs = planePointsIndexes;
 
     if (outFile.is_open()){
 
+        vector<Point_3D> pts = planePoints;
+        vector<int> idxs = planePointsIndexes;
+        
         outFile << pts.size() << "," << idxs.size() << endl;
 
         int limit = divisions * divisions;
@@ -281,17 +275,19 @@ void Plane::toFile(string file){
 
             for(int i = j; i < limit02; i++){
 
-                i1 = i;
-                i2 = i + (divisions + 2);
-                i3 = i + (divisions + 1);
+                i1 = i;                         // 1
+                i2 = i + (divisions + 2);       // 4
+                i3 = i + (divisions + 1);       // 3
 
 
                 Point_3D p1 = pts.at(i1);
                 Point_3D p2 = pts.at(i2);
                 Point_3D p3 = pts.at(i3);
+                
                 Point_3D n1 = normals.at(i1);
                 Point_3D n2 = normals.at(i2);
                 Point_3D n3 = normals.at(i3);
+                
                 Point_2D t1 = texs.at(i1);
                 Point_2D t2 = texs.at(i2);
                 Point_2D t3 = texs.at(i3);
@@ -299,25 +295,20 @@ void Plane::toFile(string file){
                 outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", " << n3.toString() 
                     << ", " << t1.toString() << ", " << t2.toString() << ", " << t3.toString() << endl;
 
-                //pointsIndex.push_back(i);                           // 1
-                //pointsIndex.push_back(i + (divisions + 2));         // 4
-                //pointsIndex.push_back(i + (divisions + 1));         // 3
+                p1 = pts.at(i1);                // 1
+                p2 = pts.at(i1 + 1);            // 2
+                p3 = pts.at(i2);                // 4
 
-                p1 = pts.at(i1);
-                p2 = pts.at(i1 + 1);
-                p3 = pts.at(i2);
                 n1 = normals.at(i1);
                 n2 = normals.at(i1 + 1);
                 n3 = normals.at(i2);
+                
                 t1 = texs.at(i1);
                 t2 = texs.at(i1 + 1);
                 t3 = texs.at(i2);
 
                 outFile << p1.toString() << ", " << p2.toString() << ", " << p3.toString() << ", " << n1.toString() << ", " << n2.toString() << ", " << n3.toString() 
                     << ", " << t1.toString() << ", " << t2.toString() << ", " << t3.toString() << endl;
-                //pointsIndex.push_back(i);                           // 1
-                //pointsIndex.push_back(i + 1);                       // 2
-                //pointsIndex.push_back(i + (divisions + 2));         // 4 
             }
         }
         outFile.close();
@@ -350,7 +341,7 @@ Plane Plane::planeXY(){
             p = Point_3D(X, Y, Z);
             lista.push_back(p);
 
-            Point_3D n = normal(p);
+            Point_3D n = getNormalize(p);
             normals.push_back(n);
 
             s = (float)i / divisions;
@@ -397,7 +388,7 @@ Plane Plane::planeYZ(){
             lista.push_back(p);
 
 
-            Point_3D n = normal(p);
+            Point_3D n = getNormalize(p);
             normals.push_back(n);
 
             s = (float)i / divisions;
@@ -452,5 +443,3 @@ void Plane::addZ(){
         planePoints[i] = p;
     }
 }
-
-

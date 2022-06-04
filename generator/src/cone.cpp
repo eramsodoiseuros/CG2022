@@ -1,11 +1,11 @@
 #include "../headers/cone.h"
 
 
-Cone::Cone(float r, float h, int s1, int s2) {
-    this->raio = r;
-    this->altura = h;
-    this->slices = s1;
-    this->stacks = s2;
+Cone::Cone(float radius, float height, int slices, int stacks) {
+    this->raio = radius;
+    this->altura = height;
+    this->slices = slices;
+    this->stacks = stacks;
 }
 
 float Cone::getRadius() {
@@ -86,9 +86,9 @@ void Cone::toFile(std::string s) {
                 p2 = polarToPoint3D(r,stackSize*i,alpha);
                 p3 = polarToPoint3D(r,stackSize*i,alpha+sliceSize);
 
-                n1 = normal(p1);
-                n2 = normal(p2);
-                n3 = normal(p3);
+                n1 = getNormalize(p1);
+                n2 = getNormalize(p2);
+                n3 = getNormalize(p3);
 
                 Point_2D t1 = Point_2D(texture_x_step * (float)j,texture_y_step * (float)(i+1));
                 Point_2D t2 = Point_2D(texture_x_step * (float)j, texture_y_step * (float)i);
@@ -101,9 +101,9 @@ void Cone::toFile(std::string s) {
                 p5 = polarToPoint3D(r,stackSize*i,alpha+sliceSize);
                 p6 = polarToPoint3D(rUp,stackSize*(i+1),alpha+sliceSize);
                 
-                n1 = normal(p4);
-                n2 = normal(p5);
-                n3 = normal(p6);
+                n1 = getNormalize(p4);
+                n2 = getNormalize(p5);
+                n3 = getNormalize(p6);
 
                 t1 = Point_2D(texture_x_step * (float)j, texture_y_step * (float)(i + 1));
                 t2 = Point_2D(texture_x_step * (float)(j+1), texture_y_step * (float)i);

@@ -13,7 +13,7 @@ using namespace std;
 // Camera
 Camera* camera = Camera::getInstance();
 
-// luzes
+// lights
 Lights lights = Lights();
 
 // primitives
@@ -35,7 +35,13 @@ float fovy, zNear, zFar, ntriangles = 0.0f;
 
 
 
+/**
+ * @brief draws xyz axis'
+ * 
+ */
 void drawXYZ() {
+
+	glDisable(GL_LIGHTING);
 	glBegin(GL_LINES);
 	// X axis in red
 	glColor3f(1.0f, 0.0f, 0.0f);
@@ -50,7 +56,9 @@ void drawXYZ() {
 	glVertex3f(0.0f, 0.0f, -100.0f);
 	glVertex3f(0.0f, 0.0f, 100.0f);
 	glEnd();
+	glEnable(GL_LIGHTING);
 }
+
 
 
 void changeSize(int w, int h) {
@@ -80,6 +88,10 @@ void changeSize(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
+/**
+ * @brief camera setup with xml values
+ * 
+ */
 void cameraSetup() {
 	Point_3D perspective = camera->getPersp();
 	fovy = perspective.getX();
@@ -87,7 +99,10 @@ void cameraSetup() {
 	zFar = perspective.getZ();
 }
 
-
+/**
+ * @brief update fps values for title
+ * 
+ */
 void updateFPS() {
 	frame++;
 	times = glutGet(GLUT_ELAPSED_TIME);
@@ -100,11 +115,14 @@ void updateFPS() {
 	}
 
 	sprintf(title, "CG@DI-UM - Grupo11 <-> Triangles: %.0f - FPS: %d - Time: %d ", ntriangles, fps, times / 1000);
-
 	glutSetWindowTitle(title);
 }
 
-static void idle() { glutPostRedisplay(); }
+
+static void idle() {
+	glutPostRedisplay(); 
+}
+
 
 void renderScene(void) {
 
@@ -123,7 +141,6 @@ void renderScene(void) {
 	lights.Apply();
 
 	// put drawing instructions here
-	int x = camera->getShowXYZ();
 
 	if (camera->getShowXYZ())
 		drawXYZ();
@@ -133,7 +150,7 @@ void renderScene(void) {
 		ntriangles += p.getNIndexes() / 3;
 		p.Draw();
 	}
-
+	lights.Apply();
 	// FPS CALCULATIONS
 	updateFPS();
 
@@ -192,7 +209,7 @@ int main(int argc, char** argv) {
 		glEnable(GL_COLOR_MATERIAL);
 		glEnable(GL_RESCALE_NORMAL);
 		glEnable(GL_TEXTURE_2D);
-		glEnable(GL_BLEND);
+		//glEnable(GL_BLEND);
 		glShadeModel(GL_SMOOTH);
 
 		// enter GLUT's main cycle

@@ -185,13 +185,6 @@ void Translation::setCurvePoints(vector<Point_3D*> points){
 }
 
 
-
-/**
- * @brief FALTA CATMULL TODO
- * 
- */
-
-
 /**
  * @brief Normaliza um vector
  * 
@@ -211,9 +204,9 @@ void Translation::normalizeVector(float* v){
 /**
  * @brief Multiplica um vetor por uma matrix 4x4
  * 
- * @param vector 
- * @param matrix 
- * @param answer 
+ * @param vector 1x4
+ * @param matrix 4x4
+ * @param answer 1x4
  */
 void Translation::vectorByMatrix(float *vector, float *matrix, float *answer){
 
@@ -375,6 +368,7 @@ void Translation::Apply(){
 
         getCatmullPoint(globalT, pos, deriv);
         glTranslatef(pos[0], pos[1], pos[2]);
+        // consideramos que o patch está orientado para o eixo do X
         normalizeVector(deriv);
         normalizeVector(yAxis);
         vectorsCross(deriv, yAxis, zAxis);

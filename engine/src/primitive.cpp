@@ -40,7 +40,6 @@ Primitive::Primitive(string filename) {
 }
 
 
-
 void Primitive::loadTexture() {
 
 	unsigned int t, tw, th;
@@ -328,27 +327,6 @@ void Primitive::addAppendedPrimitive(Primitive p) {
 	appendedPrimitives.push_back(p);
 }
 
-/**
- * @brief object clone
- *
- * @return Primitive
- */
-Primitive Primitive::clone() {
-
-	Primitive p = Primitive();
-	p.setFilename(filename);
-	p.setTextureFilename(textureFilename);
-
-	p.setTransformations(transformations);
-	p.setAppendedPrimitives(appendedPrimitives);
-
-	p.nPoints = nPoints;
-	p.nIndexes = nIndexes;
-	p.vBuffer[0] = vBuffer[0];
-	p.vBuffer[1] = vBuffer[1];
-	p.vBuffer[2] = vBuffer[2];
-}
-
 
 /**
  * @brief Desenho da primitiva
@@ -363,13 +341,14 @@ void Primitive::Draw() {
 	// Aplicar as componentes das cores (difusa,  especular, etc)
 	colorComponents.Apply();
 
+	// aplicar cada transformação
 	for (Transformation* t : transformations) {
 		t->Apply();
 	}
 
 	// vertexs buffer
-	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[0]);
 	// Definir o modo de leitura do VBO (3 vértices por triangulo, utilizando floats)
+	glBindBuffer(GL_ARRAY_BUFFER, vBuffer[0]);
 	glVertexPointer(3, GL_FLOAT, 0, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -390,9 +369,8 @@ void Primitive::Draw() {
 	// Draw da primitiva, a começar no índice 0, nPoints
 	glDrawArrays(GL_TRIANGLES, 0, totalPoints);
 	glBindTexture(GL_TEXTURE_2D, 0);
-	
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
+	
 	// para cada primitiva anexada, desenhá-la
 	for (Primitive p : appendedPrimitives) {
 		p.Draw();

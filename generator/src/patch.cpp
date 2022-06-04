@@ -179,11 +179,10 @@ vector<Point_3D> Patch::getPatchLevel(int index) {
     int patchSize = patch.size();                       // numero de pontos no patch
     vector<Point_3D> points = vector<Point_3D>();       // pontos do patch
 
-
     for (int i = 0; i < patchSize; i++) {
 
         // adicionar cada ponto do patch
-        points.push_back(patchVertices.at(patch.at(i)));
+        points.push_back(patchVertices.at(patch[i]));
     }
 
     return points;
@@ -397,28 +396,28 @@ void Patch::calculateCurve(vector<Point_3D>* result, int patchLevel, float u, fl
 
     result->push_back(p01);
     normals.push_back(n01);
-    texs.push_back(Point_2D(1.0f - u, 1.0f - v));
+    texs.push_back(Point_2D(u, v));
 
     result->push_back(p04);
     normals.push_back(n04);
-    texs.push_back(Point_2D(1.0f - u - interval, 1.0f - v - interval));
+    texs.push_back(Point_2D(u + interval, v + interval));
 
     result->push_back(p02);
     normals.push_back(n02);
-    texs.push_back(Point_2D(1.0f - u, 1.0f - v - interval));
+    texs.push_back(Point_2D(u, v + interval));
 
 
     result->push_back(p04);
     normals.push_back(n04);
-    texs.push_back(Point_2D(1.0f - u - interval, 1.0f - v - interval));
+    texs.push_back(Point_2D(u + interval, v + interval));
 
     result->push_back(p01);
     normals.push_back(n01);
-    texs.push_back(Point_2D(1.0f - u, 1.0f - v));
+    texs.push_back(Point_2D(u, v));
 
     result->push_back(p03);
     normals.push_back(n03);
-    texs.push_back(Point_2D(1.0f - u - interval, 1.0f - v));
+    texs.push_back(Point_2D(u + interval, v));
 
 }
 

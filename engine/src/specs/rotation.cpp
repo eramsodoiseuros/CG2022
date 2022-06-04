@@ -123,6 +123,7 @@ void Rotation::setTime(float t){
  */
 void Rotation::Apply(){
 
+    // if there is no time associated,
     if(!time){
 
         glRotatef(angle, x, y, z);

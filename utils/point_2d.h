@@ -12,54 +12,66 @@
 using namespace std;
 
 class Point_2D {
-private:
-    float x;
-    float y;
 
-public:
+    private:
+        
+        float x;
+        float y;
 
-    Point_2D();
+    public:
 
-    Point_2D(float p1, float p2);
+        /**
+         * @brief Construct a new Point_2D object
+         * 
+         */
+        Point_2D();
 
-    /**
-    *	Retorna a coordenada em X do ponto
-    *	@return `float` a coordenada em X
-    */
-    float getX();
+        /**
+         * @brief Construct a new Point_2D object
+         * 
+         * @param p1 x value
+         * @param p2 y value
+         */
+        Point_2D(float p1, float p2);
 
-    /**
-    *	Retorna a coordenada em Y do ponto
-    *	@return `float` a coordenada em Y
-    */
-    float getY();
+        /**
+        *	Retorna a coordenada em X do ponto
+        *	@return `float` a coordenada em X
+        */
+        float getX();
+
+        /**
+        *	Retorna a coordenada em Y do ponto
+        *	@return `float` a coordenada em Y
+        */
+        float getY();
 
 
-    /**
-    *   Coloca o ponto nas coordenadas indicadas
-    *   @param x coordenada em X
-    */
-    void setX(float x);
+        /**
+        *   Coloca o ponto nas coordenadas indicadas
+        *   @param x coordenada em X
+        */
+        void setX(float x);
 
-    /**
-    *   Coloca o ponto nas coordenadas indicadas
-    *   @param y coordenada em Y
-    */
-    void setY(float y);
+        /**
+        *   Coloca o ponto nas coordenadas indicadas
+        *   @param y coordenada em Y
+        */
+        void setY(float y);
 
-    /**
-    *	Coloca o ponto nas coordenadas indicadas
-    *	@param x coordenada em X
-    *	@param y coordenada em Y
-    */
-    void setPointTo(float x, float y);
+        /**
+        *	Coloca o ponto nas coordenadas indicadas
+        *	@param x coordenada em X
+        *	@param y coordenada em Y
+        */
+        void setPointTo(float x, float y);
 
-    /**
-    *	Formata uma string com o conteudo do Ponto
-    *	@return `string`correspondente ao conteudo do Ponto
-    */
-    string toString();
-};
+        /**
+        *	Formata uma string com o conteudo do Ponto
+        *	@return `string`correspondente ao conteudo do Ponto
+        */
+        string toString();
+    };
 
 
 #endif //GENERATOR_POINT_2D_H

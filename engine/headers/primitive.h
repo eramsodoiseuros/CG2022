@@ -54,7 +54,6 @@ public:
     void loadTexture();
     void addAppendedPrimitive(Primitive p);
     void addTransformation(Transformation* a);
-    Primitive clone();
     void printInfo();
     void Draw();
 };

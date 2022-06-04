@@ -31,10 +31,10 @@ Color::Color() {
  * @param shininess
  */
 Color::Color(float diffR, float diffG, float diffB,
-    float specR, float specG, float specB,
-    float ambiR, float ambiG, float ambiB,
-    float emissR, float emissG, float emissB,
-    float shininess, float r, float g, float b) {
+                float specR, float specG, float specB,
+                float ambiR, float ambiG, float ambiB,
+                float emissR, float emissG, float emissB,
+                float shininess, float r, float g, float b) {
 
     this->diffR = diffR; this->diffG = diffG; this->diffB = diffB;
     this->ambiR = ambiR; this->ambiG = ambiG; this->ambiB = ambiB;
@@ -177,6 +177,11 @@ void Color::setShininess(float value) {
     shininess = value;
 }
 
+/**
+ * @brief set rgb values
+ * 
+ * @param value 
+ */
 void Color::setRGB(vector<float> value) {
     r = value.at(0);
     g = value.at(1);
@@ -188,16 +193,20 @@ void Color::Apply() {
 
     float ambientStrength = 0.1f;
 
+    // diffuse
     float l2[] = { diffR, diffG, diffB, 1.0 };
     glMaterialfv(GL_FRONT, GL_DIFFUSE, l2);
 
+    // emissive
     float l0[] = { emissR, emissG, emissB, 1.0 };
     glMaterialfv(GL_FRONT, GL_EMISSION, l0);
 
+    // specular
     float l3[] = { specR, specG, specB, 1.0 };
     glMaterialfv(GL_FRONT, GL_SPECULAR, l3);
     glMaterialf(GL_FRONT, GL_SHININESS, shininess);
 
+    // ambient
     float l1[] = { ambiR * ambientStrength, ambiG * ambientStrength, ambiB * ambientStrength, 1.0 };
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, l1);
 }

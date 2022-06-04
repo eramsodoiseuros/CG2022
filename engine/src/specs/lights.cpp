@@ -229,8 +229,10 @@ void SpotLight::Apply(int c) {
 
     float pos[] = { posX, posY, posZ, 1.0f };
     float dir[] = { dirX, dirY, dirZ };
+
     glLightfv(c, GL_POSITION, pos);
     glLightfv(c, GL_SPOT_DIRECTION, dir);
+    
     glLightf(c, GL_SPOT_CUTOFF, cutoff);
     // cutoff : [0, 90] ou 180
 }

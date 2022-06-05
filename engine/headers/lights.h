@@ -23,7 +23,6 @@ public:
     void setPos(float x, float y, float z);
     void Apply(int c);
     string toString();
-
 };
 
 
@@ -67,7 +66,7 @@ public:
     float getCutoff();
     void setCutoff(float value);
     void Apply(int c);
-    string toString(); 
+    string toString();
 };
 
 

@@ -213,7 +213,6 @@ int main(int argc, char** argv) {
 
 		// luzes
 		glEnable(GL_LIGHTING);
-		glEnable(GL_COLOR_MATERIAL);
 		glEnable(GL_RESCALE_NORMAL);
 		glEnable(GL_TEXTURE_2D);
 		//glEnable(GL_BLEND);

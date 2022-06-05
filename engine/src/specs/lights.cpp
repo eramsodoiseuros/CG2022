@@ -81,8 +81,8 @@ void Lights::addSpotLight(SpotLight sl) {
 void Lights::Apply() {
 
     int l1  = 0;
-    GLfloat dark[4] = {0.0, 0.0, 0.0, 1};
-    GLfloat white[4] = {0.9,0.9,0.9,0.9};
+    GLfloat dark[4] = {0.3f, 0.3f, 0.3f, 1.0f};
+    GLfloat white[4] = {0.9f,0.9f,0.9f,1.0f};
 
     // attenuation
     //float quat_att = 1.0f;
@@ -98,7 +98,6 @@ void Lights::Apply() {
             glLightfv(l1, GL_AMBIENT, dark);
             glLightfv(l1, GL_DIFFUSE, white);
             glLightfv(l1, GL_SPECULAR, white);
-            glLightfv(l1, GL_EMISSION, white);
             pl.Apply(l1);
             setCounter(counter+1);
         }
@@ -112,7 +111,6 @@ void Lights::Apply() {
             glLightfv(l1, GL_AMBIENT, dark);
             glLightfv(l1, GL_DIFFUSE, white);
             glLightfv(l1, GL_SPECULAR, white);
-            glLightfv(l1, GL_EMISSION, white);
             dl.Apply(l1);
             setCounter(counter+1);
         }
@@ -127,7 +125,6 @@ void Lights::Apply() {
             glLightfv(l1, GL_AMBIENT, dark);
             glLightfv(l1, GL_DIFFUSE, white);
             glLightfv(l1, GL_SPECULAR, white);
-            glLightfv(l1, GL_EMISSION, white);
             sl.Apply(l1);
             setCounter(counter+1);
         }
@@ -140,7 +137,6 @@ void Lights::Apply() {
         glLightfv(l1, GL_AMBIENT, dark);
         glLightfv(l1, GL_DIFFUSE, white);
         glLightfv(l1, GL_SPECULAR, white);
-        glLightfv(l1, GL_EMISSION, white);
     }
 }
 

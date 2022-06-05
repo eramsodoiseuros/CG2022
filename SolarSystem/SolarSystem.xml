@@ -45,7 +45,7 @@ Distancia /
 
     <lights> 
         <light type="point" dirX="0" dirY="0" dirZ="0" />
-	    <light type="directional" dirX="14" dirY="0" dirZ="5" />
+        <light type="point" dirX="0" dirY="0" dirZ="0" />
     </lights>
 
     <group>

@@ -9,6 +9,7 @@ Lights::Lights() {
     pointLights = vector<PointLight>();
     directionalLights = vector<DirectionalLight>();
     spotLights = vector<SpotLight>();
+    counter = 0;
 }
 
 int Lights::getCounter(){
@@ -78,6 +79,7 @@ void Lights::addSpotLight(SpotLight sl) {
 
 
 void Lights::Apply() {
+
     int l1  = 0;
     GLfloat dark[4] = {0.2, 0.2, 0.2, 1};
     GLfloat white[4] = {1,1,1,1};
@@ -85,11 +87,13 @@ void Lights::Apply() {
     // attenuation
     //float quat_att = 1.0f;
     //lLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, quat_att);
+
     bool never = true;
     for (PointLight pl : pointLights){
         l1 = this->getCounter();
 
         if(l1!=-1){
+
             never = false;
             pl.Apply(l1);
             setCounter(counter+1);
@@ -106,8 +110,10 @@ void Lights::Apply() {
         }
     }
 
+
     for (SpotLight sl : spotLights){
         l1 = this->getCounter();
+
         if(l1!=-1){
             never = false;
             sl.Apply(l1);
@@ -148,10 +154,16 @@ void PointLight::setPos(float x, float y, float z) {
 }
 
 void PointLight::Apply(int c) {
-
     glEnable(c);
+
     float pos[] = { posX, posY, posZ, 1.0f };
     glLightfv(c, GL_POSITION, pos);
+}
+
+string PointLight::toString() {
+
+    string s = "PointLight: posX::" + std::to_string(posX) + ", posY::" + std::to_string(posY) + ", posZ::" + std::to_string(posZ);
+    return s;
 }
 
 /*--------------------------------------------> DIRECTIONAL_LIGHT */
@@ -174,10 +186,16 @@ void DirectionalLight::setDirectional(float x, float y, float z) {
 }
 
 void DirectionalLight::Apply(int c) {
-
     glEnable(c);
+
     float dir[] = { dirX, dirY, dirZ, 0.0f };
     glLightfv(c, GL_POSITION, dir);
+}
+
+string DirectionalLight::toString() {
+
+    string s = "DirectionalLight: dirx::" + std::to_string(dirX) + ", dirY::" + std::to_string(dirY) + ", dirZ::" + std::to_string(dirZ);
+    return s;
 }
 
 /*--------------------------------------------> SPOT_LIGHT */
@@ -230,7 +248,6 @@ void SpotLight::setCutoff(float value) {
 
 void SpotLight::Apply(int c) {
 
-
     glEnable(c);
 
     float pos[] = { posX, posY, posZ, 1.0f };
@@ -241,4 +258,11 @@ void SpotLight::Apply(int c) {
     
     glLightf(c, GL_SPOT_CUTOFF, cutoff);
     // cutoff : [0, 90] ou 180
+}
+
+string SpotLight::toString() {
+
+    string s = "SpotLight: posX::" + std::to_string(posX) + ", posY::" + std::to_string(posY) + ", posZ::" + std::to_string(posZ) + "\ndirx::" + std::to_string(dirX) + ", dirY::" + std::to_string(dirY) + ", dirZ::" + std::to_string(dirZ);
+    s += "\ncutoff::" + std::to_string(cutoff);
+    return s;
 }

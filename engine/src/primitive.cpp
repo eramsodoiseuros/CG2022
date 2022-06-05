@@ -54,7 +54,7 @@ void Primitive::loadTexture() {
 	ilLoadImage((ILstring)realPath.c_str());
 	tw = ilGetInteger(IL_IMAGE_WIDTH);
 	th = ilGetInteger(IL_IMAGE_HEIGHT);
-	cout << textureFilename << ", W=" << tw << ", H:" << th << endl;
+	//cout << textureFilename << ", W=" << tw << ", H:" << th << endl;
 
 	ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
 	textureData = ilGetData();

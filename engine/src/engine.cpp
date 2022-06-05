@@ -60,6 +60,17 @@ void drawXYZ() {
 }
 
 
+/**
+ * @brief camera setup with xml values
+ *
+ */
+void cameraSetup() {
+	Point_3D perspective = camera->getPersp();
+	fovy = perspective.getX();
+	zNear = perspective.getY();
+	zFar = perspective.getZ();
+}
+
 
 void changeSize(int w, int h) {
 
@@ -80,6 +91,7 @@ void changeSize(int w, int h) {
 	// Set the viewport to be the entire window
 	glViewport(0, 0, w, h);
 
+	cameraSetup();
 	// Set perspective
 	gluPerspective(fovy, ratio, zNear, zFar);
 
@@ -88,16 +100,6 @@ void changeSize(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
-/**
- * @brief camera setup with xml values
- * 
- */
-void cameraSetup() {
-	Point_3D perspective = camera->getPersp();
-	fovy = perspective.getX();
-	zNear = perspective.getY();
-	zFar = perspective.getZ();
-}
 
 /**
  * @brief update fps values for title
@@ -125,6 +127,7 @@ static void idle() {
 
 
 void renderScene(void) {
+
 
 	ntriangles = 0.0f;
 
@@ -171,11 +174,14 @@ int main(int argc, char** argv) {
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+
 	glutInitWindowSize(1600, 900);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow("Engine - Projeto CG");
-	glutReshapeFunc(changeSize);
+	
 	glutDisplayFunc(renderScene);
+	glutReshapeFunc(changeSize);
+
 	glutKeyboardFunc(Camera::keyFunc);
 	glutSpecialFunc(Camera::specialKeyFunc);
 	glutIdleFunc(idle);
@@ -185,11 +191,12 @@ int main(int argc, char** argv) {
 #ifndef __APPLE__
 	glewInit();
 #endif
+	
+	//glutFullScreen();
 
-	// aqui
 	cout << argv[1] << endl;
-	//getSolarSystem(argv[1]);
 	Parser p;
+	
 	try {
 		scenePrimitives = p.lerXML(argv[1], camera, &lights);
 		cameraSetup();

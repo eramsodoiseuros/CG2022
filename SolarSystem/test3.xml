@@ -10,7 +10,8 @@
         <projection fov = 45 near = 1 far = 1000 />
     </camara>
     <lights>
-        <light type="point" posX="0" posY="0" posZ="0" />
+        <light type="point" dirX="0" dirY="0" dirZ="0"/>
+        <light type="directional" dirX="1" dirY="1" dirZ="1"/>
     </lights>
     <group>
         <!-- Sol (Origem) -->
@@ -81,7 +82,7 @@
                 <rotate angle = 23.5 axisX = 1 />
                 <!-- Rotação do planeta -->
                 <rotate axisY = 1 timeR = 29.78/>
-                <scale scaleX = 1.3 scaleY = 1.3 scaleZ = 1.3 />
+                <scale scaleX = 20 scaleY = 20 scaleZ = 20 />
                 <!-- Deep Sky Blue <color R = 0 G = 191 B = 255/>   -->
                 <color R = 0.0 G = 0.749 B = 1 />
 

@@ -88,9 +88,9 @@ void Lights::Apply() {
     bool never = true;
     for (PointLight pl : pointLights){
         l1 = this->getCounter();
+
         if(l1!=-1){
             never = false;
-            glEnable(l1);
             pl.Apply(l1);
             setCounter(counter+1);
         }
@@ -98,9 +98,9 @@ void Lights::Apply() {
 
     for (DirectionalLight dl : directionalLights){
         l1 = this->getCounter();
+
         if(l1!=-1){
             never = false;
-            glEnable(l1);
             dl.Apply(l1);
             setCounter(counter+1);
         }
@@ -110,7 +110,6 @@ void Lights::Apply() {
         l1 = this->getCounter();
         if(l1!=-1){
             never = false;
-            glEnable(l1);
             sl.Apply(l1);
             setCounter(counter+1);
         }
@@ -149,6 +148,8 @@ void PointLight::setPos(float x, float y, float z) {
 }
 
 void PointLight::Apply(int c) {
+
+    glEnable(c);
     float pos[] = { posX, posY, posZ, 1.0f };
     glLightfv(c, GL_POSITION, pos);
 }
@@ -173,6 +174,8 @@ void DirectionalLight::setDirectional(float x, float y, float z) {
 }
 
 void DirectionalLight::Apply(int c) {
+
+    glEnable(c);
     float dir[] = { dirX, dirY, dirZ, 0.0f };
     glLightfv(c, GL_POSITION, dir);
 }
@@ -225,6 +228,9 @@ void SpotLight::setCutoff(float value) {
 }
 
 void SpotLight::Apply(int c) {
+
+
+    glEnable(c);
 
     float pos[] = { posX, posY, posZ, 1.0f };
     float dir[] = { dirX, dirY, dirZ };

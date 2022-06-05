@@ -184,11 +184,11 @@ void DirectionalLight::Apply(int c) {
 
 SpotLight::SpotLight(float posX, float posY, float posZ,
     float dirX, float dirY, float dirZ,
-    float cutoff) {
+    float cut) {
 
     this->posX = posX; this->posY = posY; this->posZ = posZ;
     this->dirX = dirX; this->dirY = dirY; this->dirZ = dirZ;
-    this->cutoff = cutoff;
+    this->cutoff = (cut > 180) ? 180 : (cut < 0 ? 0 : cut);
 }
 
 vector<float> SpotLight::getPos() {
@@ -224,7 +224,8 @@ float SpotLight::getCutoff() {
 }
 
 void SpotLight::setCutoff(float value) {
-    cutoff = value;
+
+    cutoff = (value > 180) ? 180 : (value < 0 ? 0 : value);
 }
 
 void SpotLight::Apply(int c) {

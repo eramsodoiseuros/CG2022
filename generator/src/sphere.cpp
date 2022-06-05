@@ -68,7 +68,7 @@ void Sphere::calculateSphere(Point_3D center, float radius, int stacks, int slic
             normals.push_back(n);
 
             s = (float)j / slices;
-            t = (1 - (float)i) / stacks;
+            t = 1- ((float)i / stacks);
             texs.push_back(Point_2D(s, t));
         }
     }

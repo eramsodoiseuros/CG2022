@@ -136,6 +136,13 @@ class Plane {
                  */
                 void setP4(Point_3D p);
 
+                /**
+                 * @brief Set the Plane Vertices/Point's nromals
+                 *
+                 * @param normalsList list of vertices/Point's normals
+                 */
+                void Plane::setNormals(std::vector<Point_3D> normalsList);
+
 
 
                 /**

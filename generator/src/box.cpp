@@ -25,6 +25,7 @@ vector<Plane> Box::calculateBox(float dimension, int divisions){
 
     Plane yzLeft = xzBase.planeYZ();                 // Left yz     
     yzLeft.setPlaneVertices(yzLeft.planeVerticesInverted());
+  
 
     Plane xzTop = Plane(dimension, divisions, false);       // Top xz         
     xzTop.addY();

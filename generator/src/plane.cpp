@@ -103,6 +103,10 @@ void Plane::setP4(Point_3D p){
     p4 = p;
 }
 
+void Plane::setNormals(std::vector<Point_3D> normalsList) {
+    normals = normalsList;
+}
+
 
 /*
   (12)   (13)  (14)  (15)
@@ -154,7 +158,7 @@ vector<Point_3D> Plane::calculatePlanePoints(){
             p = Point_3D(X, Y, Z);
             lista.push_back(p);
 
-            Point_3D n = getNormalize(p);
+            Point_3D n = Point_3D(0,1,0);
             normals.push_back(n);
 
             s = (float)i / divisions;
@@ -204,18 +208,18 @@ vector<int> Plane::calculatePlaneVertices(){
 }
 
 
-vector<int> Plane::planeVerticesInverted(){
+vector<int> Plane::planeVerticesInverted() {
 
     vector<int> pointsIndex;
     int limit = divisions * divisions;
     pointsIndex.clear();
 
-    for(int j = 0; j < limit; j += (divisions + 1)){
+    for (int j = 0; j < limit; j += (divisions + 1)) {
 
         int limit02 = j + divisions;
-        
-        for(int i = j; i < limit02; i++){
-            
+
+        for (int i = j; i < limit02; i++) {
+
             pointsIndex.push_back(i);                           // 1
             pointsIndex.push_back(i + (divisions + 2));         // 4
             pointsIndex.push_back(i + 1);                       // 2
@@ -225,6 +229,9 @@ vector<int> Plane::planeVerticesInverted(){
             pointsIndex.push_back(i + (divisions + 2));         // 4
         }
 
+    }
+    for (int i = 0; i < normals.size(); i++) {
+        normals[i] = mul(normals[i], Point_3D(-1, -1, -1));
     }
 
     return pointsIndex;
@@ -324,6 +331,7 @@ Plane Plane::planeXY(){
     float divionFactor = length / (float)divisions;
     vector<Point_3D> lista;
     lista.clear();
+    normals.clear();
 
     float X,Y,Z;
     X = p1.getX();
@@ -341,7 +349,7 @@ Plane Plane::planeXY(){
             p = Point_3D(X, Y, Z);
             lista.push_back(p);
 
-            Point_3D n = getNormalize(p);
+            Point_3D n = Point_3D(0,0,1);
             normals.push_back(n);
 
             s = (float)i / divisions;
@@ -360,6 +368,7 @@ Plane Plane::planeXY(){
     plane.setP3(Point_3D(p1.getX(), p1.getY() + length, p1.getZ()));
     plane.setP4(Point_3D(p1.getX()+length, p2.getY() + length, p1.getZ()));
     plane.setPlanePoints(lista);
+    plane.setNormals(normals);
     return plane;
 }
 
@@ -370,6 +379,7 @@ Plane Plane::planeYZ(){
     float divionFactor = length / (float)divisions;
     vector<Point_3D> lista;
     lista.clear();
+    normals.clear();
 
     float X,Y,Z;
     X = p1.getX();
@@ -388,7 +398,7 @@ Plane Plane::planeYZ(){
             lista.push_back(p);
 
 
-            Point_3D n = getNormalize(p);
+            Point_3D n = Point_3D(1,0,0);
             normals.push_back(n);
 
             s = (float)i / divisions;
@@ -407,6 +417,7 @@ Plane Plane::planeYZ(){
     plane.setP3(Point_3D(p1.getX(), p1.getY()+length, p1.getZ()));
     plane.setP4(Point_3D(p1.getX(), p1.getY()+length, p1.getZ()+length));
     plane.setPlanePoints(lista);
+    plane.setNormals(normals);
     return plane;
 }
 

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<scene>
+
+    <!-- Definições da camara -->
+    <camara>
+        <position X = 35 Y = 30 Z = 5 />
+        <lookAt X = 0 Y = 0 Z = 0 />
+        <up X = 0 Y = 1 Z = 0 />
+        <projection fov = 45 near = 1 far = 1000 />
+    </camara>
+    <lights>
+        <light type="point" posX="0" posY="0" posZ="0" />
+    </lights>
+    <group>
+        <!-- Sol (Origem) -->
+        <group>
+            <!-- Orbit -->
+            <rotate angle = 1 axisY = 1/>      
+            
+            <group>
+                <rotate axisY = 1 timeR = 19.97/> 
+                <scale scaleX = 5 scaleY = 5 scaleZ = 5/>
+            
+                <!-- <color R = 253 G = 184 B = 19 />  Sun / Yellow Orange -->
+                <color R = 1 G = 0.549 B = 0/> <!-- Dark Orange -->
+                <models>
+                    <!-- Models, Name-->
+                   <model file="sphere.3d" texture="venus.jpg"/>
+                   <color>
+                        <diffuse R="1" G="1" B="0" />
+                        <ambient R="1" G="1" B="1" />
+                        <specular R="0" G="0" B="0" />
+                        <emissive R="0.99" G="0.99" B="0.99" />
+                        <shininess value="128" />
+                    </color>
+                </models>
+            </group>
+        </group>
+        <!-- Terra - T = 0.65 D = 21
+            Orbita 7.155 Time = 365.25
+            Tilt = 23.5º V = 29.78  
+            
+            Lua - T = 0.2 Dp = 0.7  -->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 7.155 axisY = 1 />
+            <orbit radX = 32 radZ = 31/>
+
+            <!-- Planeta --> 
+            <group>
+                <!--Pontos de translação (Orbita do planeta)-->
+                <translate timeT = 365.25 align = True>
+                    <point X = 32.00000 Z = -0.00000 />
+                    <point X = 30.90880 Z = -8.02637 />
+                    <point X = 27.70962 Z = -15.50535 />
+                    <point X = 22.62065 Z = -21.92686 />
+                    <point X = 15.98896 Z = -26.85296 />
+                    <point X = 8.26681 Z = -29.94769 />
+                    <point X = -0.01913 Z = -30.99999 />
+                    <point X = -8.30376 Z = -29.93810 />
+                    <point X = -16.02208 Z = -26.83443 />
+                    <point X = -22.64769 Z = -21.90065 />
+                    <point X = -27.72874 Z = -15.47325 />
+                    <point X = -30.91868 Z = -7.99058 />
+                    <point X = -31.99998 Z = 0.03706 />
+                    <point X = -30.89888 Z = 8.06216 />
+                    <point X = -27.69047 Z = 15.53742 />
+                    <point X = -22.59358 Z = 21.95304 />
+                    <point X = -15.95581 Z = 26.87146 />
+                    <point X = -8.22986 Z = 29.95724 />
+                    <point X = 0.05738 Z = 30.99995 />
+                    <point X = 8.34070 Z = 29.92846 />
+                    <point X = 16.05518 Z = 26.81585 />
+                    <point X = 22.67470 Z = 21.87441 />
+                    <point X = 27.74781 Z = 15.44113 />
+                    <point X = 30.92852 Z = 7.95477 />
+                </translate>
+                
+                <!-- Inclinaçao do planeta -->
+                <rotate angle = 23.5 axisX = 1 />
+                <!-- Rotação do planeta -->
+                <rotate axisY = 1 timeR = 29.78/>
+                <scale scaleX = 1.3 scaleY = 1.3 scaleZ = 1.3 />
+                <!-- Deep Sky Blue <color R = 0 G = 191 B = 255/>   -->
+                <color R = 0.0 G = 0.749 B = 1 />
+
+                <models> 
+                    <model file = "cone.3d" texture = "terra.jpg" />
+                    <color>
+                        <diffuse R="1" G="1" B="1" />
+                        <ambient R="0" G="0" B="0" />
+                        <specular R="1" G="1" B="1" />
+                        <emissive R="0" G="0" B="0" />
+                        <shininess value="128" />
+                    </color>
+                </models>
+
+                <!-- Lua -->
+                <group>
+                    <!-- Orbita -->
+                    <rotate angle = 1 axisY = 1/>
+                    <orbit radX = 1.75 radZ = 1.75/>
+
+                    <group>
+                        <!-- Pontos de translação (Orbita da lua)-->
+                        <translate timeT = 27 align = True> 
+                            <point X = 1.75000 Z = -0.00000 />
+                            <point X = 1.69033 Z = -0.45310 />
+                            <point X = 1.51537 Z = -0.87530 />
+                            <point X = 1.23707 Z = -1.23781 />
+                            <point X = 0.87440 Z = -1.51589 />
+                            <point X = 0.45209 Z = -1.69060 />
+                            <point X = -0.00105 Z = -1.75000 />
+                            <point X = -0.45411 Z = -1.69005 />
+                            <point X = -0.87621 Z = -1.51485 />
+                            <point X = -1.23855 Z = -1.23633 />
+                            <point X = -1.51642 Z = -0.87349 />
+                            <point X = -1.69087 Z = -0.45108 />
+                            <point X = -1.75000 Z = 0.00209 />
+                            <point X = -1.68978 Z = 0.45512 />
+                            <point X = -1.51432 Z = 0.87711 />
+                            <point X = -1.23559 Z = 1.23928 />
+                            <point X = -0.87258 Z = 1.51694 />
+                            <point X = -0.45007 Z = 1.69113 />
+                            <point X = 0.00314 Z = 1.75000 />
+                            <point X = 0.45613 Z = 1.68951 />
+                            <point X = 0.87802 Z = 1.51380 />
+                            <point X = 1.24002 Z = 1.23485 />
+                            <point X = 1.51746 Z = 0.87168 />
+                            <point X = 1.69140 Z = 0.44906 />
+                        </translate>
+                        <!-- Rotação da Lua -->
+                        <rotate axisY = 1 timeR = 27/>
+                        <scale scaleX = 0.4 scaleY = 0.4 scaleZ = 0.4/>
+                        <!-- Gray <color R = 255 G = 0 B = 0/> -->
+                        <color R = 0.502 G = 0.502 B = 0.502 /> 
+
+                        <models> 
+                            <model file = "box.3d" texture = "neptune.jpg" />
+                            <color>
+                                <diffuse R="1" G="1" B="1" />
+                                <ambient R="0" G="0" B="0" />
+                                <specular R="1" G="1" B="1" />
+                                <emissive R="0" G="0" B="0" />
+                                <shininess value="128" />
+                            </color>
+                        </models>
+
+                    </group>
+                </group>
+            </group>
+        </group>    
+    </group>
+</scene>

@@ -26,10 +26,10 @@ private:
     vector<Primitive> appendedPrimitives;
 
 public:
-    string DBPATH = "../3D/";
+    string DBPATH = "../Textures/";
 
     void readPrimitive(string file);
-    // constructors
+    // constructors 
     Primitive();
     Primitive(string filename);
 

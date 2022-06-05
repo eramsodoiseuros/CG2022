@@ -14,7 +14,7 @@
  * @param elem
  * @param value1
  * @param value2
- * @param value3
+ * @param value3 
  */
 void parseValues(TiXmlElement* elem, char* value1, char* value2, char* value3, Point_3D* point) {
     TiXmlAttribute* attribute = elem->FirstAttribute();

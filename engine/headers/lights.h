@@ -22,6 +22,7 @@ public:
     vector<float> getPos();
     void setPos(float x, float y, float z);
     void Apply(int c);
+    string toString();
 };
 
 
@@ -39,6 +40,7 @@ public:
     vector<float> getDirectional();
     void setDirectional(float x, float y, float z);
     void Apply(int c);
+    string toString();
 };
 
 
@@ -64,6 +66,7 @@ public:
     float getCutoff();
     void setCutoff(float value);
     void Apply(int c);
+    string toString();
 };
 
 

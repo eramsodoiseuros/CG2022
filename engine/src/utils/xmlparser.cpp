@@ -88,7 +88,7 @@ void parseCamera2(TiXmlElement* camera, Camera* c) {
 
 
 /**
- * @brief Parses a color
+ * @brief Parses a rgb color
  *
  * @param color
  * @param cores
@@ -104,6 +104,12 @@ void parseCor(TiXmlElement *color, std::vector<float> *cores) {
     cores->push_back(atof(b));
 }
 
+/**
+ * @brief Parses the color tag, finding the type of reflexion and parsing accordingly
+ *
+ * @param color
+ * @param p
+ */
 void parseColor(TiXmlElement *color, Primitive *p) {
 
     TiXmlElement* child = color->FirstChildElement();
@@ -144,7 +150,12 @@ void parseColor(TiXmlElement *color, Primitive *p) {
     }
 }
 
-
+/**
+ * @brief Parses the tag rgb
+ *
+ * @param elem
+ * @param p
+ */
 void parseRGB(TiXmlElement* elem, Primitive* p) {
     vector<float> rgb = vector<float>();
     Color c = (*p).getColorComponents();

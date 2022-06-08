@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<scene>
+
+    <!-- Definições da camara -->
+    <camara>
+        <position X = 35 Y = 30 Z = 5 />
+        <lookAt X = 0 Y = 0 Z = 0 />
+        <up X = 0 Y = 1 Z = 0 />
+        <projection fov = 45 near = 1 far = 1000 />
+    </camara>
+    <lights>
+        <light type="directional" dirX="20" dirY="2" dirZ="0"/>
+    </lights>
+    <group>
+        <!-- Sol (Origem) -->
+        <group>
+            <!-- Orbit -->
+            <rotate angle = 1 axisY = 1/>      
+            
+            <group>
+                <rotate axisY = 1 timeR = 19.97/> 
+                <scale scaleX = 15 scaleY = 15 scaleZ = 15/>
+            
+                <!-- <color R = 253 G = 184 B = 19 />  Sun / Yellow Orange -->
+                <color R = 1 G = 0.549 B = 0/> <!-- Dark Orange -->
+                <models>
+                    <!-- Models, Name-->
+                   <model file="sphere.3d" texture="moon2.jpg"/>
+                   <color>
+                        <diffuse R="1" G="1" B="1" />
+                        <ambient R="0.2" G="0.2" B="0.2" />
+                        <specular R="1" G="1" B="1" />
+                        <emissive R="0" G="0" B="0" />
+                        <shininess value="128" />
+                    </color>
+                </models>
+            </group>
+        </group>
+    </group>
+</scene>

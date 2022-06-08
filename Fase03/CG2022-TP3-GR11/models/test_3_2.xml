@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scene> 
+    <camara> 
+	    <position X="4" Y="4" Z="6" />
+	    <lookAt X="0" Y="0" Z="0" />
+	    <up X="0" Y="1" Z="0" /> <!-- optional, use these values as default-->
+        <projection fov="60" near="1" far="1000" /> <!-- optional, use these values as default-->
+    </camara>
+	<group> 
+		<rotate angle="-90" axisX = "1" axisY = "0" axisZ = "0" /> 
+
+		<group>
+			<color R = 1 G = 0.549 B = 0/> <!-- Dark Orange -->
+			<models> 
+				<model file="bezier.3d" texture = "" /> <!-- generator bezier teapot.patch 10 bezier.3d -->
+			</models>
+		</group>
+ 	</group>
+</scene>

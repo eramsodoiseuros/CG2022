@@ -1,0 +1,31 @@
+<scene> 
+    <camara> 
+        <position X="10" Y="20" Z="8" />
+        <lookAt X="0" Y="0" Z="0" />
+        <up X="0" Y="1" Z="0" /> 
+        <projection fov="60" near="1" far="1000" />
+    </camara>
+
+    <group>
+        <group> 
+			
+            <rotate timeR="3" axisX="0" axisY="1" axisZ="0" />
+            <group>
+                
+                <translate timeT = "10" align="True" > <!-- O campo orient diz se o objecto deve ser orientado na curva -->
+                    <point X = "0" Y = "0" Z = "4" />
+                    <point X = "4" Y = "0" Z = "0" />
+                    <point X = "0" Y = "0" Z = "-4" />
+                    <point X = "-4" Y = "10" Z = "0" />
+                </translate>
+				
+                <rotate angle="-90" axisX="1" axisY="0" axisZ="0" />
+                <scale scaleX="0.5" scaleY="0.5" scaleZ="0.5" />
+                <color R = 1 G = 0.549 B = 0/> <!-- Dark Orange -->
+                <models> 
+                    <model file="bezier.3d" texture="" /> <!-- generator bezier teapot.patch 10 bezier.3d -->
+                </models>
+            </group>
+        </group>
+    </group>
+</scene>

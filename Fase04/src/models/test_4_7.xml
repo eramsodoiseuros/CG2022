@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<scene>
+    <camara>
+        <position X = "-0.740200" Y = "1.182951" Z = "1.376347" />
+        <lookAt X = 0 Y = 0 Z = 0 />
+        <up X = 0 Y = 1 Z = 0 />
+        <projection fov = 60 near = 1 far = 1000 />
+    </camara>
+
+	<lights> 
+		<light type="point" posX="0" posY="0.2" posZ="0" />
+		<light type="point" posX="-2" posY="2" posZ="2" />
+	</lights>
+
+	<group>
+
+		<group>
+			<group> 
+				<models> 
+					<model file="plane_nt.3d" texture="relva.jpg"/> <!-- generator plane 1 3 plane_nt.3d -->
+				</models>
+			</group>
+		</group>
+		<group>
+			<group> 
+				<translate X = -0.5 Y = 0 Z = -0.5 />
+				<scale scaleX = 0.2 scaleY = 0.2 scaleZ = 0.2 />
+				<models> 
+					<model file="cone_nt.3d" texture="cone.jpg"/> <!-- generator cone 1 2 10 10 cone_nt.3d -->
+				</models>
+			</group>
+		</group>
+		<group>
+			<group>
+				<translate X = 0.5 Y = 0.2 Z = 0.5 />
+				<scale scaleX = 0.2 scaleY = 0.2 scaleZ = 0.2 />
+				<models> 
+					<model file="sphere_nt.3d" texture="earth.jpg"/> <!-- generator sphere 1 10 10 sphere_nt.3d-->
+				</models>
+			</group>
+		</group>
+		<group>
+			<group>
+				<translate X = "-0.5" Y = 0 Z = 0.5 />
+				<scale scaleX = 0.1 scaleY = 0.1 scaleZ = 0.1 />
+				<rotate angle= "-90" axisX = "1" axisY = "0" axisZ = "0" />
+				<models> 
+					<model file="bezier_nt.3d" texture="teapot.jpg"/> <!-- generator patch teapot.patch 10 bezier_nt.3d -->
+				</models>
+			</group>
+		</group>
+		<group>
+			<group>
+				<scale scaleX = 0.2 scaleY = 0.2 scaleZ = 0.2 />
+				<translate X = 2.5 Y = 1.0 Z = -2.5 />
+				<models> 
+					<model file="box_nt.3d" texture="box.jpg"/> <!-- generator 2 3 box_nt.3d -->
+				</models>
+			</group>	
+		</group>
+	</group>
+</scene>

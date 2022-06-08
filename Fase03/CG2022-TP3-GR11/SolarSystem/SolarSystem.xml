@@ -1,0 +1,971 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!-- 
+Tamanhos dos objetos (Diametro) | Distancia ao origem (Sol) + Tamanho do sol
+~(Tamanho Real / 20 000)        | ~(Distancia / 10 000 000) 
+Sol             = 7             |   0
+    Mercurio    = 0.25          |   6           
+    Venus       = 0.6           |   11
+    Terra       = 0.65          |   14
+        Lua     = 0.20          |   0.04
+    Marte       = 0.35          |   23
+
+Distancias demasiado grandes 
+Distancia / 
+
+    Jupiter     = 12            |   78      45
+        Ganyme  = 0.26          |   0.11
+        Callisto= 0.24          |   0.19
+        IO      = 0.18          |   0.04
+        Europa  = 0.15          |   0.07
+    Saturno     = 6             |   143     75
+        Titan   = 0.26          |   0.12
+        Rhea    = 0.08          |   0.05
+    Urano       = 2.5           |   287     85
+        Triton  = 0.15          |   0.04
+    Neptuno     = 2.5           |   450     90
+        Titania = 0.08          |   0.16
+-->
+
+<!-- group (Planeta)
+        <rotate angle axisX axisY axisZ />  -> definir angulo e sobre que eixo esiste rotação
+        <scale scaleX scaleY scaleZ />      -> Aumentar o modelo
+        <color R G B />                     -> atribuir uma cor
+        <orbit radX radZ />                 -> define o raio da orbita 
+        <translate X Y Z />                 -> Distancia do sol
+
+        group (Satelite Natural) - Apenas destacamos os 10 maiores do sistema solar.
+-->
+<scene>
+
+    <!-- Definições da camara -->
+    <camara>
+        <position X = 0 Y = 30 Z = 5 />
+        <lookAt X = 0 Y = 0 Z = 0 />
+        <up X = 0 Y = 1 Z = 0 />
+        <projection fov = 800 near = 1 far = 1000 />
+    </camara>
+
+
+    <group>
+        <!-- Sol (Origem) -->
+        <group>
+            <!-- Orbit -->
+            <rotate angle = 1 axisY = 1/>      
+            
+            <group>
+
+                <rotate axisY = 1 timeR = 19.97/> 
+                <scale scaleX = 14 scaleY = 14 scaleZ = 14/>
+            
+                <!-- <color R = 253 G = 184 B = 19 />  Sun / Yellow Orange -->
+                <color R = 1 G = 0.549 B = 0/> <!-- Dark Orange -->
+                <models>
+                    <!-- Models, Name-->
+                    <model file = "sphere.3d" texture = "sun" />
+                </models>
+
+            </group>
+        </group>
+
+
+
+        <!--Planeta 
+            Mercurio T = 0.25 Distancia(d)= 13   
+            Orbita 3.38º Time = 88 
+            Tilt = 0º V = 47.87
+        -->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 3.38 axisY = 1/>
+            <orbit radX = 20 radZ = 19/>
+            
+            <!-- Mercurio --> 
+            <group>
+                <translate timeT = 88 align = True>
+                    <point X = 20.00000  Z = 0.00000 />
+                    <point X = 19.31800  Z = -4.91939 />  
+                    <point X = 17.31852  Z = -9.50328 />  
+                    <point X = 14.13791  Z = -13.43904 /> 
+                    <point X = 9.99310   Z = -16.45827 />  
+                    <point X = 5.16676   Z = -18.35504 />  
+                    <point X = -0.01195  Z = -19.00000 /> 
+                    <point X = -5.18985  Z = -18.34916 /> 
+                    <point X = -10.01380 Z = -16.44691 />
+                    <point X = -14.15481 Z = -13.42298 />
+                    <point X = -17.33046 Z = -9.48360 /> 
+                    <point X = -19.32418 Z = -4.89745 />
+                    <point X = -19.99999 Z = 0.02271 />
+                    <point X = -19.31180 Z = 4.94132 />
+                    <point X = -17.30655 Z = 9.52294 />
+                    <point X = -14.12099 Z = 13.45509 />
+                    <point X = -9.97238  Z = 16.46960 />
+                    <point X = -5.14366  Z = 18.36089 />
+                    <point X = 0.03586   Z = 18.99997 />
+                    <point X = 5.21293   Z = 18.34325 />
+                    <point X = 10.03449  Z = 16.43552 />
+                    <point X = 14.17169  Z = 13.40690 />
+                    <point X = 17.34238  Z = 9.46392 />
+                    <point X = 19.33033  Z = 4.87550 />   
+                </translate>
+                                
+                <!-- axisY = eixo pelo qual faz rotaçao, Mercury não tem nenhuma inclinação
+                     timeR = Velocidade da sua rotaçao -->
+                <rotate axisY = 1 timeR = 47.87/> 
+                <scale scaleX = 0.5 scaleY = 0.5 scaleZ = 0.5 />   
+                <!-- Silver Gray <color R = 192 G = 192 B = 192/> --> 
+                <color R = 0.6667 G = 0.6627 B = 0.6784 /> 
+                <models> 
+                    <model file = "sphere.3d" texture = "Mercury"/>
+                </models>
+            
+            </group>
+        </group>
+
+
+
+        <!-- Venus T = 0.6 Ds = 18 
+            Orbita 3.86 Time = 2.247 
+            Tilt = 177º V = 35.02       
+        -->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 38.6 axisY = 1/>
+            <orbit radX = 27 radZ = 25/>
+
+            <!-- Venus --> 
+            <group>
+                <translate timeT = 224.7 align = True >
+                    <point X = 27.00000 Z = -0.00000 />
+                    <point X = 26.07930 Z = -6.47288 />
+                    <point X = 23.38000 Z = -12.50431 />
+                    <point X = 19.08618 Z = -17.68295 />
+                    <point X = 13.49068 Z = -21.65561 />
+                    <point X = 6.97512 Z = -24.15137 />
+                    <point X = -0.01614 Z = -25.00000 />
+                    <point X = -7.00630 Z = -24.14363 />
+                    <point X = -13.51863 Z = -21.64067 />
+                    <point X = -19.10899 Z = -17.66181 />
+                    <point X = -23.39612 Z = -12.47843 />
+                    <point X = -26.08764 Z = -6.44401 />
+                    <point X = -26.99998 Z = 0.02988 />
+                    <point X = -26.07093 Z = 6.50174 />
+                    <point X = -23.36384 Z = 12.53018 />
+                    <point X = -19.06334 Z = 17.70406 />
+                    <point X = -13.46272 Z = 21.67053 />
+                    <point X = -6.94394 Z = 24.15907 />
+                    <point X = 0.04841 Z = 24.99996 />
+                    <point X = 7.03746 Z = 24.13586 />
+                    <point X = 13.54656 Z = 21.62569 />
+                    <point X = 19.13178 Z = 17.64065 />
+                    <point X = 23.41221 Z = 12.45252 />
+                    <point X = 26.09594 Z = 6.41513 />  
+                </translate>
+
+                <rotate angle = 177 axisX = 1 />
+                <rotate axisY = 1 timeR = 35.02/>
+                <scale scaleX = 1.2 scaleY = 1.2 scaleZ = 1.2 />
+                <!-- Pearl <color R = 234 G = 224 B = 200/> -->
+                <color R = 0.918 G = 0.878 B = 0.784 />
+
+                <models> 
+                    <!-- Models, Name-->
+                    <model file = "sphere.3d" texture = "Venus"/>
+                </models>
+
+            </group>
+        </group>    
+
+
+        <!-- Terra - T = 0.65 D = 21
+            Orbita 7.155 Time = 365.25
+            Tilt = 23.5º V = 29.78  
+            
+            Lua - T = 0.2 Dp = 0.7  -->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 7.155 axisY = 1 />
+            <orbit radX = 32 radZ = 31/>
+
+            <!-- Planeta --> 
+            <group>
+                <!--Pontos de translação (Orbita do planeta)-->
+                <translate timeT = 365.25 align = True>
+                    <point X = 32.00000 Z = -0.00000 />
+                    <point X = 30.90880 Z = -8.02637 />
+                    <point X = 27.70962 Z = -15.50535 />
+                    <point X = 22.62065 Z = -21.92686 />
+                    <point X = 15.98896 Z = -26.85296 />
+                    <point X = 8.26681 Z = -29.94769 />
+                    <point X = -0.01913 Z = -30.99999 />
+                    <point X = -8.30376 Z = -29.93810 />
+                    <point X = -16.02208 Z = -26.83443 />
+                    <point X = -22.64769 Z = -21.90065 />
+                    <point X = -27.72874 Z = -15.47325 />
+                    <point X = -30.91868 Z = -7.99058 />
+                    <point X = -31.99998 Z = 0.03706 />
+                    <point X = -30.89888 Z = 8.06216 />
+                    <point X = -27.69047 Z = 15.53742 />
+                    <point X = -22.59358 Z = 21.95304 />
+                    <point X = -15.95581 Z = 26.87146 />
+                    <point X = -8.22986 Z = 29.95724 />
+                    <point X = 0.05738 Z = 30.99995 />
+                    <point X = 8.34070 Z = 29.92846 />
+                    <point X = 16.05518 Z = 26.81585 />
+                    <point X = 22.67470 Z = 21.87441 />
+                    <point X = 27.74781 Z = 15.44113 />
+                    <point X = 30.92852 Z = 7.95477 />
+                </translate>
+                
+                <!-- Inclinaçao do planeta -->
+                <rotate angle = 23.5 axisX = 1 />
+                <!-- Rotação do planeta -->
+                <rotate axisY = 1 timeR = 29.78/>
+                <scale scaleX = 1.3 scaleY = 1.3 scaleZ = 1.3 />
+                <!-- Deep Sky Blue <color R = 0 G = 191 B = 255/>   -->
+                <color R = 0.0 G = 0.749 B = 1 />
+
+                <models> 
+                    <model file = "sphere.3d" texture = "Earth" />
+                </models>
+
+                <!-- Lua -->
+                <group>
+                    <!-- Orbita -->
+                    <rotate angle = 1 axisY = 1/>
+                    <orbit radX = 1.75 radZ = 1.75/>
+
+                    <group>
+                        <!-- Pontos de translação (Orbita da lua)-->
+                        <translate timeT = 27 align = True> 
+                            <point X = 1.75000 Z = -0.00000 />
+                            <point X = 1.69033 Z = -0.45310 />
+                            <point X = 1.51537 Z = -0.87530 />
+                            <point X = 1.23707 Z = -1.23781 />
+                            <point X = 0.87440 Z = -1.51589 />
+                            <point X = 0.45209 Z = -1.69060 />
+                            <point X = -0.00105 Z = -1.75000 />
+                            <point X = -0.45411 Z = -1.69005 />
+                            <point X = -0.87621 Z = -1.51485 />
+                            <point X = -1.23855 Z = -1.23633 />
+                            <point X = -1.51642 Z = -0.87349 />
+                            <point X = -1.69087 Z = -0.45108 />
+                            <point X = -1.75000 Z = 0.00209 />
+                            <point X = -1.68978 Z = 0.45512 />
+                            <point X = -1.51432 Z = 0.87711 />
+                            <point X = -1.23559 Z = 1.23928 />
+                            <point X = -0.87258 Z = 1.51694 />
+                            <point X = -0.45007 Z = 1.69113 />
+                            <point X = 0.00314 Z = 1.75000 />
+                            <point X = 0.45613 Z = 1.68951 />
+                            <point X = 0.87802 Z = 1.51380 />
+                            <point X = 1.24002 Z = 1.23485 />
+                            <point X = 1.51746 Z = 0.87168 />
+                            <point X = 1.69140 Z = 0.44906 />
+                        </translate>
+                        <!-- Rotação da Lua -->
+                        <rotate axisY = 1 timeR = 27/>
+                        <scale scaleX = 0.4 scaleY = 0.4 scaleZ = 0.4/>
+                        <!-- Gray <color R = 255 G = 0 B = 0/> -->
+                        <color R = 0.502 G = 0.502 B = 0.502 /> 
+
+                        <models> 
+                            <model file = "sphere.3d" texture = "Earth_Moon" />
+                        </models>
+
+                    </group>
+                </group>
+            </group>
+        </group>    
+    
+
+
+        <!-- Marte - 0.35 - 30
+            Orbita = 5.65º  Time = 686.93
+            Tilt = 25º  V = 24.077      
+        -->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 5.65 axisY = 1 />
+            <orbit radX = 40 radZ = 38 />
+
+            <!-- Planeta --> 
+            <group>
+                <translate timeT = 686.93 align = True >
+                    <point X = 40.00000 Z = -0.00000 />
+                    <point X = 38.63600 Z = -9.83878 />
+                    <point X = 34.63703 Z = -19.00656 />
+                    <point X = 28.27582 Z = -26.87809 />
+                    <point X = 19.98620 Z = -32.91653 />
+                    <point X = 10.33352 Z = -36.71008 />
+                    <point X = -0.02391 Z = -37.99999 />
+                    <point X = -10.37970 Z = -36.69831 />
+                    <point X = -20.02760 Z = -32.89381 />
+                    <point X = -28.30962 Z = -26.84596 />
+                    <point X = -34.66092 Z = -18.96721 />
+                    <point X = -38.64835 Z = -9.79490 />
+                    <point X = -39.99997 Z = 0.04542 />
+                    <point X = -38.62359 Z = 9.88265 />
+                    <point X = -34.61309 Z = 19.04588 />
+                    <point X = -28.24198 Z = 26.91018 />
+                    <point X = -19.94476 Z = 32.93921 />
+                    <point X = -10.28732 Z = 36.72178 />
+                    <point X = 0.07172 Z = 37.99994 />
+                    <point X = 10.42587 Z = 36.68650 />
+                    <point X = 20.06897 Z = 32.87105 />
+                    <point X = 28.34338 Z = 26.81379 />
+                    <point X = 34.68476 Z = 18.92784 />
+                    <point X = 38.66065 Z = 9.75100 />
+                </translate>
+
+                <rotate angle = 25 axisX = 1 />
+                <rotate axisY = 1 timeR = 24.077 />
+                <scale scaleX = 0.7  scaleY = 0.7  scaleZ = 0.7  />
+                
+                <!-- <color R = 255 G = 127 B = 80/> Coral  -->
+                <color R = 1 G = 0.498 B = 0.314/>
+
+                <models> 
+                    <model file = "sphere.3d" texture = "Mars" />
+                </models>
+
+            </group>
+        </group>
+
+
+        <!--Planeta 
+            Jupiter T = 7      Ds= 45
+            Orbita = 6.09 Time = 4331.94
+            Tilt = 3º  V = 13.07  
+
+
+            Ganyme   T = 0.26   Dp= 7.4     
+            Callisto T = 0.24   Dp= 7.5  
+            IO       T = 0.18   Dp= 7.2    
+            Europa   T = 0.15   Dp= 7.3  -->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 6.09 axisY = 1/>
+            <orbit radX = 66 radZ = 64/>
+
+            <!-- Jupiter --> 
+            <group>
+                <translate timeT = 200 align = True>
+                 <point X = 66.00000 Z = 0.00000 />
+                 <point X = 63.74940 Z = -16.57058 />
+                 <point X = 57.15110 Z = -32.01104 />
+                 <point X = 46.65510 Z = -45.26836 />
+                 <point X = 32.97722 Z = -55.43837 />
+                 <point X = 17.05030 Z = -61.82750 />
+                 <point X = -0.03945 Z = -63.99999 />
+                 <point X = -17.12651 Z = -61.80769 />
+                 <point X = -33.04554 Z = -55.40011 />
+                 <point X = -46.71087 Z = -45.21424 />
+                 <point X = -57.19052 Z = -31.94477 />
+                 <point X = -63.76978 Z = -16.49667 />
+                 <point X = -65.99995 Z = 0.07650 />
+                 <point X = -63.72893 Z = 16.64446 />
+                 <point X = -57.11160 Z = 32.07726 />
+                 <point X = -46.59926 Z = 45.32240 />
+                 <point X = -32.90886 Z = 55.47656 />
+                 <point X = -16.97408 Z = 61.84721 />
+                 <point X = 0.11834 Z = 63.99990 />
+                 <point X = 17.20268 Z = 61.78779 />
+                 <point X = 33.11381 Z = 55.36176 />
+                 <point X = 46.76657 Z = 45.16007 />
+                 <point X = 57.22986 Z = 31.87846 />
+                 <point X = 63.79007 Z = 16.42274 />
+                </translate>
+
+                <rotate angle = 3 axisX = 1 />
+                <rotate axisY = 1 timeR = -9/>
+                <scale scaleX = 7 scaleY = 7 scaleZ = 7 />
+
+                <!-- Chocolate <color R = 210 G = 105 B = 30/>  -->
+                <color R = 0.2471 G = 0 B = 0.588/> 
+
+                <models> 
+                    <model file = "sphere.3d" texture = "Jupiter" />
+                </models>
+
+                <!-- Ganyme Distancia de Jupiter
+                        Orbita = 0.2 Time = 7.154
+                        Tilt = 0  V = 10.880 
+                 -->
+                <group>
+                    <rotate angle = 0.2 axisY = 1 />
+                    <orbit radX = 3.1 radZ = 3.1 />
+
+                    <group>
+                        <translate timeT = 14.154 align = True >
+                            <point X = 3.10000 Z = 0.00000 />
+                            <point X = 2.99429 Z = 0.80264 />
+                            <point X = 2.68437 Z = 1.55053 />
+                            <point X = 2.19138 Z = 2.19269 />
+                            <point X = 1.54893 Z = 2.68530 />
+                            <point X = 0.80085 Z = 2.99477 />
+                            <point X = -0.00185 Z = 3.10000 />
+                            <point X = -0.80443 Z = 2.99381 />
+                            <point X = -1.55214 Z = 2.68344 />
+                            <point X = -2.19400 Z = 2.19006 />
+                            <point X = -2.68622 Z = 1.54732 />
+                            <point X = -2.99525 Z = 0.79906 />
+                            <point X = -3.10000 Z = -0.00371 />
+                            <point X = -2.99333 Z = -0.80622 />
+                            <point X = -2.68251 Z = -1.55374 />
+                            <point X = -2.18875 Z = -2.19530 />
+                            <point X = -1.54572 Z = -2.68715 />
+                            <point X = -0.79727 Z = -2.99572 />
+                            <point X = 0.00556 Z = -3.10000 />
+                            <point X = 0.80800 Z = -2.99285 />
+                            <point X = 1.55535 Z = -2.68159 />
+                            <point X = 2.19661 Z = -2.18744 />
+                            <point X = 2.68807 Z = -1.54411 />
+                            <point X = 2.99620 Z = -0.79548 />
+                        </translate>
+                        <rotate axisY = 1 timeR = -10.880/>
+                        <scale scaleX = 0.26 scaleY = 0.26 scaleZ = 0.26 />
+                        <color R = 0.4 G = 0 B = 0.6 />  <!-- MISSING COLOR -->
+
+                        <models> 
+                            <model file = "sphere.3d" texture = "Jupiter_Ganyme"/>
+                        </models>
+
+                    </group>
+                </group>
+
+
+                <!-- Callisto  
+                    Orbita = 0.192 Time = 16.689
+                    Tilt = 1.6  V = 82.04
+                -->
+                <group>
+                    <rotate angle = 0.192 axisY= -2/>
+                    <orbit radX = 2.4 radZ = 2.4/>
+
+                    <group>
+                        <translate timeT = 32.689 align = True>
+                            <point X = 2.40000 Z = 0.00000 />
+                            <point X = 2.31816 Z = 0.62140 />
+                            <point X = 2.07822 Z = 1.20041 />
+                            <point X = 1.69655 Z = 1.69756 />
+                            <point X = 1.19917 Z = 2.07894 />
+                            <point X = 0.62001 Z = 2.31853 />
+                            <point X = -0.00143 Z = 2.40000 />
+                            <point X = -0.62278 Z = 2.31779 />
+                            <point X = -1.20166 Z = 2.07750 />
+                            <point X = -1.69858 Z = 1.69553 />
+                            <point X = -2.07966 Z = 1.19793 />
+                            <point X = -2.31890 Z = 0.61863 />
+                            <point X = -2.40000 Z = -0.00287 />
+                            <point X = -2.31742 Z = -0.62417 />
+                            <point X = -2.07679 Z = -1.20290 />
+                            <point X = -1.69452 Z = -1.69959 />
+                            <point X = -1.19669 Z = -2.08037 />
+                            <point X = -0.61724 Z = -2.31927 />
+                            <point X = 0.00430 Z = -2.40000 />
+                            <point X = 0.62555 Z = -2.31704 />
+                            <point X = 1.20414 Z = -2.07607 />
+                            <point X = 1.70060 Z = -1.69350 />
+                            <point X = 2.08109 Z = -1.19544 />
+                            <point X = 2.31964 Z = -0.61585 />
+                        </translate>
+
+                        <rotate axisY = 1 timeR = -82.04/>
+                        <scale scaleX = 0.24 scaleY = 0.24 scaleZ = 0.24 />
+                        <color R = 0 G = 0.502 B = 0.502 />  
+
+                        <models> 
+                            <model file = "sphere.3d" texture = "Jupiter_Callisto"/>
+                        </models>
+
+                    </group>
+                </group>
+
+
+                <!-- IO 
+                    Orbita = 0.05 Time = 1.769
+                    Tilt = 1 V = 17.334
+                -->
+                <group>
+                    <rotate angle = 0.05 axisY= 3/>
+                    <orbit radX = 1.8 radZ = 1.8/>
+
+                    <group>
+                        <translate timeT = 4.769 align = True>
+                            <point X = 1.80000 Z = 0.00000 />
+                            <point X = 1.73862 Z = 0.46605 />
+                            <point X = 1.55867 Z = 0.90031 />
+                            <point X = 1.27241 Z = 1.27317 />
+                            <point X = 0.89938 Z = 1.55920 />
+                            <point X = 0.46501 Z = 1.73890 />
+                            <point X = -0.00108 Z = 1.80000 />
+                            <point X = -0.46709 Z = 1.73834 />
+                            <point X = -0.90124 Z = 1.55813 />
+                            <point X = -1.27393 Z = 1.27165 />
+                            <point X = -1.55974 Z = 0.89845 />
+                            <point X = -1.73918 Z = 0.46397 />
+                            <point X = -1.80000 Z = -0.00215 />
+                            <point X = -1.73806 Z = -0.46813 />
+                            <point X = -1.55759 Z = -0.90217 />
+                            <point X = -1.27089 Z = -1.27469 />
+                            <point X = -0.89751 Z = -1.56028 />
+                            <point X = -0.46293 Z = -1.73945 />
+                            <point X = 0.00323 Z = -1.80000 />
+                            <point X = 0.46916 Z = -1.73778 />
+                            <point X = 0.90310 Z = -1.55705 />
+                            <point X = 1.27545 Z = -1.27013 />
+                            <point X = 1.56081 Z = -0.89658 />
+                            <point X = 1.73973 Z = -0.46189 />                        
+                        </translate>
+
+                        <rotate axisY = 1 timeR = -17.334/>
+                        <scale scaleX = 0.18 scaleY = 0.18 scaleZ = 0.18 />
+                        <color R = 0.502 G = 0.502 B = 0 /> 
+
+                        <models> 
+                            <model file = "sphere.3d" texture = "Jupiter_IO"/>
+                        </models>
+
+                    </group>
+                </group>
+
+
+                <!-- Europa
+                    Orbita = 0.470 Time = 3.551
+                    Tilt = 0.1 V = 13.74336
+                -->
+                <group>
+                    <rotate angle = 0.5 axisY= 1/>
+                    <orbit radX = 1.3 radZ = 1.3/>
+
+                    <group>
+                        <translate timeT = 6.551 align = True>
+                            <point X = 1.30000 Z = 0.00000 />
+                            <point X = 1.25567 Z = 0.33659 />
+                            <point X = 1.12570 Z = 0.65022 />
+                            <point X = 0.91896 Z = 0.91951 />
+                            <point X = 0.64955 Z = 1.12609 />
+                            <point X = 0.33584 Z = 1.25587 />
+                            <point X = -0.00078 Z = 1.30000 />
+                            <point X = -0.33734 Z = 1.25547 />
+                            <point X = -0.65090 Z = 1.12531 />
+                            <point X = -0.92006 Z = 0.91841 />
+                            <point X = -1.12648 Z = 0.64888 />
+                            <point X = -1.25607 Z = 0.33509 />
+                            <point X = -1.30000 Z = -0.00155 />
+                            <point X = -1.25527 Z = -0.33809 />
+                            <point X = -1.12493 Z = -0.65157 />
+                            <point X = -0.91786 Z = -0.92061 />
+                            <point X = -0.64820 Z = -1.12687 />
+                            <point X = -0.33434 Z = -1.25627 />
+                            <point X = 0.00233 Z = -1.30000 />
+                            <point X = 0.33884 Z = -1.25506 />
+                            <point X = 0.65224 Z = -1.12454 />
+                            <point X = 0.92116 Z = -0.91731 />
+                            <point X = 1.12725 Z = -0.64753 />
+                            <point X = 1.25647 Z = -0.33359 />
+                        </translate> 
+
+                        <rotate axisY = 1 timeR = -13.74336/>
+                        <scale scaleX = 0.15 scaleY = 0.15 scaleZ = 0.15 />
+                        <color R = 0 G = 0.8 B = 0.8 />  
+
+                        <models> 
+                            <model file = "sphere.3d" texture = "Jupiter_Europa"/>
+                        </models>
+
+                    </group>
+                </group>        
+
+
+            </group>
+        </group>
+
+
+
+        <!-- Saturno  T = 6      Ds = 75
+            Orbit = 5.51 T = 107.5
+            Tilt = 27 V = 9.69
+
+            Titan T = 0.26   Dp = 6.3
+            Rhea  T = 0.08   Dp = 6.1-->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 5.51 axisY = 1 />
+            <orbit radX = 125 radZ = 120/>
+     
+            <!-- Planeta --> 
+            <group>
+                <translate timeT = 250 align = True>
+                    <point X = 125.00000 Z = 0.00000 />
+                    <point X = 120.73750 Z = -31.06983 />
+                    <point X = 108.24072 Z = -60.02070 />
+                    <point X = 88.36193 Z = -84.87817 />
+                    <point X = 62.45686 Z = -103.94695 />
+                    <point X = 32.29224 Z = -115.92655 />
+                    <point X = -0.07471 Z = -119.99998 />
+                    <point X = -32.43656 Z = -115.88941 />
+                    <point X = -62.58625 Z = -103.87520 />
+                    <point X = -88.46755 Z = -84.77671 />
+                    <point X = -108.31538 Z = -59.89645 />
+                    <point X = -120.77611 Z = -30.93126 />
+                    <point X = -124.99991 Z = 0.14344 />
+                    <point X = -120.69873 Z = 31.20836 />
+                    <point X = -108.16591 Z = 60.14487 />
+                    <point X = -88.25618 Z = 84.97950 />
+                    <point X = -62.32739 Z = 104.01854 />
+                    <point X = -32.14787 Z = 115.96353 />
+                    <point X = 0.22413 Z = 119.99981 />
+                    <point X = 32.58084 Z = 115.85211 />
+                    <point X = 62.71554 Z = 103.80331 />
+                    <point X = 88.57305 Z = 84.67513 />
+                    <point X = 108.38988 Z = 59.77211 />
+                    <point X = 120.81453 Z = 30.79264 />
+                </translate>
+
+                <rotate angle = 27 axisX = 1 />
+                <rotate axisY = 1 timeR = 9.69/>
+                <scale scaleX = 6 scaleY = 6 scaleZ = 6 />
+                <color R = 1 G = 0.6824 B = 0.2588 />
+                <models> 
+                    <model file = "sphere.3d" texture = "Saturn"/>
+                </models>
+
+            
+                <!-- Titan  
+                    Orbit = 0.35 T = 15.945
+                    Tilt = 0  V = 5.57
+                -->
+                <group>
+                    <rotate angle = 0.35 axisY= 1/>
+                    <orbit radX = 1.5 radZ = 1.5/>
+
+                    <group>
+                        <translate timeT = 15.945 align = True>
+                            <point X = 1.50000 Z = 0.00000 />
+                            <point X = 1.44885 Z = -0.38837 />
+                            <point X = 1.29889 Z = -0.75026 />
+                            <point X = 1.06034 Z = -1.06098 />
+                            <point X = 0.74948 Z = -1.29934 />
+                            <point X = 0.38751 Z = -1.44908 />
+                            <point X = -0.00090 Z = -1.50000 />
+                            <point X = -0.38924 Z = -1.44862 />
+                            <point X = -0.75103 Z = -1.29844 />
+                            <point X = -1.06161 Z = -1.05971 />
+                            <point X = -1.29978 Z = -0.74871 />
+                            <point X = -1.44931 Z = -0.38664 />
+                            <point X = -1.50000 Z = 0.00179 />
+                            <point X = -1.44838 Z = 0.39010 />
+                            <point X = -1.29799 Z = 0.75181 />
+                            <point X = -1.05907 Z = 1.06224 />
+                            <point X = -0.74793 Z = 1.30023 />
+                            <point X = -0.38577 Z = 1.44954 />
+                            <point X = 0.00269 Z = 1.50000 />
+                            <point X = 0.39097 Z = 1.44815 />
+                            <point X = 0.75259 Z = 1.29754 />
+                            <point X = 1.06288 Z = 1.05844 />
+                            <point X = 1.30068 Z = 0.74715 />
+                            <point X = 1.44977 Z = 0.38491 />
+                        </translate>
+
+                        <rotate axisY = 1 timeR = 5.57/>
+                        <scale scaleX = 0.2  scaleY = 0.2  scaleZ = 0.2 />
+                        <color R = 0.502 G = 0.502 B = 0.502 /> 
+                        
+                        <models> 
+                            <model file = "sphere.3d" texture = "Saturn_Titan" />
+                        </models>
+                    </group>
+
+                </group>     
+
+                 <!-- Rhea  
+                    Orbit = 0.345  T = 4.518
+                    Tilt = 0  V = 8.48
+                 -->
+                <group>
+                    <rotate angle = 0.345 axisX = 0/>
+                    <orbit radX = 1.15 radZ = 1.15 />
+
+                    <group>
+                        <translate timeT = 4.518 align = True >
+                            <point X = 1.15000 Z = 0.00000 />
+                            <point X = 1.11079 Z = -0.29775 />
+                            <point X = 0.99581 Z = -0.57520 />
+                            <point X = 0.81293 Z = -0.81342 />
+                            <point X = 0.57460 Z = -0.99616 />
+                            <point X = 0.29709 Z = -1.11096 />
+                            <point X = -0.00069 Z = -1.15000 />
+                            <point X = -0.29842 Z = -1.11061 />
+                            <point X = -0.57579 Z = -0.99547 />
+                            <point X = -0.81390 Z = -0.81244 />
+                            <point X = -0.99650 Z = -0.57401 />
+                            <point X = -1.11114 Z = -0.29642 />
+                            <point X = -1.15000 Z = 0.00137 />
+                            <point X = -1.11043 Z = 0.29908 />
+                            <point X = -0.99513 Z = 0.57639 />
+                            <point X = -0.81196 Z = 0.81439 />
+                            <point X = -0.57341 Z = 0.99684 />
+                            <point X = -0.29576 Z = 1.11132 />
+                            <point X = 0.00206 Z = 1.15000 />
+                            <point X = 0.29974 Z = 1.11025 />
+                            <point X = 0.57698 Z = 0.99478 />
+                            <point X = 0.81487 Z = 0.81147 />
+                            <point X = 0.99719 Z = 0.57282 />
+                            <point X = 1.11149 Z = 0.29510 />
+                        </translate>
+
+                        <rotate axisY = 1  timeR = 8.48/>
+                        <scale scaleX = 0.03  scaleY = 0.03  scaleZ = 0.03  />
+                        <color R = 0.502 G = 0.502 B = 0.502 /> <!-- MISSING COLOR -->
+
+                        <models> 
+                            <model file = "sphere.3d" texture = "Saturn_Rhea" />
+                        </models>
+
+                    </group>
+                </group>  
+
+            </group>
+        </group>
+
+
+        <!-- Urano T = 2.5  Ds= 85
+            orbit = 6.48 T =  306
+            Tilt = 98 V = 0.681
+
+                Triton T = 0.15 Dp= 2.7 -->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 6.48 axisY = 1/>
+            <orbit radX = 136 radZ = 134/>
+
+            <!-- Planeta --> 
+            <group>
+                <translate timeT = 306 align = True>
+                    <point X = 136.00000 Z = 0.00000 />
+                    <point X = 131.36241 Z = -34.69465 />
+                    <point X = 117.76591 Z = -67.02312 />
+                    <point X = 96.13778 Z = -94.78062 />
+                    <point X = 67.95307 Z = -116.07409 />
+                    <point X = 35.13396 Z = -129.45132 />
+                    <point X = -0.08128 Z = -133.99998 />
+                    <point X = -35.29098 Z = -129.40985 />
+                    <point X = -68.09384 Z = -115.99398 />
+                    <point X = -96.25270 Z = -94.66732 />
+                    <point X = -117.84713 Z = -66.88437 />
+                    <point X = -131.40440 Z = -34.53991 />
+                    <point X = -135.99990 Z = 0.16018 />
+                    <point X = -131.32022 Z = 34.84933 />
+                    <point X = -117.68451 Z = 67.16177 />
+                    <point X = -96.02272 Z = 94.89378 />
+                    <point X = -67.81220 Z = 116.15404 />
+                    <point X = -34.97688 Z = 129.49261 />
+                    <point X = 0.24385 Z = 133.99978 />
+                    <point X = 35.44795 Z = 129.36819 />
+                    <point X = 68.23451 Z = 115.91369 />
+                    <point X = 96.36748 Z = 94.55389 />
+                    <point X = 117.92819 Z = 66.74553 />
+                    <point X = 131.44621 Z = 34.38512 />
+                </translate>
+                
+                <rotate angle = 98 axisX = 1 />
+                <rotate axisY = 1 timeR = -6.81/>
+                <scale scaleX = 2.5 scaleY = 2.5 scaleZ = 2.5 />
+                <color R = 0.2745 G = 0.5098 B = 0.7059 /> <!-- Light Steel Blue-->
+
+                <models> 
+                    <model file = "sphere.3d" texture = "Uranus"/>
+                </models>
+
+                <!-- Triton  
+                    orbit = -23 T =  5.21
+                    Tilt = 28 V = 1.455
+                -->
+                <group>
+                    <rotate angle = -23 axisY= 1/>
+                    <orbit radX = 1.2 radZ = 1.2/>
+
+                    <group>
+                        <translate timeT = 5.21 align = True>
+                            <point X = 1.20000 Z = 0.00000 />
+                            <point X = 1.15908 Z = 0.31070 />
+                            <point X = 1.03911 Z = 0.60021 />
+                            <point X = 0.84827 Z = 0.84878 />
+                            <point X = 0.59959 Z = 1.03947 />
+                            <point X = 0.31001 Z = 1.15927 />
+                            <point X = -0.00072 Z = 1.20000 />
+                            <point X = -0.31139 Z = 1.15889 />
+                            <point X = -0.60083 Z = 1.03875 />
+                            <point X = -0.84929 Z = 0.84777 />
+                            <point X = -1.03983 Z = 0.59896 />
+                            <point X = -1.15945 Z = 0.30931 />
+                            <point X = -1.20000 Z = -0.00143 />
+                            <point X = -1.15871 Z = -0.31208 />
+                            <point X = -1.03839 Z = -0.60145 />
+                            <point X = -0.84726 Z = -0.84980 />
+                            <point X = -0.59834 Z = -1.04019 />
+                            <point X = -0.30862 Z = -1.15964 />
+                            <point X = 0.00215 Z = -1.20000 />
+                            <point X = 0.31278 Z = -1.15852 />
+                            <point X = 0.60207 Z = -1.03803 />
+                            <point X = 0.85030 Z = -0.84675 />
+                            <point X = 1.04054 Z = -0.59772 />
+                            <point X = 1.15982 Z = -0.30793 />
+                        </translate> 
+
+                        <rotate axisY = 28 timeR = -14.55/>
+                        <scale scaleX = 0.15  scaleY = 0.15  scaleZ = 0.15  />
+                        <color R = 0.3 G = 0.502 B = 0.5 /> <!-- MISSING COLOR -->
+
+                        <models> 
+                            <model file = "sphere.3d" texture = "Uranos_Triton"/>
+                        </models>
+                    </group>
+
+                </group>
+            </group>
+        </group>
+
+
+
+        <!-- Neptuno    T = 2.5  Ds = 95
+            orbit = 6.43 T = 594.5
+            Tilt = 28 V = 5.43
+                Titania T = 0.08 Dp = 2.8-->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 6.43 axisX= 1/>
+            <orbit radX = 150 radZ = 145 />
+
+            <!-- Planeta --> 
+            <group>
+                <translate timeT = 594.5 align = True>
+                    <point X = 150.00000 Z = -0.00000 />
+                    <point X = 144.88501 Z = -37.54271 />
+                    <point X = 129.88887 Z = -72.52502 />
+                    <point X = 106.03432 Z = -102.56112 />
+                    <point X = 74.94823 Z = -125.60256 />
+                    <point X = 38.75069 Z = -140.07792 />
+                    <point X = -0.08965 Z = -144.99997 />
+                    <point X = -38.92388 Z = -140.03304 />
+                    <point X = -75.10350 Z = -125.51587 />
+                    <point X = -106.16106 Z = -102.43852 />
+                    <point X = -129.97846 Z = -72.37488 />
+                    <point X = -144.93133 Z = -37.37527 />
+                    <point X = -149.99989 Z = 0.17333 />
+                    <point X = -144.83848 Z = 37.71010 />
+                    <point X = -129.79909 Z = 72.67505 />
+                    <point X = -105.90742 Z = 102.68357 />
+                    <point X = -74.79286 Z = 125.68907 />
+                    <point X = -38.57745 Z = 140.12260 />
+                    <point X = 0.26895 Z = 144.99977 />
+                    <point X = 39.09701 Z = 139.98797 />
+                    <point X = 75.25865 Z = 125.42900 />
+                    <point X = 106.28766 Z = 102.31578 />
+                    <point X = 130.06786 Z = 72.22464 />
+                    <point X = 144.97744 Z = 37.20778 />
+                </translate>
+                <rotate angle = 28 axisX = 1 />
+                <rotate axisY = 1 timeR = 5.43/>
+                <scale scaleX = 2.5 scaleY = 2.5 scaleZ = 2.5 />
+                <color R = 0.25 G = 0.41 B = 0.88/> <!-- Royal Blue -->
+                <models> 
+                    <model file = "sphere.3d" texture = "Neptune" />
+                </models>
+
+                <!-- Titania
+                    orbit = 0.340 T = 8.706
+                    Tilt = 0 V = 3.64
+                -->         
+
+                <group>
+                    <rotate angle = 0.340 axisY = 1/>
+                    <orbit radX = 1.2 radZ = 1.2 />
+
+                    <group>
+                        <translate timeT = 8.706 align = True>
+                            <point X = 1.20000 Z = 0.00000 />
+                            <point X = 1.15908 Z = -0.31070 />
+                            <point X = 1.03911 Z = -0.60021 />
+                            <point X = 0.84827 Z = -0.84878 />
+                            <point X = 0.59959 Z = -1.03947 />
+                            <point X = 0.31001 Z = -1.15927 />
+                            <point X = -0.00072 Z = -1.20000 />
+                            <point X = -0.31139 Z = -1.15889 />
+                            <point X = -0.60083 Z = -1.03875 />
+                            <point X = -0.84929 Z = -0.84777 />
+                            <point X = -1.03983 Z = -0.59896 />
+                            <point X = -1.15945 Z = -0.30931 />
+                            <point X = -1.20000 Z = 0.00143 />
+                            <point X = -1.15871 Z = 0.31208 />
+                            <point X = -1.03839 Z = 0.60145 />
+                            <point X = -0.84726 Z = 0.84980 />
+                            <point X = -0.59834 Z = 1.04019 />
+                            <point X = -0.30862 Z = 1.15964 />
+                            <point X = 0.00215 Z = 1.20000 />
+                            <point X = 0.31278 Z = 1.15852 />
+                            <point X = 0.60207 Z = 1.03803 />
+                            <point X = 0.85030 Z = 0.84675 />
+                            <point X = 1.04054 Z = 0.59772 />
+                            <point X = 1.15982 Z = 0.30793 />
+                        </translate>
+
+                        <rotate axisY = 1 timeR = 3.64/>
+                        <scale scaleX = 0.08  scaleY = 0.08  scaleZ = 0.08  />
+                        <color R = 0.25 G = 1 B = 1 />  <!-- MISSING COLOR -->
+                        <models> 
+                            <model file = "sphere.3d" texture = "Neptune_Titania"/>
+                        </models>
+                    </group>
+
+                </group>
+
+            </group>
+        </group>
+        
+        
+        <!-- COMETA -->
+        <group>
+            <rotate angle = 45 axisY = 1 axisZ = 1 />
+            <orbit radX = 100 radZ = 70/>
+
+            <group> 
+                <translate timeT = 50 align = True>  
+                    <point X = 100.00000 Y = 5 Z = 30.00000 />
+                    <point X = 96.59000 Y = 5 Z = 11.87593 />
+                    <point X = 86.59258 Y = 5 Z = -5.01208 />
+                    <point X = 70.68954 Y = 5 Z = -19.51226 />
+                    <point X = 49.96549 Y = 5 Z = -30.63572 />
+                    <point X = 25.83379 Y = 5 Z = -37.62382 />
+                    <point X = -0.05977 Y = 5 Z = -39.99999 />
+                    <point X = -25.94925 Y = 5 Z = -37.60216 />
+                    <point X = -50.06900 Y = 5 Z = -30.59387 />
+                    <point X = -70.77404 Y = 5 Z = -19.45308 />
+                    <point X = -86.65230 Y = 5 Z = -4.93960 />
+                    <point X = -96.62088 Y = 5 Z = 11.95677 />
+                    <point X = -99.99993 Y = 5 Z = 30.08367 />
+                    <point X = -96.55899 Y = 5 Z = 48.20488 />
+                    <point X = -86.53273 Y = 5 Z = 65.08451 />
+                    <point X = -70.60494 Y = 5 Z = 79.57138 />
+                    <point X = -49.86191 Y = 5 Z = 90.67748 />
+                    <point X = -25.71830 Y = 5 Z = 97.64539 />
+                    <point X = 0.17930 Y = 5 Z = 99.99989 />
+                    <point X = 26.06467 Y = 5 Z = 97.58040 />
+                    <point X = 50.17243 Y = 5 Z = 90.55193 />
+                    <point X = 70.85844 Y = 5 Z = 79.39382 />
+                    <point X = 86.71191 Y = 5 Z = 64.86707 />
+                    <point X = 96.65163 Y = 5 Z = 47.96237 />
+                </translate>
+                
+                <rotate axisY = 1 timeR = 20/>
+                <scale scaleX = 1 scaleY = 1  scaleZ = 1  />
+                <color R = 0.25 G = 1 B = 1 /> 
+                <models> 
+                    <model file = "teapot.3d" texture = "COMETA"/>
+                </models>
+            </group>
+        </group>
+    </group>
+</scene>

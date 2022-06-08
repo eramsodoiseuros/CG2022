@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<scene>
+
+    <!-- Definições da camara -->
+    <camara>
+        <position X = 35 Y = 30 Z = 5 />
+        <lookAt X = 0 Y = 0 Z = 0 />
+        <up X = 0 Y = 1 Z = 0 />
+        <projection fov = 45 near = 1 far = 1000 />
+    </camara>
+
+    <group>
+        <!-- Sol (Origem) -->
+        <group>
+            <!-- Orbit -->
+            <rotate angle = 1 axisY = 1/>      
+            
+            <group>
+                <rotate axisY = 1 timeR = 19.97/> 
+                <scale scaleX = 5 scaleY = 5 scaleZ = 5/>
+            
+                <!-- <color R = 253 G = 184 B = 19 />  Sun / Yellow Orange -->
+                <color R = 1 G = 0.549 B = 0/> <!-- Dark Orange -->
+                <models>
+                    <!-- Models, Name-->
+                   <model file="cone.3d" texture="sun.jpg"/>
+                   <color>
+                        <diffuse R="1" G="0.549" B="0" />
+                        <ambient R="1" G="1" B="1" />
+                        <specular R="0.99" G="0.99" B="0.99" />
+                        <emissive R=".5" G="0.27" B="0.0" />
+                        <shininess value="100" />
+                    </color>
+                </models>
+            </group>
+        </group>
+
+
+
+        <!--Planeta 
+            Mercurio T = 0.25 Distancia(d)= 13   
+            Orbita 3.38º Time = 88 
+            Tilt = 0º V = 47.87
+        -->
+        <group>
+            <!-- Orbita -->
+            <rotate angle = 3.38 axisY = 1/>
+            <orbit radX = 20 radZ = 19/>
+            
+            <!-- Mercurio --> 
+            <group>
+                <translate timeT = 88 align = True>
+                    <point X = 20.00000  Z = 0.00000 />
+                    <point X = 19.31800  Z = -4.91939 />  
+                    <point X = 17.31852  Z = -9.50328 />  
+                    <point X = 14.13791  Z = -13.43904 /> 
+                    <point X = 9.99310   Z = -16.45827 />  
+                    <point X = 5.16676   Z = -18.35504 />  
+                    <point X = -0.01195  Z = -19.00000 /> 
+                    <point X = -5.18985  Z = -18.34916 /> 
+                    <point X = -10.01380 Z = -16.44691 />
+                    <point X = -14.15481 Z = -13.42298 />
+                    <point X = -17.33046 Z = -9.48360 /> 
+                    <point X = -19.32418 Z = -4.89745 />
+                    <point X = -19.99999 Z = 0.02271 />
+                    <point X = -19.31180 Z = 4.94132 />
+                    <point X = -17.30655 Z = 9.52294 />
+                    <point X = -14.12099 Z = 13.45509 />
+                    <point X = -9.97238  Z = 16.46960 />
+                    <point X = -5.14366  Z = 18.36089 />
+                    <point X = 0.03586   Z = 18.99997 />
+                    <point X = 5.21293   Z = 18.34325 />
+                    <point X = 10.03449  Z = 16.43552 />
+                    <point X = 14.17169  Z = 13.40690 />
+                    <point X = 17.34238  Z = 9.46392 />
+                    <point X = 19.33033  Z = 4.87550 />   
+                </translate>
+                                
+                <!-- axisY = eixo pelo qual faz rotaçao, Mercury não tem nenhuma inclinação
+                     timeR = Velocidade da sua rotaçao -->
+                <rotate axisY = 1 timeR = 47.87/> 
+                <scale scaleX = 0.5 scaleY = 0.5 scaleZ = 0.5 />   
+                <!-- Silver Gray <color R = 192 G = 192 B = 192/> --> 
+                <color R = 0.6667 G = 0.6627 B = 0.6784 /> 
+                <models> 
+                    <model file="box.3d" texture="planeta.jpg"/>
+                    <color>
+                        <diffuse R="0.6667" G="0.6627" B="0.6784" />
+                        <ambient R="1" G="1" B="1" />
+                        <specular R="0" G="0" B="0" />
+                        <emissive R="0.3" G="0.3" B="0.3" />
+                        <shininess value="90" />
+                    </color>
+                </models>
+            
+            </group>
+        </group>
+    </group>
+</scene>

@@ -1,0 +1,27 @@
+<scene> 
+    <camara> 
+	    <position X="1.757135" Y="1.799201" Z="3.416921" />
+	    <lookAt X="0" Y="0" Z="0" />
+	    <up X="0" Y="1" Z="0" />
+        <projection fov="60" near="1" far="1000" /> 
+    </camara>
+	
+	<lights> 
+		<light type="directional" dirX="1" dirY="0.7" dirZ="0.5"/>
+	</lights>
+
+	<group>
+
+		<group>
+			<group> 
+  				<models> 
+					<model file="box_nt.3d" texture="" /> <!-- generator box 2 3 box_nt.3d -->
+					<color>
+						<diffuse R="0.78" G="0.78" B="0" />
+						<ambient R="0.1961" G="0.1961" B="0" />
+					</color>
+ 				</models>
+ 			</group>
+		</group>
+	</group>
+</scene>
